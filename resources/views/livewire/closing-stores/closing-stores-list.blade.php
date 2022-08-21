@@ -17,7 +17,7 @@
                 <x-filters.group>
                     <x-filters.label>Store</x-filters.label>
                     <x-filters.select wire:model="filters.store_id">
-                        @foreach ($stores as $value => $label)
+                        @foreach ($stores as $label => $value)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-filters.select>
@@ -25,7 +25,7 @@
                 <x-filters.group>
                     <x-filters.label>Shift Store</x-filters.label>
                     <x-filters.select wire:model="filters.shift_store_id">
-                        @foreach ($shiftStores as $value => $label)
+                        @foreach ($shiftStores as $label => $value)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-filters.select>
