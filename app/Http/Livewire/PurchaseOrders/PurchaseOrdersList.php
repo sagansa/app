@@ -64,16 +64,16 @@ class PurchaseOrdersList extends Component
                                 ->whereRelation('store', 'id', $value)
                                 ->where(function($query) {
                                     return $query
-                                        ->where('updated_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('updated_by_id');
+                                        ->where('approved_by_id', '=', Auth::user()->id)
+                                        ->orWhereNull('approved_by_id');
                                 }))
                             ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('paymentType', 'id', $value))
                             ->when($filter == 'payment_status', fn($purchaseOrders) => $purchaseOrders
                                 ->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%')
                                 ->where(function($query) {
                                     return $query
-                                        ->where('updated_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('updated_by_id');
+                                        ->where('approved_by_id', '=', Auth::user()->id)
+                                        ->orWhereNull('approved_by_id');
                                 }));
                     } elseif (empty($value)) {
                         $purchaseOrders
@@ -83,8 +83,8 @@ class PurchaseOrdersList extends Component
                                 ->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%')
                                 ->where(function($query) {
                                     return $query
-                                        ->where('updated_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('updated_by_id');
+                                        ->where('approved_by_id', '=', Auth::user()->id)
+                                        ->orWhereNull('approved_by_id');
                                 }));
                     }
                 }
