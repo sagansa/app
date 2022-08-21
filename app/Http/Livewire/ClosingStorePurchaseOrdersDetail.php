@@ -78,11 +78,13 @@ class ClosingStorePurchaseOrdersDetail extends Component
 
     public function detach($purchaseOrder)
     {
-        $this->authorize('delete-any', ClosingStore::class);
+        // $this->authorize('delete-any', ClosingStore::class);
 
-        $this->closingStore->purchaseOrders()->detach($purchaseOrder);
+        if(auth()->user()->hasRole('super-admin|staff|supervisor')) {
+            $this->closingStore->purchaseOrders()->detach($purchaseOrder);
 
-        $this->resetPurchaseOrderData();
+            $this->resetPurchaseOrderData();
+        }
     }
 
     public function render()

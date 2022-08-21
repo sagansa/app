@@ -39,7 +39,7 @@ class UtilityController extends Controller
     public function create(Request $request)
     {
         $stores = Store::orderBy('nickname', 'asc')
-            ->whereIn('status', ['1', '3'])
+            ->whereNotIn('status', ['8'])
             ->pluck('nickname', 'id');
         $units = Unit::orderBy('unit', 'asc')
             // ->whereIn('status', ['1'])
@@ -96,7 +96,7 @@ class UtilityController extends Controller
         $this->authorize('update', $utility);
 
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1', '3'])
+            ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
         $units = Unit::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])

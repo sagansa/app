@@ -57,7 +57,7 @@
                                 <option value="2" {{ $purchaseOrderProduct->status == '2' ? 'selected' : '' }}>
                                     Done</option>
                                 <option value="3" {{ $purchaseOrderProduct->status == '3' ? 'selected' : '' }}>
-                                    Not Include</option>
+                                    No Need</option>
                             </select>
                         </x-tables.td-left-hide>
                     </tr>

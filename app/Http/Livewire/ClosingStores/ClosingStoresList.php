@@ -9,6 +9,7 @@ use App\Http\Livewire\DataTables\WithModal;
 use App\Http\Livewire\DataTables\WithPerPagePagination;
 use App\Http\Livewire\DataTables\WithSortingDate;
 use App\Models\ClosingStore;
+use App\Models\ShiftStore;
 use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -31,18 +32,21 @@ class ClosingStoresList extends Component
     public $filters = [
         'status' => '',
         'store_id' => null,
+        'shift_store_id' => null,
     ];
 
     public function mount()
     {
         $this->stores = Store::orderBy('nickname', 'asc')->pluck('nickname', 'id');
+        $this->shiftStores = ShiftStore::orderBy('name', 'asc')->pluck('name', 'id');
     }
 
     public function getRowsQueryProperty()
     {
         $closingStores = ClosingStore::query()
             ->select(['closing_stores.*', 'stores.name as storename'])
-            ->join('stores', 'stores.id', '=', 'closing_stores.store_id');
+            ->join('stores', 'stores.id', '=', 'closing_stores.store_id')
+            ->join('shift_stores', 'shift_stores.id', '=', 'closing_stores.shift_store_id');
 
             if(Auth::user()->hasRole('supervisor')) {
                 foreach ($this->filters as $filter => $value) {
@@ -52,16 +56,16 @@ class ClosingStoresList extends Component
                                 ->whereRelation('store', 'id', $value)
                                 ->where(function($query) {
                                     return $query
-                                        ->where('updated_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('updated_by_id');
+                                        ->where('approved_by_id', '=', Auth::user()->id)
+                                        ->orWhereNull('approved_by_id');
                                 }))
 
                             ->when($filter == 'status', fn($closingStores) => $closingStores
                                 ->where('closing_stores.' . $filter, 'LIKE', '%' . $value . '%')
                                 ->where(function($query) {
                                     return $query
-                                        ->where('updated_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('updated_by_id');
+                                        ->where('approved_by_id', '=', Auth::user()->id)
+                                        ->orWhereNull('approved_by_id');
                                 }));
                     } elseif (empty($value)) {
                         $closingStores
@@ -70,8 +74,8 @@ class ClosingStoresList extends Component
                                 ->where('closing_stores.' . $filter, 'LIKE', '%' . $value . '%')
                                 ->where(function($query) {
                                     return $query
-                                        ->where('updated_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('updated_by_id');
+                                        ->where('approved_by_id', '=', Auth::user()->id)
+                                        ->orWhereNull('approved_by_id');
                                 }));
                     }
                 }
@@ -83,6 +87,7 @@ class ClosingStoresList extends Component
                     if (!empty($value)) {
                         $closingStores
                             ->when($filter == 'store_id', fn($closingStores) => $closingStores->whereRelation('store', 'id', $value))
+                            ->when($filter == 'shift_store_id', fn($closingStores) => $closingStores->whereRelation('shiftStore', 'id', $value))
                             ->when($filter == 'status', fn($closingStores) => $closingStores->where('closing_stores.' . $filter, 'LIKE', '%' . $value . '%'));
                     }
                 }
@@ -91,6 +96,7 @@ class ClosingStoresList extends Component
                     if (!empty($value)) {
                         $closingStores
                             ->when($filter == 'store_id', fn($closingStores) => $closingStores->whereRelation('store', 'id', $value))
+                            ->when($filter == 'shift_store_id', fn($closingStores) => $closingStores->whereRelation('shiftStore', 'id', $value))
                             ->when($filter == 'status', fn($closingStores) => $closingStores->where('closing_stores.' . $filter, 'LIKE', '%' . $value . '%'));
                     }
                 }

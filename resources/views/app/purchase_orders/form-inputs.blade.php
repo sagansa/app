@@ -32,13 +32,13 @@
         @endforeach
     </x-input.select>
 
-    <x-input.select name="supplier_id" label="Supplier" required>
+    <x-input.select2 id="suppliers" name="supplier_id" label="Supplier" required>
         @php $selected = old('supplier_id', ($editing ? $purchaseOrder->supplier_id : '')) @endphp
         <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
         @foreach ($suppliers as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}</option>
         @endforeach
-    </x-input.select>
+    </x-input.select2>
 
     <x-input.select name="payment_type_id" label="Payment Type" required>
         @php $selected = old('payment_type_id', ($editing ? $purchaseOrder->payment_type_id : '')) @endphp
@@ -146,3 +146,28 @@
 </div>
 
 {{-- <livewire:purchase-orders.purchase-order-form /> --}}
+
+@push('scripts')
+    <script>
+        document.addEventListener("livewire:load", () => {
+            let el = $('#suppliers')
+            initSelect()
+
+            Livewire.hook('message.processed', (message, component) => {
+                initSelect()
+            })
+
+            el.on('change', function(e) {
+                @this.set('purchaseOrder.supplier_id', el.select2("val"))
+            })
+
+            function initSelect() {
+                el.select2({
+                    placeholder: '{{ __('-- select --') }}',
+                    // allowClear: !el.attr('required'),
+                    allowClear: true,
+                })
+            }
+        })
+    </script>
+@endpush

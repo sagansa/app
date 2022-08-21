@@ -44,7 +44,7 @@ class ClosingStoreFuelServicesDetail extends Component
     public function mount(ClosingStore $closingStore)
     {
         $this->closingStore = $closingStore;
-        $this->vehiclesForSelect = Vehicle::whereIn('status', ['2'])->pluck('no_register', 'id');
+        $this->vehiclesForSelect = Vehicle::whereIn('status', ['1'])->pluck('no_register', 'id');
         $this->resetFuelServiceData();
     }
 

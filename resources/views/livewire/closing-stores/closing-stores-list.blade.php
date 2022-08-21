@@ -23,6 +23,14 @@
                     </x-filters.select>
                 </x-filters.group>
                 <x-filters.group>
+                    <x-filters.label>Shift Store</x-filters.label>
+                    <x-filters.select wire:model="filters.shift_store_id">
+                        @foreach ($shiftStores as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-filters.select>
+                </x-filters.group>
+                <x-filters.group>
                     <x-filters.label>Closing Status</x-filters.label>
                     <x-filters.select wire:model="filters.status">
                         @foreach (App\Models\ClosingStore::STATUSES as $value => $label)

@@ -88,8 +88,8 @@ trait HasValid
     public function getOrderStatusNameAttribute()
     {
         $names = [
-        '1' => 'belum dibayar',
-        '2' => 'sudah dibayar',
+        '1' => 'belum diterima',
+        '2' => 'sudah diterima',
         '3' => 'dikembalikan'
         ];
 

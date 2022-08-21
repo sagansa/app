@@ -2,28 +2,45 @@
 
 namespace App\Http\Livewire\PurchaseReceipts;
 
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderProduct;
+use App\Http\Livewire\DataTables\WithBulkAction;
+use App\Http\Livewire\DataTables\WithCachedRows;
+use App\Http\Livewire\DataTables\WithPerPagePagination;
+use App\Http\Livewire\DataTables\WithSorting;
 use App\Models\PurchaseReceipt;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class PurchaseReceiptsList extends Component
 {
-    use WithPagination;
+    use WithPerPagePagination, WithSorting, WithBulkAction, WithCachedRows;
 
-    public function mount(PurchaseReceipt $purchaseReceipt)
+    public $sortColumn = 'purchase_receipts.created_at';
+
+    protected $queryString = [
+        'sortColumn' => [
+        'except' => 'purchase_receipts.created_at'
+        ],
+        'sortDirection' => [
+            'except' => 'asc',
+        ],
+    ];
+
+    public function getRowsQueryProperty()
     {
-        $this->purchaseReceipt = $purchaseReceipt;
+        $purchaseReceipts = PurchaseReceipt::query();
+            return $this->applySorting($purchaseReceipts);
+    }
+
+    public function getRowsProperty()
+    {
+        return $this->cache(function () {
+            return $this->applyPagination($this->rowsQuery);
+        });
     }
 
     public function render()
     {
-        $purchaseReceipts = PurchaseReceipt::latest()->get();
-
         return view('livewire.purchase-receipts.purchase-receipts-list', [
-            'purchaseReceipts' => $purchaseReceipts
-                // ->paginate(20),
+            'purchaseReceipts' => $this->rows,
         ]);
     }
 }
