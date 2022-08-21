@@ -1,4 +1,36 @@
 <div>
+    {{-- <x-slot name="header">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            Check Productions
+        </h2>
+        <p class="mt-2 text-xs text-gray-700">---</p>
+    </x-slot> --}}
+
+    <x-tables.topbar>
+        <x-slot name="search">
+            <x-buttons.link wire:click="$toggle('showFilters')">
+                @if ($showFilters)
+                    Hide
+                @endif Advanced Search...
+            </x-buttons.link>
+            @if ($showFilters)
+                <x-filters.group>
+                    <x-filters.label>Status</x-filters.label>
+                    <x-filters.select wire:model="filters.status">
+                        @foreach (App\Models\PurchaseOrderProduct::STATUSES as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-filters.select>
+                </x-filters.group>
+
+                <x-buttons.link wire:click="resetFilters">Reset Filter
+                </x-buttons.link>
+            @endif
+        </x-slot>
+        <x-slot name="action">
+        </x-slot>
+    </x-tables.topbar>
+
     <x-tables.card>
         <x-table>
             <x-slot name="head">

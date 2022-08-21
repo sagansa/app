@@ -68,7 +68,7 @@ class ClosingStoreController extends Controller
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $users = User::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
         return view(
@@ -126,7 +126,7 @@ class ClosingStoreController extends Controller
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $users = User::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
         return view(

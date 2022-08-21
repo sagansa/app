@@ -42,7 +42,7 @@ class CheckProductions extends Component
         Validator::make(['status' => $status], [
 			'status' => [
 				'required',
-				Rule::in(PurchaseOrderProduct::STATUS_PROCESS, PurchaseOrderProduct::STATUS_DONE, PurchaseOrderProduct::STATUS_NOT_INCLUDE),
+				Rule::in(PurchaseOrderProduct::STATUS_PROCESS, PurchaseOrderProduct::STATUS_DONE, PurchaseOrderProduct::STATUS_NO_NEED),
 			],
 		])->validate();
 
@@ -76,8 +76,6 @@ class CheckProductions extends Component
 
     public function render()
     {
-        $purchaseOrderProducts = PurchaseOrderProduct::query()->latest()->whereIn('status', ['1','2'])->paginate(20);
-
         return view('livewire.purchase-order-products.check-productions', [
             'purchaseOrderProducts' => $this->rows,
         ]);

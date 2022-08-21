@@ -14,7 +14,13 @@ class PurchaseOrderProduct extends Model
 
     const STATUS_PROCESS = '1';
     const STATUS_DONE = '2';
-    const STATUS_NOT_INCLUDE = '3';
+    const STATUS_NO_NEED = '3';
+
+    const STATUSES = [
+        '1' => 'process',
+        '2' => 'done',
+        '3' => 'no need',
+    ];
 
     protected $fillable = [
         'product_id',
