@@ -66,7 +66,7 @@ class PresenceController extends Controller
             ->get()
             ->pluck('closing_store_name', 'id');
         $users = User::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $paymentTypes = PaymentType::orderBy('name', 'asc')
             ->whereIn('status', ['1'])
@@ -155,7 +155,7 @@ class PresenceController extends Controller
             ->get()
             ->pluck('closing_store_name', 'id');
         $users = User::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $paymentTypes = PaymentType::orderBy('name', 'asc')
             ->whereIn('status', ['1'])
