@@ -50,7 +50,7 @@ class ClosingStoreCashlessesDetail extends Component
     public function mount(ClosingStore $closingStore)
     {
         $this->closingStore = $closingStore;
-        $this->userCashlessesForSelect = UserCashless::get()->pluck('name', 'id');
+        $this->userCashlessesForSelect = UserCashless::orderBy('email', 'asc')->get()->pluck('id', 'user_cashless_name');
         $this->resetCashlessData();
     }
 
@@ -109,31 +109,31 @@ class ClosingStoreCashlessesDetail extends Component
         }
 
         if ($this->cashlessImage) {
-            // $this->cashless->image = $this->cashlessImage->store('public');
+            $this->cashless->image = $this->cashlessImage->store('public');
 
-            $image = $this->cashlessImage;
-            $imageName = Str::random() . '.' . $image->getClientOriginalExtension();
-            $imageImg = Image::make($image->getRealPath())->resize(400, 400, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('jpg', 65);
-            $imageImg->stream();
-            Storage::disk('public')->put('images/cashless' . '/' . $imageName, $imageImg);
+            // $image = $this->cashlessImage;
+            // $imageName = Str::random() . '.' . $image->getClientOriginalExtension();
+            // $imageImg = Image::make($image->getRealPath())->resize(400, 400, function ($constraint) {
+            //         $constraint->aspectRatio();
+            //         $constraint->upsize();
+            //     })->encode('jpg', 65);
+            // $imageImg->stream();
+            // Storage::disk('public')->put('images/cashless' . '/' . $imageName, $imageImg);
         }
 
         if ($this->cashlessImageCanceled) {
-            // $this->cashless->image_canceled = $this->cashlessImageCanceled->store(
-            //     'public'
-            // );
+            $this->cashless->image_canceled = $this->cashlessImageCanceled->store(
+                'public'
+            );
 
-            $image = $this->cashlessImageCanceled;
-            $imageName = Str::random() . '.' . $image->getClientOriginalExtension();
-            $imageImg = Image::make($image->getRealPath())->resize(400, 400, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('jpg', 65);
-            $imageImg->stream();
-            Storage::disk('public')->put('images/cashless-canceled' . '/' . $imageName, $imageImg);
+            // $image = $this->cashlessImageCanceled;
+            // $imageName = Str::random() . '.' . $image->getClientOriginalExtension();
+            // $imageImg = Image::make($image->getRealPath())->resize(400, 400, function ($constraint) {
+            //         $constraint->aspectRatio();
+            //         $constraint->upsize();
+            //     })->encode('jpg', 65);
+            // $imageImg->stream();
+            // Storage::disk('public')->put('images/cashless-canceled' . '/' . $imageName, $imageImg);
         }
 
         $this->cashless->save();

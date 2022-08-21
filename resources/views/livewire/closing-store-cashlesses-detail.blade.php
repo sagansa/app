@@ -22,9 +22,9 @@
 
             <div class="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
 
-                <x-input.filepond name="cashlessImage" label="Image" wire:model="cashlessImage"></x-input.filepond>
+                {{-- <x-input.filepond name="cashlessImage" label="Image" wire:model="cashlessImage"></x-input.filepond> --}}
 
-                {{-- <x-input.image name="cashlessImage" label="Image">
+                <x-input.image name="cashlessImage" label="Image">
                     <div image-url="{{ $editing && $cashless->image ? \Storage::url($cashless->image) : '' }}"
                         x-data="imageViewer()" @refresh.window="refreshUrl()" class="mt-1 sm:mt-0 sm:col-span-2">
                         <!-- Show the image -->
@@ -48,12 +48,12 @@
                             @include('components.inputs.partials.error')
                         @enderror
                     </div>
-                </x-input.image> --}}
+                </x-input.image>
 
                 <x-input.select name="cashless.user_cashless_id" label="User Cashless"
                     wire:model="cashless.user_cashless_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($userCashlessesForSelect as $value => $label)
+                    @foreach ($userCashlessesForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -170,7 +170,10 @@
                             </x-tables.td-left>
                         @endif
                         <x-tables.td-left>
-                            <x-partials.thumbnail src="{{ $cashless->image ? \Storage::url($cashless->image) : '' }}" />
+                            <a href="{{ \Storage::url($cashless->image) }}">
+                                <x-partials.thumbnail
+                                    src="{{ $cashless->image ? \Storage::url($cashless->image) : '' }}" />
+                            </a>
                         </x-tables.td-left>
                         <x-tables.td-left>
                             {{ optional($cashless->userCashless)->email ?? '-' }}

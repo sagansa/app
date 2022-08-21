@@ -50,12 +50,12 @@ class PurchaseOrderProductsDetail extends Component
         $this->state = $purchaseOrder->toArray();
 
         $this->purchaseOrder = $purchaseOrder;
-        $this->unitsForSelect = Unit::orderBy('unit', 'asc')->pluck('unit', 'id');
+        $this->unitsForSelect = Unit::orderBy('unit', 'asc')->pluck('id', 'unit');
 
         if($this->purchaseOrder->payment_type_id == '2')
-            $this->productsForSelect = Product::whereIn('payment_type_id', ['2'])->get()->pluck('product_name', 'id');
+            $this->productsForSelect = Product::orderBy('name', 'asc')->whereIn('payment_type_id', ['2'])->get()->pluck('id', 'product_name');
         else
-            $this->productsForSelect = Product::get()->pluck('product_name', 'id');
+            $this->productsForSelect = Product::orderBy('name', 'asc')->get()->pluck('id', 'product_name');
 
         $this->resetPurchaseOrderProductData();
     }

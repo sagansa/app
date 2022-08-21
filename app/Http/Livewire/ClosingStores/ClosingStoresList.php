@@ -37,8 +37,8 @@ class ClosingStoresList extends Component
 
     public function mount()
     {
-        $this->stores = Store::query()->orderBy('nickname', 'asc')->pluck('nickname', 'id');
-        $this->shiftStores = ShiftStore::orderBy('name', 'asc')->pluck('name', 'id');
+        $this->stores = Store::orderBy('nickname', 'asc')->pluck('id', 'name');
+        $this->shiftStores = ShiftStore::orderBy('name', 'asc')->pluck('id', 'name');
     }
 
     public function getRowsQueryProperty()
