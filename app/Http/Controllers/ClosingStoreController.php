@@ -62,7 +62,7 @@ class ClosingStoreController extends Controller
     public function create(Request $request)
     {
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
         $shiftStores = ShiftStore::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
@@ -120,7 +120,7 @@ class ClosingStoreController extends Controller
         $this->authorize('update', $closingStore);
 
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
         $shiftStores = ShiftStore::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
