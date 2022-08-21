@@ -106,6 +106,7 @@
                 @role('super-admin')
                     <x-tables.th-left-hide>Report Payment</x-tables.th-left-hide>
                 @endrole
+                <x-tables.th-left-hide>Detail Order</x-tables.th-left-hide>
                 <x-tables.th-left-hide>Nominal Payment</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.payment_status')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.order_status')</x-tables.th-left-hide>
@@ -193,6 +194,12 @@
                             </x-tables.td-left-hide>
                         @endrole
 
+                        <x-tables.td-left-hide>
+                            @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
+                                <p>{{ $purchaseOrderProduct->product->name }}</p>
+                                <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
+                            @endforeach
+                        </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
                             @foreach ($purchaseOrder->purchaseReceipts as $purchaseReceipt)
                                 <p>@currency($purchaseReceipt->nominal_transfer)</p>

@@ -69,26 +69,26 @@ class CleanAndNeatController extends Controller
 
         $validated = $request->validated();
 
-         if ($request->hasFile('left_hand')) {
-            $validated['left_hand'] = $request
-                ->file('left_hand')
-                ->store('public');
-        }
-
         // if ($request->hasFile('left_hand')) {
-        //     $file = $request->file('left_hand');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $fileleft_hand = rand() . time() . '.' . $extension;
-        //     $file->move('public/', $fileleft_hand);
-        //     Image::make('public/' . $fileleft_hand)
-        //         ->resize(400, 400, function ($constraint) {
-        //             $constraint->aspectRatio();
-        //             $constraint->upsize();
-        //         })
-        //         ->save();
-
-        //     $validated['left_hand'] = $fileleft_hand;
+        //     $validated['left_hand'] = $request
+        //         ->file('left_hand')
+        //         ->store('public');
         // }
+
+        if ($request->hasFile('left_hand')) {
+            $file = $request->file('left_hand');
+            $extension = $file->getClientOriginalExtension();
+            $fileleft_hand = rand() . time() . '.' . $extension;
+            $file->move('public/', $fileleft_hand);
+            Image::make('public/' . $fileleft_hand)
+                ->resize(400, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save();
+
+            $validated['left_hand'] = $fileleft_hand;
+        }
 
         if ($request->hasFile('right_hand')) {
             $file = $request->file('right_hand');
