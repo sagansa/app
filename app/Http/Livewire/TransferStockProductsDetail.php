@@ -31,7 +31,7 @@ class TransferStockProductsDetail extends Component
         $this->productsForSelect = Product::orderBy('name', 'asc')
             ->whereIn('remaining',['1'])
             ->get()
-            ->pluck('product_name', 'id');
+            ->pluck('id', 'product_name');
         $this->resetProductData();
     }
 

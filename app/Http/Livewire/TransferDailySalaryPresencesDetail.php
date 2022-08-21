@@ -26,7 +26,11 @@ class TransferDailySalaryPresencesDetail extends Component
     public function mount(TransferDailySalary $transferDailySalary)
     {
         $this->transferDailySalary = $transferDailySalary;
-        $this->presencesForSelect = Presence::pluck('image_in', 'id');
+        $this->presencesForSelect = Presence::select('*')
+            ->join('users', 'users.id','=','presences.created_by_id')
+            ->orderBy('users.name', 'asc')
+            ->get()
+            ->pluck('id', 'presence_name');
         $this->resetPresenceData();
     }
 

@@ -41,9 +41,9 @@ class PurchaseOrdersList extends Component
 
     public function mount()
     {
-        $this->suppliers = Supplier::query()->orderBy('name', 'asc')->pluck('name', 'id');
-        $this->stores = Store::orderBy('nickname', 'asc')->pluck('nickname', 'id');
-        $this->paymentTypes = PaymentType::orderBy('name', 'asc')->whereIn('id', ['1', '2'])->pluck('name', 'id');
+        $this->suppliers = Supplier::orderBy('name', 'asc')->pluck('id', 'name');
+        $this->stores = Store::orderBy('nickname', 'asc')->pluck('id', 'nickname');
+        $this->paymentTypes = PaymentType::orderBy('name', 'asc')->whereIn('id', ['1', '2'])->pluck('id', 'name');
     }
 
     public function getRowsQueryProperty()

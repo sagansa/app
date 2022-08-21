@@ -53,7 +53,7 @@
 
                 <x-input.select name="fuelService.vehicle_id" label="Vehicle" wire:model="fuelService.vehicle_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($vehiclesForSelect as $value => $label)
+                    @foreach ($vehiclesForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>

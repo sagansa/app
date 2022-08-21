@@ -36,7 +36,7 @@ class AdminCashlessUserCashlessesDetail extends Component
     public function mount(AdminCashless $adminCashless)
     {
         $this->adminCashless = $adminCashless;
-        $this->storesForSelect = Store::pluck('name', 'id');
+        $this->storesForSelect = Store::orderBy('nickname', 'asc')->pluck('id', 'nickname');
         $this->resetUserCashlessData();
     }
 

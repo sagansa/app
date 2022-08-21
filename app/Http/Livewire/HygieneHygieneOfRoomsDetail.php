@@ -40,7 +40,7 @@ class HygieneHygieneOfRoomsDetail extends Component
     public function mount(Hygiene $hygiene)
     {
         $this->hygiene = $hygiene;
-        $this->roomsForSelect = Room::pluck('name', 'id');
+        $this->roomsForSelect = Room::orderBy('name', 'asc')->pluck('id', 'name');
         $this->resetHygieneOfRoomData();
     }
 

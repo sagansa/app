@@ -53,7 +53,10 @@ class PurchaseOrderProductsDetail extends Component
         $this->unitsForSelect = Unit::orderBy('unit', 'asc')->pluck('id', 'unit');
 
         if($this->purchaseOrder->payment_type_id == '2')
-            $this->productsForSelect = Product::orderBy('name', 'asc')->whereIn('payment_type_id', ['2'])->get()->pluck('id', 'product_name');
+            $this->productsForSelect = Product::orderBy('name', 'asc')
+                ->whereIn('payment_type_id', ['2'])
+                ->get()
+                ->pluck('id', 'product_name');
         else
             $this->productsForSelect = Product::orderBy('name', 'asc')->get()->pluck('id', 'product_name');
 

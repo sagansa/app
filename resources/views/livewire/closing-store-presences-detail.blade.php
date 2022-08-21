@@ -28,8 +28,8 @@
                         @endforeach
                     </x-input.select>
 
-                    <x-input.number name="presence.amount" label="Amount" wire:model="presence.amount" max="255"
-                        placeholder="Amount"></x-input.number>
+                    <x-input.currency name="presence.amount" label="Amount" wire:model="presence.amount" max="255"
+                        placeholder="Amount"></x-input.currency>
                 </div>
             </div>
         </div>

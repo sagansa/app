@@ -18,7 +18,7 @@
                 <x-filters.group>
                     <x-filters.label>Store</x-filters.label>
                     <x-filters.select wire:model="filters.store_id">
-                        @foreach ($stores as $value => $label)
+                        @foreach ($stores as $label => $value)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-filters.select>
@@ -26,7 +26,7 @@
                 <x-filters.group>
                     <x-filters.label>Supplier</x-filters.label>
                     <x-filters.select wire:model="filters.supplier_id">
-                        @foreach ($suppliers as $value => $label)
+                        @foreach ($suppliers as $label => $value)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-filters.select>
@@ -34,7 +34,7 @@
                 <x-filters.group>
                     <x-filters.label>Payment Type</x-filters.label>
                     <x-filters.select wire:model="filters.payment_type_id">
-                        @foreach ($paymentTypes as $value => $label)
+                        @foreach ($paymentTypes as $label => $value)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-filters.select>

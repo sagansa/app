@@ -71,4 +71,9 @@ class Presence extends Model
             unlink('storage/' . $this->image);
         }
     }
+
+    public function getPresenceNameAttribute()
+    {
+        return $this->created_by->name . ' - ' . $this->closingStore->store->nickname . ' - ' . $this->closingStore->date->toFormattedDate();
+    }
 }

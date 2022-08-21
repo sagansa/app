@@ -33,7 +33,7 @@ class ProductionProductionTosDetail extends Component
     public function mount(Production $production)
     {
         $this->production = $production;
-        $this->productsForSelect = Product::whereIn('material_group_id', ['2'])->get()->pluck('product_name', 'id');
+        $this->productsForSelect = Product::orderBy('name', 'asc')->whereIn('material_group_id', ['2'])->get()->pluck('id', 'product_name');
         $this->resetProductionToData();
     }
 

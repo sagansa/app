@@ -32,10 +32,13 @@ class PurchaseReceiptPurchaseOrdersDetail extends Component
         $this->state = $purchaseReceipt->toArray();
 
         $this->purchaseReceipt = $purchaseReceipt;
-        $this->purchaseOrdersForSelect = PurchaseOrder::whereIn('payment_type_id', ['1'])
+        $this->purchaseOrdersForSelect = PurchaseOrder::select('*')
+            ->join('stores', 'stores.id', '=', 'purchase_orders.store_id')
+            ->orderBy('stores.name')
+            ->whereIn('payment_type_id', ['1'])
             ->whereIn('payment_status', ['1'])
             ->get()
-            ->pluck('purchase_order_name', 'id');
+            ->pluck('id', 'purchase_order_name');
         $this->resetPurchaseOrderData();
     }
 

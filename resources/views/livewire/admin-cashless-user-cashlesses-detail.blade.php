@@ -22,7 +22,7 @@
 
                 <x-input.select name="userCashless.store_id" label="Store" wire:model="userCashless.store_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($storesForSelect as $value => $label)
+                    @foreach ($storesForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
