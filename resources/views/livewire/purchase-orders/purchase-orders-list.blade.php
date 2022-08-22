@@ -123,7 +123,7 @@
             <x-slot name="body">
                 @forelse($purchaseOrders as $purchaseOrder)
                     <tr class="hover:bg-gray-50">
-                        @role('super-admin|manager')
+                        @role('super-admin')
                             <x-tables.td-checkbox id="{{ $purchaseOrder->id }}"></x-tables.td-checkbox>
                         @endrole
                         <x-tables.td-left-main>

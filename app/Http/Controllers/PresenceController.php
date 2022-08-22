@@ -60,11 +60,11 @@ class PresenceController extends Controller
      */
     public function create(Request $request)
     {
-        $closingStores = ClosingStore::orderBy('date', 'asc')
-            ->where('date', '>', Carbon::now()->subDays(2)->toDateString())
+        // $closingStores = ClosingStore::orderBy('date', 'asc')
+        //     ->where('date', '>', Carbon::now()->subDays(2)->toDateString())
             // ->whereIn('status', ['1'])
-            ->get()
-            ->pluck('closing_store_name', 'id');
+            // ->get()
+            // ->pluck('closing_store_name', 'id');
         $users = User::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
@@ -72,9 +72,21 @@ class PresenceController extends Controller
             ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
+        if(Auth::user()->hasRole('supervisor|staff|manager')) {
+            $closingStores = ClosingStore::orderBy('date', 'asc')
+                ->where('date', '>', Carbon::now()->subDays(2)->toDateString())
+                ->get()
+                ->pluck('closing_store_name', 'id');
+        } else if(Auth::user()->hasRole('super-admin')) {
+            $closingStores = ClosingStore::orderBy('date', 'asc')
+                ->get()
+                ->pluck('closing_store_name', 'id');
+        }
+
         return view(
             'app.presences.create',
-            compact('closingStores', 'paymentTypes', 'users', 'users')
+            // compact('closingStores', 'paymentTypes', 'users', 'users')
+            compact('closingStores', 'paymentTypes', 'users')
         );
     }
 
@@ -149,17 +161,28 @@ class PresenceController extends Controller
     {
         $this->authorize('update', $presence);
 
-        $closingStores = ClosingStore::orderBy('date', 'asc')
-            ->where('date', '>', Carbon::now()->subDays(2)->toDateString())
+        // $closingStores = ClosingStore::orderBy('date', 'asc')
+        //     ->where('date', '>', Carbon::now()->subDays(2)->toDateString())
             // ->whereIn('status', ['1'])
-            ->get()
-            ->pluck('closing_store_name', 'id');
+            // ->get()
+            // ->pluck('closing_store_name', 'id');
         $users = User::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $paymentTypes = PaymentType::orderBy('name', 'asc')
             ->whereIn('status', ['1'])
             ->pluck('name', 'id');
+
+        if(Auth::user()->hasRole('supervisor|staff|manager')) {
+            $closingStores = ClosingStore::orderBy('date', 'asc')
+                ->where('date', '>', Carbon::now()->subDays(2)->toDateString())
+                ->get()
+                ->pluck('closing_store_name', 'id');
+        } else if(Auth::user()->hasRole('super-admin')) {
+            $closingStores = ClosingStore::orderBy('date', 'asc')
+                ->get()
+                ->pluck('closing_store_name', 'id');
+        }
 
         return view(
             'app.presences.edit',

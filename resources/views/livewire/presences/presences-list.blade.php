@@ -1,56 +1,96 @@
-<x-admin-layout>
-    {{-- <x-slot name="header">
+<div>
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.presences.index_title')
         </h2>
-        <p class="mt-2 text-xs text-gray-700">---</p>
+        <p class="mt-2 text-xs text-gray-700">Data gaji harian pegawai</p>
     </x-slot>
 
-    <div class="mt-4 mb-5">
-        <div class="flex flex-wrap justify-between mt-1">
-            <div class="mt-1 md:w-1/3">
-                <form>
-                    <div class="flex items-center w-full">
-                        <x-inputs.text name="search" value="{{ $search ?? '' }}"
-                            placeholder="{{ __('crud.common.search') }}" autocomplete="off"></x-inputs.text>
+    <x-tables.topbar>
+        <x-slot name="search">
+            <x-buttons.link wire:click="$toggle('showFilters')">
+                @if ($showFilters)
+                    Hide
+                @endif Advanced Search...
+            </x-buttons.link>
+            @if ($showFilters)
+                @role('super-admin')
+                    <x-filters.group>
+                        <x-filters.label>User</x-filters.label>
+                        <x-filters.select wire:model="filters.created_by_id">
+                            @foreach ($users as $label => $value)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </x-filters.select>
+                    </x-filters.group>
+                @endrole
+                <x-filters.group>
+                    <x-filters.label>Payment Type</x-filters.label>
+                    <x-filters.select wire:model="filters.payment_type_id">
+                        @foreach ($paymentTypes as $label => $value)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-filters.select>
+                </x-filters.group>
 
-                        <div class="ml-1">
+                <x-filters.group>
+                    <x-filters.label>Status</x-filters.label>
+                    <x-filters.select wire:model="filters.status">
+                        @foreach (App\Models\Presence::STATUSES as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-filters.select>
+                </x-filters.group>
+
+                <x-buttons.link wire:click="resetFilters">Reset Filter
+                </x-buttons.link>
+            @endif
+        </x-slot>
+        <x-slot name="action">
+            <div class="flex flex-wrap justify-between mt-1">
+                <div class="mt-1 md:w-1/3">
+                    @role('super-admin')
+                        <x-buttons.yellow wire:click="markAllAsProcess">Process</x-buttons.yellow>
+                        <x-buttons.green wire:click="markAllAsDone">Done</x-buttons.green>
+                        <x-buttons.red wire:click="markAllAsNotValid">Not Valid</x-buttons.red>
+                    @endrole
+                </div>
+                <div class="mt-1 text-right md:w-1/3">
+                    @can('create', App\Models\Presence::class)
+                        <a href="{{ route('user-cashlesses.create') }}">
                             <x-jet-button>
-                                <i class="icon ion-md-search"></i>
+                                <i class="mr-1 icon ion-md-add"></i>
+                                @lang('crud.common.create')
                             </x-jet-button>
-                        </div>
-                    </div>
-                </form>
+                        </a>
+                    @endcan
+                </div>
             </div>
-            <div class="mt-1 text-right md:w-1/3">
-                @can('create', App\Models\Presence::class)
-                    <a href="{{ route('presences.create') }}">
-                        <x-jet-button>
-                            <i class="mr-1 icon ion-md-add"></i>
-                            @lang('crud.common.create')
-                        </x-jet-button>
-                    </a>
-                @endcan
-            </div>
-        </div>
-    </div>
+        </x-slot>
+    </x-tables.topbar>
 
     <x-tables.card>
         <x-table>
             <x-slot name="head">
-                <x-tables.th-left>@lang('crud.presences.inputs.closing_store_id')</x-tables.th-left>
+                @role('super-admin')
+                    <th></th>
+                @endrole
+                {{-- <x-tables.th-left>@lang('crud.presences.inputs.closing_store_id')</x-tables.th-left> --}}
                 <x-tables.th-left>Store</x-tables.th-left>
                 <x-tables.th-left-hide>Date</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.amount')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.payment_type_id')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.status')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.created_by_id')</x-tables.th-left-hide>
-                <x-tables.th-left-hide>@lang('crud.presences.inputs.approved_by_id')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>Payment Date</x-tables.th-left-hide>
                 <th></th>
             </x-slot>
             <x-slot name="body">
                 @forelse($presences as $presence)
                     <tr class="hover:bg-gray-50">
+                        @role('super-admin|manager')
+                            <x-tables.td-checkbox id="{{ $presence->id }}"></x-tables.td-checkbox>
+                        @endrole
                         <x-tables.td-left-main>
                             <x-slot name="main"> {{ $presence->closingStore->store->nickname }} -
                                 {{ $presence->closingStore->shiftStore->name }}</x-slot>
@@ -81,12 +121,21 @@
                             @elseif ($presence->status == 2)
                                 <x-spans.green>done</x-spans.green>
                             @elseif ($presence->status == 3)
-                                <x-spans.red>no need</x-spans.red>
+                                <x-spans.red>not valid</x-spans.red>
                             @endif
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ optional($presence->created_by)->name ?? '-' }}
                         </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>{{ optional($presence->approved_by)->name ?? '-' }}
+                        <x-tables.td-left-hide>
+                            @if ($presence->payment_type_id == 1)
+                                @foreach ($presence->transferDailySalaries as $transferDailySalary)
+                                    {{ $transferDailySalary->created_at }}
+                                @endforeach
+                            @else
+                                {{-- @foreach ($presence->closingStore as $closingStore)
+                                    {{ $closingStore->created_at }}
+                                @endforeach --}}
+                            @endif
                         </x-tables.td-left-hide>
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
@@ -115,7 +164,5 @@
         <x-slot name="foot"> </x-slot>
     </x-table>
 </x-tables.card>
-<div class="px-4 mt-10">{!! $presences->render() !!}</div> --}}
-
-    <livewire:presences.presences-list />
-</x-admin-layout>
+<div class="px-4 mt-10">{!! $presences->render() !!}</div>
+</div>
