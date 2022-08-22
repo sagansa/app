@@ -147,7 +147,7 @@
 
 {{-- <livewire:purchase-orders.purchase-order-form /> --}}
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         document.addEventListener("livewire:load", () => {
             let el = $('#suppliers')
@@ -170,4 +170,4 @@
             }
         })
     </script>
-@endpush
+@endpush --}}

@@ -37,7 +37,7 @@ class ClosingStoresList extends Component
 
     public function mount()
     {
-        $this->stores = Store::orderBy('nickname', 'asc')->pluck('id', 'name');
+        $this->stores = Store::orderBy('nickname', 'asc')->pluck('id', 'nickname');
         $this->shiftStores = ShiftStore::orderBy('name', 'asc')->pluck('id', 'name');
     }
 
