@@ -50,7 +50,7 @@ class PurchaseOrdersList extends Component
     public function getRowsQueryProperty()
     {
         $purchaseOrders = PurchaseOrder::query()
-            ->select(['purchase_orders.*', 'stores.name as storename'])
+            ->select('*')
             ->join('stores', 'stores.id', '=', 'purchase_orders.store_id')
             ->join('payment_types', 'payment_types.id', '=', 'purchase_orders.payment_type_id')
             ->join('suppliers', 'suppliers.id', '=', 'purchase_orders.supplier_id');
