@@ -82,7 +82,7 @@
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.payment_type_id')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.status')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.presences.inputs.created_by_id')</x-tables.th-left-hide>
-                <x-tables.th-left-hide>Payment Date</x-tables.th-left-hide>
+                {{-- <x-tables.th-left-hide>Payment Date</x-tables.th-left-hide> --}}
                 <th></th>
             </x-slot>
             <x-slot name="body">
@@ -126,17 +126,17 @@
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ optional($presence->created_by)->name ?? '-' }}
                         </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>
+                        {{-- <x-tables.td-left-hide>
                             @if ($presence->payment_type_id == 1)
                                 @foreach ($presence->transferDailySalaries as $transferDailySalary)
                                     {{ $transferDailySalary->created_at }}
                                 @endforeach
                             @else
-                                {{-- @foreach ($presence->closingStore as $closingStore)
+                                @foreach ($presence->closingStore as $closingStore)
                                     {{ $closingStore->created_at }}
-                                @endforeach --}}
+                                @endforeach
                             @endif
-                        </x-tables.td-left-hide>
+                        </x-tables.td-left-hide> --}}
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                 @if ($presence->status != '2')
