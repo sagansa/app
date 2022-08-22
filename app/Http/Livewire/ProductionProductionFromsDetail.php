@@ -44,7 +44,7 @@ class ProductionProductionFromsDetail extends Component
 
         $this->purchaseOrderProductsForSelect = PurchaseOrderProduct::whereIn('status', ['1'])
             ->get()
-            ->pluck('product_name', 'id');
+            ->pluck('id', 'product_name');
 
         $this->resetProductionFromData();
     }
