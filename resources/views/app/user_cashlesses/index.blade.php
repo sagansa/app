@@ -40,10 +40,10 @@
             <x-slot name="head">
 
                 <x-tables.th-left-hide>Provider</x-tables.th-left-hide>
+                <x-tables.th-left>Store</x-tables.th-left>
                 @role('super-admin|manager')
                     <x-tables.th-left-hide>Email Admin</x-tables.th-left-hide>
                 @endrole
-                <x-tables.th-left>Store</x-tables.th-left>
                 <x-tables.th-hide>@lang('crud.user_cashlesses.inputs.email') User</x-tables.th-hide>
                 <x-tables.th-hide>@lang('crud.user_cashlesses.inputs.username')</x-tables.th-hide>
                 <x-tables.th-hide>@lang('crud.user_cashlesses.inputs.no_telp')</x-tables.th-hide>
