@@ -27,6 +27,14 @@
             <option value="2" {{ $selected == '2' ? 'selected' : '' }}>done</option>
             <option value="3" {{ $selected == '3' ? 'selected' : '' }}>no need</option>
         </x-input.select>
+        <x-input.select name="created_by_id" label="Created By">
+            @php $selected = old('created_by_id', ($editing ? $presence->created_by_id : '')) @endphp
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
+            @foreach ($users as $value => $label)
+                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}
+                </option>
+            @endforeach
+        </x-input.select>
     @endrole
 
     @role('supervisor|manager|staff')

@@ -9,7 +9,7 @@
 
     <x-tables.topbar>
         <x-slot name="search">
-            <x-buttons.link wire:click="$toggle('showFilters')">
+            <x-buttons.link wire:click.prevent="$toggle('showFilters')">
                 @if ($showFilters)
                     Hide
                 @endif Advanced Search...
@@ -56,7 +56,7 @@
                     </x-filters.select>
                 </x-filters.group>
 
-                <x-buttons.link wire:click="resetFilters">Reset Filter
+                <x-buttons.link wire:click.prevent="resetFilters">Reset Filter
                 </x-buttons.link>
             @endif
         </x-slot>
@@ -64,9 +64,9 @@
             <div class="flex flex-wrap justify-between mt-1">
                 <div class="mt-1 md:w-1/3">
                     @role('super-admin')
-                        <x-buttons.green wire:click="markAllAsSudahDibayar">Sudah Dibayar</x-buttons.green>
-                        <x-buttons.yellow wire:click="markAllAsBelumDibayar">Belum Dibayar</x-buttons.yellow>
-                        <x-buttons.red wire:click='markAllAsTidakValid'>Tidak Valid</x-buttons.red>
+                        <x-buttons.green wire:click.prevent="markAllAsSudahDibayar">Sudah Dibayar</x-buttons.green>
+                        <x-buttons.yellow wire:click.prevent="markAllAsBelumDibayar">Belum Dibayar</x-buttons.yellow>
+                        <x-buttons.red wire:click.prevent='markAllAsTidakValid'>Tidak Valid</x-buttons.red>
                     @endrole
                 </div>
                 <div class="mt-1 text-right md:w-1/3">
