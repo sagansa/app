@@ -53,7 +53,7 @@
                 <x-input.select name="cashless.user_cashless_id" label="User Cashless"
                     wire:model="cashless.user_cashless_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($userCashlessesForSelect as $value => $label)
+                    @foreach ($userCashlessesForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -187,8 +187,14 @@
                             <p>Netto: @currency($cashless->netto_apl)</p>
                         </x-tables.td-right>
                         <x-tables.td-left>
-                            <x-partials.thumbnail
-                                src="{{ $cashless->image_canceled ? \Storage::url($cashless->image_canceled) : '' }}" />
+                            @if ($cashless->image_canceled == null)
+                                <x-partials.thumbnail src="" />
+                            @else
+                                <a href="{{ \Storage::url($cashless->image_canceled) }}">
+                                    <x-partials.thumbnail
+                                        src="{{ $cashless->image_canceled ? \Storage::url($cashless->image_canceled) : '' }}" />
+                                </a>
+                            @endif
                         </x-tables.td-left>
                         <x-tables.td-left>
                             {{ $cashless->canceled ?? '-' }}

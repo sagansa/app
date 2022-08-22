@@ -27,7 +27,7 @@ class ClosingStorePresencesDetail extends Component
 
     protected $rules = [
         'presence.created_by_id' => ['nullable', 'exists:users,id'],
-        'presence.amount' => ['required', 'max:255'],
+        'presence.amount' => ['required'],
     ];
 
     public function mount(ClosingStore $closingStore)

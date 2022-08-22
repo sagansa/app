@@ -23,7 +23,7 @@
                 <x-input.select name="productionFrom.purchase_order_product_id" label="Purchase Order Product"
                     wire:model="productionFrom.purchase_order_product_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($purchaseOrderProductsForSelect as $value => $label)
+                    @foreach ($purchaseOrderProductsForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
