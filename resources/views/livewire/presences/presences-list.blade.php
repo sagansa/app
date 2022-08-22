@@ -57,7 +57,7 @@
                 </div>
                 <div class="mt-1 text-right md:w-1/3">
                     @can('create', App\Models\Presence::class)
-                        <a href="{{ route('user-cashlesses.create') }}">
+                        <a href="{{ route('presences.create') }}">
                             <x-jet-button>
                                 <i class="mr-1 icon ion-md-add"></i>
                                 @lang('crud.common.create')
