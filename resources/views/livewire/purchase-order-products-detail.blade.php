@@ -21,7 +21,8 @@
             <div class="text-lg font-bold">{{ $modalTitle }}</div>
             <div class="mt-1 sm:space-y-5">
 
-                <x-input.select id="products" name="purchaseOrderProduct.product_id" label="Product">
+                <x-input.select name="purchaseOrderProduct.product_id" label="Product"
+                    wire:model="purchaseOrderProduct.product_id">
                     <option value="null" disabled>-- select --</option>
                     @foreach ($productsForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
@@ -197,28 +198,3 @@
         </x-table>
     </x-tables.card-overflow>
 </div>
-
-{{-- @push('scripts')
-    <script>
-        document.addEventListener("livewire:load", () => {
-            let el = $('#products')
-            initSelect()
-
-            Livewire.hook('message.processed', (message, component) => {
-                initSelect()
-            })
-
-            el.on('change', function(e) {
-                @this.set('purchaseOrderProduct.product_id', el.select2("val"))
-            })
-
-            function initSelect() {
-                el.select2({
-                    placeholder: '{{ __('-- select --') }}',
-                    // allowClear: !el.attr('required'),
-                    allowClear: true,
-                })
-            }
-        })
-    </script>
-@endpush --}}
