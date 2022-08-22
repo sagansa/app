@@ -115,6 +115,13 @@ class PurchaseOrdersList extends Component
                 }
             }
 
+            foreach ($purchaseOrders as $purchaseOrder) {
+                $purchaseOrder->totals = 0;
+                foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct) {
+                    $purchaseOrder->totals += $purchaseOrderProduct->subtotal_invoice;
+                }
+            }
+
             return $this->applySorting($purchaseOrders);
     }
 

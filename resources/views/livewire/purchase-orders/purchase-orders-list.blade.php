@@ -107,7 +107,9 @@
                     <x-tables.th-left-hide>Report Payment</x-tables.th-left-hide>
                 @endrole
                 <x-tables.th-left-hide>Detail Order</x-tables.th-left-hide>
-                <x-tables.th-left-hide>Nominal Payment</x-tables.th-left-hide>
+                @role('super-admin')
+                    <x-tables.th-left-hide>Nominal Payment</x-tables.th-left-hide>
+                @endrole
                 <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.payment_status')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.order_status')</x-tables.th-left-hide>
                 @role('super-admin|supervisor|manager')
@@ -191,6 +193,9 @@
                                         sudah
                                     @endif
                                 @endforeach
+
+                                <p>@currency($purchaseOrder->totals)</p>
+
                             </x-tables.td-left-hide>
                         @endrole
 
@@ -200,19 +205,21 @@
                                 <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
                             @endforeach
                         </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>
-                            @foreach ($purchaseOrder->purchaseReceipts as $purchaseReceipt)
-                                <p>@currency($purchaseReceipt->nominal_transfer)</p>
-                            @endforeach
+                        @role('super-admin')
+                            <x-tables.td-left-hide>
+                                @foreach ($purchaseOrder->purchaseReceipts as $purchaseReceipt)
+                                    <p>@currency($purchaseReceipt->nominal_transfer)</p>
+                                @endforeach
 
-                            @foreach ($purchaseOrder->closingStores as $closingStore)
-                                @foreach ($closingStore->purchaseOrders as $purchaseOrder)
-                                    @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
-                                        <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
+                                @foreach ($purchaseOrder->closingStores as $closingStore)
+                                    @foreach ($closingStore->purchaseOrders as $purchaseOrder)
+                                        @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
+                                            <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
+                                        @endforeach
                                     @endforeach
                                 @endforeach
-                            @endforeach
-                        </x-tables.td-left-hide>
+                            </x-tables.td-left-hide>
+                        @endrole
                         <x-tables.td-left-hide>
                             <x-spans.status-valid class="{{ $purchaseOrder->payment_status_badge }}">
                                 {{ $purchaseOrder->payment_status_name }}

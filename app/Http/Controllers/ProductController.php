@@ -154,16 +154,16 @@ class ProductController extends Controller
             // ->whereIn('status', ['1'])
             ->pluck('unit', 'id');
         $materialGroups = MaterialGroup::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $franchiseGroups = FranchiseGroup::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $paymentTypes = PaymentType::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $onlineCategories = OnlineCategory::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $productGroups = ProductGroup::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])

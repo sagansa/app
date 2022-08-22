@@ -174,14 +174,6 @@ class ProductionController extends Controller
     {
         $this->authorize('view-any', Production::class);
 
-        $search = $request->get('search', '');
-
-        $productions = Production::search($search)
-                ->where('created_by_id', '=', Auth::user()->id)
-                ->latest()
-                ->paginate(10)
-                ->withQueryString();
-
-        return view('app.productions.check', compact('productions', 'search'));
+        return view('app.productions.check');
     }
 }
