@@ -32,13 +32,13 @@
         @endforeach
     </x-input.select>
 
-    <x-input.select2 id="suppliers" name="supplier_id" label="Supplier" required>
+    <x-input.select name="supplier_id" label="Supplier" required>
         @php $selected = old('supplier_id', ($editing ? $purchaseOrder->supplier_id : '')) @endphp
         <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
         @foreach ($suppliers as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}</option>
         @endforeach
-    </x-input.select2>
+    </x-input.select>
 
     <x-input.select name="payment_type_id" label="Payment Type" required>
         @php $selected = old('payment_type_id', ($editing ? $purchaseOrder->payment_type_id : '')) @endphp

@@ -73,13 +73,6 @@ class Supplier extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function delete_image()
-    // {
-    //     if ($this->image && file_exists('storage/' . $this->image)) {
-    //         unlink('storage/' . $this->image);
-    //     }
-    // }
-
     public function getSupplierNameAttribute()
     {
         return $this->name . ' - ' . $this->bank->name . ' -' . $this->bank_account_name . ' - ' . $this->bank_account_no;
