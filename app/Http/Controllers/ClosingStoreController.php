@@ -129,6 +129,7 @@ class ClosingStoreController extends Controller
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
+
         return view(
             'app.closing_stores.edit',
             compact(

@@ -68,9 +68,9 @@ class PurchaseOrderController extends Controller
             ->whereNotIn('status', ['8'])
             ->pluck('nickname', 'id');
         $suppliers = Supplier::orderBy('name', 'asc')
-            ->whereNotIn('status', ['1,3'])
+            // ->whereNotIn('status', ['1,3'])
             ->get()
-            ->pluck('supplier_name', 'id');
+            ->pluck('name', 'id');
         $paymentTypes = PaymentType::orderBy('name', 'asc')
             ->whereIn('status', ['1'])
             ->pluck('name', 'id');
@@ -144,7 +144,7 @@ class PurchaseOrderController extends Controller
             ->whereNotIn('status', ['8'])
             ->pluck('nickname', 'id');
         $suppliers = Supplier::orderBy('name', 'asc')
-            ->whereNotIn('status', ['1,3'])
+            // ->whereNotIn('status', ['1,3'])
             ->pluck('name', 'id');
         $paymentTypes = PaymentType::orderBy('name', 'asc')
             ->whereIn('status', ['1'])
