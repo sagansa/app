@@ -21,12 +21,12 @@
             <div class="text-lg font-bold">{{ $modalTitle }}</div>
             <div class="mt-1 sm:space-y-5">
 
-                <x-input.select2 id="products" name="purchaseOrderProduct.product_id" label="Product">
+                <x-input.select id="products" name="purchaseOrderProduct.product_id" label="Product">
                     <option value="null" disabled>-- select --</option>
                     @foreach ($productsForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
-                </x-input.select2>
+                </x-input.select>
 
                 <x-input.number name="purchaseOrderProduct.quantity_product" label="Quantity Product"
                     wire:model="purchaseOrderProduct.quantity_product"></x-input.number>
@@ -198,7 +198,7 @@
     </x-tables.card-overflow>
 </div>
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         document.addEventListener("livewire:load", () => {
             let el = $('#products')
@@ -221,4 +221,4 @@
             }
         })
     </script>
-@endpush
+@endpush --}}

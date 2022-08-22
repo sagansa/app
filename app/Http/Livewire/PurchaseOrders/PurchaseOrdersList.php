@@ -28,12 +28,13 @@ class PurchaseOrdersList extends Component
         'except' => 'purchase_orders.date'
         ],
         'sortDirection' => [
-            'except' => 'asc',
+            'except' => 'desc',
         ],
     ];
 
     public $filters = [
         'payment_status' => '',
+        'order_status' => '',
         'store_id' => null,
         'supplier_id' => null,
         'payment_type_id' => null,
@@ -54,75 +55,25 @@ class PurchaseOrdersList extends Component
             ->join('payment_types', 'payment_types.id', '=', 'purchase_orders.payment_type_id')
             ->join('suppliers', 'suppliers.id', '=', 'purchase_orders.supplier_id');
 
-            if(Auth::user()->hasRole('supervisor')) {
-                foreach ($this->filters as $filter => $value) {
-                    if (!empty($value)) {
-                        $purchaseOrders
-                            ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders
-                                ->whereRelation('paymentType', 'id', $value))
-                            ->when($filter == 'store_id', fn($purchaseOrders) => $purchaseOrders
-                                ->whereRelation('store', 'id', $value)
-                                ->where(function($query) {
-                                    return $query
-                                        ->where('approved_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('approved_by_id');
-                                }))
-                            ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('paymentType', 'id', $value))
-                            ->when($filter == 'payment_status', fn($purchaseOrders) => $purchaseOrders
-                                ->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%')
-                                ->where(function($query) {
-                                    return $query
-                                        ->where('approved_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('approved_by_id');
-                                }));
-                    } elseif (empty($value)) {
-                        $purchaseOrders
-                            ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders
-                                ->whereRelation('paymentType', 'id', $value))
-                            ->when($filter == 'payment_status', fn($purchaseOrders) => $purchaseOrders
-                                ->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%')
-                                ->where(function($query) {
-                                    return $query
-                                        ->where('approved_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('approved_by_id');
-                                }));
-                    }
-                }
-            } elseif (Auth::user()->hasRole('staff')) {
-
-                $purchaseOrders->where('created_by_id', '=', Auth::user()->id);
-
-                foreach ($this->filters as $filter => $value) {
-                    if (!empty($value)) {
-                        $purchaseOrders
-                            ->when($filter == 'store_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('store', 'id', $value))
-                            ->when($filter == 'supplier_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('supplier', 'id', $value))
-                            ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('paymentType', 'id', $value))
-                            ->when($filter == 'payment_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'))
-                            ->when($filter == 'order_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'));
-                    }
-                }
-            } elseif (Auth::user()->hasRole('super-admin|manager')) {
-                foreach ($this->filters as $filter => $value) {
-                    if (!empty($value)) {
-                        $purchaseOrders
-                            ->when($filter == 'store_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('store', 'id', $value))
-                            ->when($filter == 'supplier_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('supplier', 'id', $value))
-                            ->when($filter == 'payment_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'))
-                            ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('paymentType', 'id', $value))
-                            ->when($filter == 'order_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'));
-                    }
-                }
+        foreach ($this->filters as $filter => $value) {
+            if (!empty($value)) {
+                $purchaseOrders
+                    ->when($filter == 'store_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('store', 'id', $value))
+                    ->when($filter == 'supplier_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('supplier', 'id', $value))
+                    ->when($filter == 'payment_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'))
+                    ->when($filter == 'payment_type_id', fn($purchaseOrders) => $purchaseOrders->whereRelation('paymentType', 'id', $value))
+                    ->when($filter == 'order_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'));
             }
+        }
 
-            foreach ($purchaseOrders as $purchaseOrder) {
-                $purchaseOrder->totals = 0;
-                foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct) {
-                    $purchaseOrder->totals += $purchaseOrderProduct->subtotal_invoice;
-                }
+        foreach ($purchaseOrders as $purchaseOrder) {
+            $purchaseOrder->totals = 0;
+            foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct) {
+                $purchaseOrder->totals += $purchaseOrderProduct->subtotal_invoice;
             }
+        }
 
-            return $this->applySorting($purchaseOrders);
+        return $this->applySorting($purchaseOrders);
     }
 
     public function getRowsProperty()
