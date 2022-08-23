@@ -46,7 +46,6 @@
                     <x-tables.th-left-hide>@lang('crud.presences.inputs.payment_type_id')</x-tables.th-left-hide>
                     <x-tables.th-left-hide>@lang('crud.presences.inputs.status')</x-tables.th-left-hide>
                     <x-tables.th-left-hide>@lang('crud.presences.inputs.created_by_id')</x-tables.th-left-hide>
-                    <x-tables.th-left-hide>@lang('crud.presences.inputs.approved_by_id')</x-tables.th-left-hide>
                     <th></th>
                 </x-slot>
                 <x-slot name="body">
@@ -87,8 +86,7 @@
                             </x-tables.td-left-hide>
                             <x-tables.td-left-hide>{{ optional($presence->created_by)->name ?? '-' }}
                             </x-tables.td-left-hide>
-                            <x-tables.td-left-hide>{{ optional($presence->approved_by)->name ?? '-' }}
-                            </x-tables.td-left-hide>
+
                             <td class="px-4 py-3 text-center" style="width: 134px;">
                                 <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                     @if ($presence->status != '2')
@@ -110,7 +108,7 @@
                         </td>
                     </tr>
                 @empty
-                    <x-tables.no-items-found colspan="7"> </x-tables.no-items-found>
+                    <x-tables.no-items-found colspan="8"> </x-tables.no-items-found>
                 @endforelse
             </x-slot>
             <x-slot name="foot"> </x-slot>
