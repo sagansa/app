@@ -11,6 +11,7 @@ use App\Models\ClosingStore;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PresenceStoreRequest;
 use App\Http\Requests\PresenceUpdateRequest;
+use Carbon\Carbon;
 
 class PresenceController extends Controller
 {
