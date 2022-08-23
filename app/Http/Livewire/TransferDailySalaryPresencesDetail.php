@@ -29,6 +29,7 @@ class TransferDailySalaryPresencesDetail extends Component
         $this->presencesForSelect = Presence::select('*')
             ->join('users', 'users.id','=','presences.created_by_id')
             ->orderBy('users.name', 'asc')
+            ->where('payment_type_id', '=', '1')
             ->get()
             ->pluck('id', 'presence_name');
         $this->resetPresenceData();
