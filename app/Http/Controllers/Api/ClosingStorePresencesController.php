@@ -40,11 +40,10 @@ class ClosingStorePresencesController extends Controller
         $this->authorize('create', Presence::class);
 
         $validated = $request->validate([
-            'amount' => ['required', 'max:255'],
+            'amount' => ['required', 'numeric', 'min:0'],
             'payment_type_id' => ['required', 'exists:payment_types,id'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required'],
             'created_by_id' => ['nullable', 'exists:users,id'],
-            'approved_by_id' => ['nullable', 'exists:users,id'],
         ]);
 
         $presence = $closingStore->presences()->create($validated);

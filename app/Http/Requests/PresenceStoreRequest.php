@@ -29,7 +29,6 @@ class PresenceStoreRequest extends FormRequest
             'payment_type_id' => ['required', 'exists:payment_types,id'],
             'status' => ['required'],
             'created_by_id' => ['nullable', 'exists:users,id'],
-            'approved_by_id' => ['nullable', 'exists:users,id'],
         ];
     }
 }

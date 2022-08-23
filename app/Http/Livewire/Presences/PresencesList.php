@@ -88,7 +88,7 @@ class PresencesList extends Component
         ]);
     }
 
-    public function markAllAsProcess()
+    public function markAllAsSudahDibayar()
     {
         Presence::whereIn('id', $this->selectedRows)->update([
             'status' => '2',
@@ -98,7 +98,7 @@ class PresencesList extends Component
         $this->reset(['selectedRows']);
     }
 
-    public function markAllAsDone()
+    public function markAllAsBelumDiperiksa()
     {
         Presence::whereIn('id', $this->selectedRows)->update([
             'status' => '1',
@@ -108,7 +108,7 @@ class PresencesList extends Component
         $this->reset(['selectedRows']);
     }
 
-    public function markAllAsNotValid()
+    public function markAllAsSiapDitransfer()
     {
         Presence::whereIn('id', $this->selectedRows)->update([
             'status' => '3',

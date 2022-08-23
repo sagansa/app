@@ -71,6 +71,7 @@ class PresenceControllerTest extends TestCase
         unset($data['image_out']);
         unset($data['lat_long_in']);
         unset($data['lat_long_out']);
+        unset($data['approved_by_id']);
 
         $this->assertDatabaseHas('presences', $data);
 
@@ -140,6 +141,7 @@ class PresenceControllerTest extends TestCase
         unset($data['image_out']);
         unset($data['lat_long_in']);
         unset($data['lat_long_out']);
+        unset($data['approved_by_id']);
 
         $data['id'] = $presence->id;
 

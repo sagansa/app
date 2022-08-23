@@ -60,11 +60,11 @@
                                         @currency($presence->amount)</p>
                                     <p>{{ optional($presence->paymentType)->name ?? '-' }}
                                         @if ($presence->status == 1)
-                                            <x-spans.yellow>belum diperiksa</x-spans.yellow>
+                                            <x-spans.yellow>process</x-spans.yellow>
                                         @elseif ($presence->status == 2)
-                                            <x-spans.green>sudah dibayar</x-spans.green>
+                                            <x-spans.green>done</x-spans.green>
                                         @elseif ($presence->status == 3)
-                                            <x-spans.red>siap ditransfer</x-spans.red>
+                                            <x-spans.red>no need</x-spans.red>
                                         @endif
                                     </p>
                                 </x-slot>
@@ -78,11 +78,11 @@
                             </x-tables.td-left-hide>
                             <x-tables.td-left-hide>
                                 @if ($presence->status == 1)
-                                    <x-spans.yellow>belum diperiksa</x-spans.yellow>
+                                    <x-spans.yellow>process</x-spans.yellow>
                                 @elseif ($presence->status == 2)
-                                    <x-spans.green>sudah dibayar</x-spans.green>
+                                    <x-spans.green>done</x-spans.green>
                                 @elseif ($presence->status == 3)
-                                    <x-spans.red>siap ditransfer</x-spans.red>
+                                    <x-spans.red>no need</x-spans.red>
                                 @endif
                             </x-tables.td-left-hide>
                             <x-tables.td-left-hide>{{ optional($presence->created_by)->name ?? '-' }}

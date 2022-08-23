@@ -41,9 +41,9 @@ class UserPresencesController extends Controller
 
         $validated = $request->validate([
             'closing_store_id' => ['required', 'exists:closing_stores,id'],
-            'amount' => ['required', 'max:255'],
+            'amount' => ['required', 'numeric', 'min:0'],
             'payment_type_id' => ['required', 'exists:payment_types,id'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required'],
         ]);
 
         $presence = $user->presencesApproved()->create($validated);

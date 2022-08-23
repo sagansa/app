@@ -50,9 +50,9 @@
             <div class="flex flex-wrap justify-between mt-1">
                 <div class="mt-1 md:w-1/3">
                     @role('super-admin')
-                        <x-buttons.yellow wire:click="markAllAsProcess">Process</x-buttons.yellow>
-                        <x-buttons.green wire:click="markAllAsDone">Done</x-buttons.green>
-                        <x-buttons.red wire:click="markAllAsNotValid">Not Valid</x-buttons.red>
+                        <x-buttons.yellow wire:click="markAllAsBelumDiperiksa">belum diperiksa</x-buttons.yellow>
+                        <x-buttons.green wire:click="markAllAsSudahDibayar">sudah dibayar</x-buttons.green>
+                        <x-buttons.red wire:click="markAllAsSiapDitransfer">siap ditransfer</x-buttons.red>
                     @endrole
                 </div>
                 <div class="mt-1 text-right md:w-1/3">
@@ -99,11 +99,11 @@
                                     @currency($presence->amount)</p>
                                 <p>{{ optional($presence->paymentType)->name ?? '-' }}
                                     @if ($presence->status == 1)
-                                        <x-spans.yellow>process</x-spans.yellow>
+                                        <x-spans.yellow>belum diperiksa</x-spans.yellow>
                                     @elseif ($presence->status == 2)
-                                        <x-spans.green>done</x-spans.green>
+                                        <x-spans.green>sudah dibayar</x-spans.green>
                                     @elseif ($presence->status == 3)
-                                        <x-spans.red>no need</x-spans.red>
+                                        <x-spans.red>siap ditransfer</x-spans.red>
                                     @endif
                                 </p>
                             </x-slot>
@@ -117,11 +117,11 @@
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
                             @if ($presence->status == 1)
-                                <x-spans.yellow>process</x-spans.yellow>
+                                <x-spans.yellow>belum diperiksa</x-spans.yellow>
                             @elseif ($presence->status == 2)
-                                <x-spans.green>done</x-spans.green>
+                                <x-spans.green>sudah dibayar</x-spans.green>
                             @elseif ($presence->status == 3)
-                                <x-spans.red>not valid</x-spans.red>
+                                <x-spans.red>siap ditransfer</x-spans.red>
                             @endif
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ optional($presence->created_by)->name ?? '-' }}

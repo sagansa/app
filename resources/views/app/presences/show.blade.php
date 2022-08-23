@@ -55,15 +55,6 @@
                         >
                     </x-shows.sub-dl>
                     <x-shows.sub-dl>
-                        <x-shows.dt
-                            >@lang('crud.presences.inputs.approved_by_id')</x-shows.dt
-                        >
-                        <x-shows.dd
-                            >{{ optional($presence->approved_by)->name ?? '-'
-                            }}</x-shows.dd
-                        >
-                    </x-shows.sub-dl>
-                    <x-shows.sub-dl>
                         <x-shows.dt>Created Date</x-shows.dt>
                         <x-shows.dd
                             >{{ $presence->created_at ?? '-' }}</x-shows.dd

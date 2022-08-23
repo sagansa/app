@@ -419,7 +419,6 @@ return [
             'payment_type_id' => 'Payment Type',
             'status' => 'Status',
             'created_by_id' => 'Created By',
-            'approved_by_id' => 'Approved By',
         ],
     ],
 

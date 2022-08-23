@@ -41,10 +41,9 @@ class PaymentTypePresencesController extends Controller
 
         $validated = $request->validate([
             'closing_store_id' => ['required', 'exists:closing_stores,id'],
-            'amount' => ['required', 'max:255'],
-            'status' => ['required', 'max:255'],
+            'amount' => ['required', 'numeric', 'min:0'],
+            'status' => ['required'],
             'created_by_id' => ['nullable', 'exists:users,id'],
-            'approved_by_id' => ['nullable', 'exists:users,id'],
         ]);
 
         $presence = $paymentType->presences()->create($validated);
