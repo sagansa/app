@@ -56,11 +56,11 @@
                             @endif
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
-                            {{ $transferDailySalary->presences->sum('amount') }}
-                            @foreach ($transferDailySalary->presences as $presence)
-                                {{-- <p> {{ $presence->created_by->name }}</p> --}}
-                                <p>{{ $presence->sum('amount') }}</p>
-                            @endforeach
+                            {{-- {{ $transferDailySalary->presences->sum('amount') }} --}}
+                            {{-- @foreach ($transferDailySalary->presences as $presence) --}}
+                            {{-- <p> {{ $presence->created_by->name }}</p> --}}
+                            {{-- <p>{{ $presence->sum('amount') }}</p> --}}
+                            {{-- @endforeach --}}
                         </x-tables.td-left-hide>
 
                         <x-tables.td-right-hide>{{ $transferDailySalary->amount ?? '-' }}</x-tables.td-right-hide>
