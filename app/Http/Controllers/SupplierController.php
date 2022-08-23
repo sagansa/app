@@ -165,4 +165,28 @@ class SupplierController extends Controller
             ->route('suppliers.index')
             ->withSuccess(__('crud.common.removed'));
     }
+
+    public function fetchRegencies($province_id = null) {
+        $regencies = Regency::where('province_id', $province_id)->pluck('name', 'id');
+
+        return response()->json([
+            'regencies' => $regencies
+        ]);
+    }
+
+    public function fetchVillages($regency_id = null) {
+        $villages = Village::where('regency_id', $regency_id)->pluck('name', 'id');
+
+        return response()->json([
+            'villages' => $villages
+        ]);
+    }
+
+    public function fetchDistricts($village_id = null) {
+        $districts = District::where('village_id', $village_id)->pluck('name', 'id');
+
+        return response()->json([
+            'districts' => $districts
+        ]);
+    }
 }

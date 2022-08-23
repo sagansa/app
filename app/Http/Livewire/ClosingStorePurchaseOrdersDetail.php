@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\ClosingStore;
 use App\Models\PurchaseOrder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ClosingStorePurchaseOrdersDetail extends Component
@@ -26,10 +27,12 @@ class ClosingStorePurchaseOrdersDetail extends Component
     public function mount(ClosingStore $closingStore)
     {
         $this->closingStore = $closingStore;
-        $this->purchaseOrdersForSelect = PurchaseOrder::whereIn('payment_type_id', ['2'])
+        $this->purchaseOrdersForSelect = PurchaseOrder::where('store_id', $this->closingStore->store_id)
+            ->whereIn('payment_type_id', ['2'])
             ->whereIn('payment_status', ['1'])
             ->get()
             ->pluck('purchase_order_name', 'id');
+
         $this->resetPurchaseOrderData();
     }
 

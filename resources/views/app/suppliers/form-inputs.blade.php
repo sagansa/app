@@ -22,28 +22,28 @@
         <x-input.select name="regency_id" label="Regency">
             @php $selected = old('regency_id', ($editing ? $supplier->regency_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
-            @foreach ($regencies as $value => $label)
+            {{-- @foreach ($regencies as $value => $label)
                 <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}
                 </option>
-            @endforeach
+            @endforeach --}}
         </x-input.select>
 
         <x-input.select name="village_id" label="Village">
             @php $selected = old('village_id', ($editing ? $supplier->village_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
-            @foreach ($villages as $value => $label)
+            {{-- @foreach ($villages as $value => $label)
                 <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}
                 </option>
-            @endforeach
+            @endforeach --}}
         </x-input.select>
 
         <x-input.select name="district_id" label="District">
             @php $selected = old('district_id', ($editing ? $supplier->district_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
-            @foreach ($districts as $value => $label)
+            {{-- @foreach ($districts as $value => $label)
                 <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}
                 </option>
-            @endforeach
+            @endforeach --}}
         </x-input.select>
     @endrole
 
@@ -99,3 +99,88 @@
         </x-shows.dl>
     @endif
 </div>
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X_CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    })
+
+    $(document).ready(function() {
+        $("#province_id").change(function() {
+            var province_id = $($this).val();
+
+            if (province_id == "") {
+                var province_id = 0;
+            }
+
+            $.ajax({
+                url: '{{ url('/fetch-regencies/') }}' + village_id,
+                type: 'post',
+                dataType: 'json',
+                success: function(response) {
+                    $('#regency').fund('option.not(:first)').remove();
+                    $('#village').fund('option.not(:first)').remove();
+                    $('#district').fund('option.not(:first)').remove();
+
+                    if (response['regencies'].length > 0) {
+                        $.each(response['regencies'], function(key, value) {
+                            $("#regency").append("<option value='" + value['id'] +
+                                "'>" + value['name'] + "</option>")
+                        });
+                    }
+                }
+            })
+        });
+
+        $("#regency_id").change(function() {
+            var regency_id = $($this).val();
+
+            if (regency_id == "") {
+                var regency_id = 0;
+            }
+
+            $.ajax({
+                url: '{{ url('/fetch-villages/') }}' + regency_id,
+                type: 'post',
+                dataType: 'json',
+                success: function(response) {
+                    $('#village').fund('option.not(:first)').remove();
+                    $('#district').fund('option.not(:first)').remove();
+
+                    if (response['villages'].length > 0) {
+                        $.each(response['villages'], function(key, value) {
+                            $("#village").append("<option value='" + value['id'] +
+                                "'>" + value['name'] + "</option>")
+                        });
+                    }
+                }
+            })
+        });
+
+        $("#village_id").change(function() {
+            var village_id = $($this).val();
+
+            if (village_id == "") {
+                var village_id = 0;
+            }
+
+            $.ajax({
+                url: '{{ url('/fetch-districts/') }}' + village_id,
+                type: 'post',
+                dataType: 'json',
+                success: function(response) {
+                    $('#district').fund('option.not(:first)').remove();
+
+                    if (response['districts'].length > 0) {
+                        $.each(response['districts'], function(key, value) {
+                            $("#district").append("<option value='" + value['id'] +
+                                "'>" + value['name'] + "</option>")
+                        });
+                    }
+                }
+            })
+        });
+    });
+</script>
