@@ -42,13 +42,13 @@ class UserCashlessController extends Controller
     public function create(Request $request)
     {
         $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $storeCashlesses = StoreCashless::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
         return view(
@@ -99,13 +99,13 @@ class UserCashlessController extends Controller
         $this->authorize('update', $userCashless);
 
         $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $storeCashlesses = StoreCashless::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
         return view(
