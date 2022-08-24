@@ -51,7 +51,7 @@ class ClosingStoreCashlessesDetail extends Component
     public function mount(ClosingStore $closingStore)
     {
         $this->closingStore = $closingStore;
-        $this->accountCashlessesForSelect = AccountCashless::query()->where('store_id', $this->closingStore->store_id)->get()->pluck('id', 'account_cashless_name');
+        $this->accountCashlessesForSelect = AccountCashless::orderBy('account_cashless_name', 'asc')->get()->pluck('id', 'account_cashless_name');
         $this->resetCashlessData();
     }
 
