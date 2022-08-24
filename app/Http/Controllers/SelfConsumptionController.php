@@ -27,7 +27,7 @@ class SelfConsumptionController extends Controller
         //     ->orderBy('date', 'desc')
         //     ->paginate(10)
         //     ->withQueryString();
-        
+
         if(Auth::user()->hasRole('supervisor|staff|manager')) {
             $selfConsumptions = SelfConsumption::search($search)
                 ->where('created_by_id', '=', Auth::user()->id)
@@ -54,7 +54,7 @@ class SelfConsumptionController extends Controller
     public function create(Request $request)
     {
         $stores = Store::orderBy('nickname', 'asc')
-            ->whereIn('status', ['8'])
+            ->whereNotIn('status', ['8'])
             ->pluck('nickname', 'id');
         $users = User::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
@@ -190,7 +190,7 @@ class SelfConsumptionController extends Controller
             ->withSuccess(__('crud.common.removed'));
     }
 
-    private function mapProducts($products) 
+    private function mapProducts($products)
     {
         return collect($products)->map(function ($i) {
             return ['quantity' => $i];
