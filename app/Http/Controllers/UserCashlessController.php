@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\Models\Store;
 use App\Models\UserCashless;
 use Illuminate\Http\Request;
-use App\Models\AdminCashless;
+use App\Models\StoreCashless;
+use App\Models\CashlessProvider;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserCashlessStoreRequest;
 use App\Http\Requests\UserCashlessUpdateRequest;
-use App\Models\Store;
 
 class UserCashlessController extends Controller
 {
@@ -39,15 +41,20 @@ class UserCashlessController extends Controller
      */
     public function create(Request $request)
     {
-        $stores = Store::orderBy('nickname', 'asc')
-            // ->whereIn('status', ['1'])
-            ->pluck('nickname', 'id');
-        $adminCashlesses = AdminCashless::orderBy('username', 'asc')
-            // ->whereIn('status', ['1'])
-            ->get()
-            ->pluck('admin_name', 'id');
+        $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
+            ->whereIn('status', ['1'])
+            ->pluck('name', 'id');
+        $stores = Store::orderBy('name', 'asc')
+            ->whereIn('status', ['1'])
+            ->pluck('name', 'id');
+        $storeCashlesses = StoreCashless::orderBy('name', 'asc')
+            ->whereIn('status', ['1'])
+            ->pluck('name', 'id');
 
-        return view('app.user_cashlesses.create', compact('adminCashlesses', 'stores'));
+        return view(
+            'app.user_cashlesses.create',
+            compact('cashlessProviders', 'stores', 'storeCashlesses')
+        );
     }
 
     /**
@@ -59,6 +66,9 @@ class UserCashlessController extends Controller
         $this->authorize('create', UserCashless::class);
 
         $validated = $request->validated();
+
+        $validated['created_by_id'] = auth()->user()->id;
+        $validated['status'] = '1';
 
         $userCashless = UserCashless::create($validated);
 
@@ -88,18 +98,24 @@ class UserCashlessController extends Controller
     {
         $this->authorize('update', $userCashless);
 
-        $stores = Store::orderBy('nickname', 'asc')
-            // ->whereIn('status', ['1'])
-            ->pluck('nickname', 'id');
-
-        $adminCashlesses = AdminCashless::orderBy('username', 'asc')
-            // ->whereIn('status', ['1'])
-            ->get()
-            ->pluck('admin_name', 'id');
+        $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
+            ->whereIn('status', ['1'])
+            ->pluck('name', 'id');
+        $stores = Store::orderBy('name', 'asc')
+            ->whereIn('status', ['1'])
+            ->pluck('name', 'id');
+        $storeCashlesses = StoreCashless::orderBy('name', 'asc')
+            ->whereIn('status', ['1'])
+            ->pluck('name', 'id');
 
         return view(
             'app.user_cashlesses.edit',
-            compact('userCashless', 'adminCashlesses', 'stores')
+            compact(
+                'userCashless',
+                'cashlessProviders',
+                'stores',
+                'storeCashlesses'
+            )
         );
     }
 

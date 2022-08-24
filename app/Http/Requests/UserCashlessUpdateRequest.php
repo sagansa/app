@@ -24,12 +24,17 @@ class UserCashlessUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'admin_cashless_id' => ['nullable', 'exists:admin_cashlesses,id'],
-            'store_id' => ['exists:stores,id', 'nullable'],
+            'cashless_provider_id' => [
+                'required',
+                'exists:cashless_providers,id',
+            ],
+            'store_id' => ['required', 'exists:stores,id'],
+            'store_cashless_id' => ['required', 'exists:store_cashlesses,id'],
             'email' => ['nullable', 'email'],
             'username' => ['nullable', 'max:50', 'string'],
             'no_telp' => ['nullable', 'max:255', 'string'],
             'password' => ['nullable'],
+            'status' => ['required', 'max:255'],
         ];
     }
 }

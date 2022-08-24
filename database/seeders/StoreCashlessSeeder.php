@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\PaymentType;
+use App\Models\StoreCashless;
 use Illuminate\Database\Seeder;
 
-class PaymentTypeSeeder extends Seeder
+class StoreCashlessSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class PaymentTypeSeeder extends Seeder
      */
     public function run()
     {
-        PaymentType::factory()
+        StoreCashless::factory()
             ->count(5)
             ->create();
     }

@@ -31,6 +31,11 @@ class CashlessProvider extends Model
         return $this->hasMany(AdminCashless::class);
     }
 
+    public function userCashlesses()
+    {
+        return $this->hasMany(UserCashless::class);
+    }
+
     public function delete_image()
     {
         if ($this->image && file_exists('storage/' . $this->image)) {

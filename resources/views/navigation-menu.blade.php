@@ -278,6 +278,11 @@
                         Transfer Daily Salaries
                         </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\StoreCashless::class)
+                        <x-dropdown-link href="{{ route('store-cashlesses.index') }}">
+                        Store Cashlesses
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
@@ -678,6 +683,11 @@
                 @can('view-any', App\Models\TransferDailySalary::class)
                 <x-jet-responsive-nav-link href="{{ route('transfer-daily-salaries.index') }}">
                 Transfer Daily Salaries
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\StoreCashless::class)
+                <x-jet-responsive-nav-link href="{{ route('store-cashlesses.index') }}">
+                Store Cashlesses
                 </x-jet-responsive-nav-link>
                 @endcan
 

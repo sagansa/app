@@ -1,16 +1,10 @@
 <div>
     <div>
         @can('create', App\Models\UserCashless::class)
-            <button class="button" wire:click="newUserCashless">
-                <i class="mr-1 icon ion-md-add text-primary"></i>
-                @lang('crud.common.new')
-            </button>
-            @endcan @can('delete-any', App\Models\UserCashless::class)
-            <button class="button button-danger" {{ empty($selected) ? 'disabled' : '' }}
-                onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
-                <i class="mr-1 icon ion-md-trash text-primary"></i>
-                @lang('crud.common.delete_selected')
-            </button>
+        <button class="button" wire:click="newUserCashless">
+            <i class="mr-1 icon ion-md-add text-primary"></i>
+            @lang('crud.common.attach')
+        </button>
         @endcan
     </div>
 
@@ -18,115 +12,91 @@
         <div class="px-6 py-4">
             <div class="text-lg font-bold">{{ $modalTitle }}</div>
 
-            <div class="mt-1 sm:space-y-5">
-
-                <x-input.select name="userCashless.store_id" label="Store" wire:model="userCashless.store_id">
-                    <option value="null" disabled>-- select --</option>
-                    @foreach ($storesForSelect as $label => $value)
-                        <option value="{{ $value }}">{{ $label }}</option>
-                    @endforeach
-                </x-input.select>
-
-                <x-input.email name="userCashless.email" label="Email" wire:model="userCashless.email" maxlength="255">
-                </x-input.email>
-
-                <x-input.text name="userCashless.username" label="Username" wire:model="userCashless.username"
-                    maxlength="50"></x-input.text>
-
-                <x-input.number name="userCashless.no_telp" label="No Telp" wire:model="userCashless.no_telp">
-                </x-input.number>
-
-                <x-input.text name="userCashless.password" label="Password" wire:model="userCashless.password"
-                    maxlength="255"></x-input.text>
-
+            <div class="mt-5">
+                <div>
+                    <x-input.select
+                        name="user_cashless_id"
+                        label="User Cashless"
+                        wire:model="user_cashless_id"
+                    >
+                        <option value="null" disabled>-- select --</option>
+                        @foreach($userCashlessesForSelect as $value => $label)
+                        <option value="{{ $value }}"  >{{ $label }}</option>
+                        @endforeach
+                    </x-input.select>
+                </div>
             </div>
         </div>
 
-        <div class="flex justify-between px-6 py-4 bg-gray-50">
-            {{-- <button type="button" class="button" wire:click="$toggle('showingModal')">
+        <div class="px-6 py-4 bg-gray-50 flex justify-between">
+            <button
+                type="button"
+                class="button"
+                wire:click="$toggle('showingModal')"
+            >
                 <i class="mr-1 icon ion-md-close"></i>
                 @lang('crud.common.cancel')
             </button>
 
-            <button type="button" class="button button-primary" wire:click="save">
+            <button
+                type="button"
+                class="button button-primary"
+                wire:click="save"
+            >
                 <i class="mr-1 icon ion-md-save"></i>
                 @lang('crud.common.save')
-            </button> --}}
-
-            <x-buttons.secondary wire:click="$toggle('showingModal')">Cancel</x-buttons.secondary>
-            <x-jet-button wire:click="save">Save</x-jet-button>
+            </button>
         </div>
     </x-modal>
 
-    <x-tables.card-overflow>
-        <x-table>
-            <x-slot name="head">
+    <div class="block w-full overflow-auto scrolling-touch mt-4">
+        <table class="w-full max-w-full mb-4 bg-transparent">
+            <thead class="text-gray-700">
                 <tr>
-                    <x-tables.th-left>
-                        <input type="checkbox" wire:model="allSelected" wire:click="toggleFullSelection"
-                            title="{{ trans('crud.common.select_all') }}" />
-                    </x-tables.th-left>
-                    <x-tables.th-left>
-                        @lang('crud.admin_cashless_user_cashlesses.inputs.store_id')
-                    </x-tables.th-left>
-                    <x-tables.th-left>
-                        @lang('crud.admin_cashless_user_cashlesses.inputs.email')
-                    </x-tables.th-left>
-                    <x-tables.th-left>
-                        @lang('crud.admin_cashless_user_cashlesses.inputs.username')
-                    </x-tables.th-left>
-                    <x-tables.th-left>
-                        @lang('crud.admin_cashless_user_cashlesses.inputs.no_telp')
-                    </x-tables.th-left>
-                    <x-tables.th-left>
-                        @lang('crud.admin_cashless_user_cashlesses.inputs.password')
-                    </x-tables.th-left>
+                    <th class="px-4 py-3 text-left">
+                        @lang('crud.admin_cashless_user_cashlesses.inputs.user_cashless_id')
+                    </th>
                     <th></th>
                 </tr>
-            </x-slot>
-            <x-slot name="body">
-                @foreach ($userCashlesses as $userCashless)
-                    <tr class="hover:bg-gray-100">
-                        <x-tables.td-left>
-                            <input type="checkbox" value="{{ $userCashless->id }}" wire:model="selected" />
-                        </x-tables.td-left>
-                        <x-tables.td-left>
-                            {{ optional($userCashless->store)->name ?? '-' }}
-                        </x-tables.td-left>
-                        <x-tables.td-left>
-                            {{ $userCashless->email ?? '-' }}
-                        </x-tables.td-left>
-                        <x-tables.td-left>
-                            {{ $userCashless->username ?? '-' }}
-                        </x-tables.td-left>
-                        <x-tables.td-left>
-                            {{ $userCashless->no_telp ?? '-' }}
-                        </x-tables.td-left>
-                        <x-tables.td-left>
-                            {{ $userCashless->password ?? '-' }}
-                        </x-tables.td-left>
-                        <td class="px-4 py-3 text-right" style="width: 134px;">
-                            <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                                @can('update', $userCashless)
-                                    <button type="button" class="button"
-                                        wire:click="editUserCashless({{ $userCashless->id }})">
-                                        <i class="icon ion-md-create"></i>
-                                    </button>
-                                @endcan
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </x-slot>
-            <x-slot name="foot">
-                <tr>
-                    <td colspan="6">
-                        <div class="px-4 mt-10">
-                            {{ $userCashlesses->render() }}
+            </thead>
+            <tbody class="text-gray-600">
+                @foreach ($adminCashlessUserCashlesses as $userCashless)
+                <tr class="hover:bg-gray-100">
+                    <td class="px-4 py-3 text-left">
+                        {{ $userCashless->email ?? '-' }}
+                    </td>
+                    <td class="px-4 py-3 text-right" style="width: 70px;">
+                        <div
+                            role="group"
+                            aria-label="Row Actions"
+                            class="relative inline-flex align-middle"
+                        >
+                            @can('delete-any', App\Models\UserCashless::class)
+                            <button
+                                class="button button-danger"
+                                onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
+                                wire:click="detach({{ $userCashless->id }})"
+                            >
+                                <i
+                                    class="mr-1 icon ion-md-trash text-primary"
+                                ></i>
+                                @lang('crud.common.detach')
+                            </button>
+                            @endcan
                         </div>
                     </td>
                 </tr>
-            </x-slot>
-        </x-table>
-    </x-tables.card-overflow>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <div class="mt-10 px-4">
+                            {{ $adminCashlessUserCashlesses->render() }}
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>

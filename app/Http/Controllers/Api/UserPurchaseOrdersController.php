@@ -48,8 +48,8 @@ class UserPurchaseOrdersController extends Controller
             'taxes' => ['required'],
             'discounts' => ['required'],
             'notes' => ['nullable', 'max:255', 'string'],
-            'payment_status' => ['required'],
-            'order_status' => ['required'],
+            'payment_status' => ['required', 'max:255'],
+            'order_status' => ['required', 'max:255'],
         ]);
 
         if ($request->hasFile('image')) {

@@ -59,6 +59,7 @@ use App\Http\Controllers\Api\UnitUtilitiesController;
 use App\Http\Controllers\Api\MovementAssetController;
 use App\Http\Controllers\Api\HygieneOfRoomController;
 use App\Http\Controllers\Api\AdminCashlessController;
+use App\Http\Controllers\Api\StoreCashlessController;
 use App\Http\Controllers\Api\UserStockCardsController;
 use App\Http\Controllers\Api\StoreUtilitiesController;
 use App\Http\Controllers\Api\ClosingCourierController;
@@ -180,16 +181,20 @@ use App\Http\Controllers\Api\ClosingStorePurchaseOrdersController;
 use App\Http\Controllers\Api\CustomerSalesOrderEmployeesController;
 use App\Http\Controllers\Api\ClosingCourierClosingStoresController;
 use App\Http\Controllers\Api\AdminCashlessUserCashlessesController;
+use App\Http\Controllers\Api\UserCashlessAdminCashlessesController;
 use App\Http\Controllers\Api\ClosingStoreClosingCouriersController;
+use App\Http\Controllers\Api\StoreCashlessUserCashlessesController;
 use App\Http\Controllers\Api\ProductPurchaseOrderProductsController;
 use App\Http\Controllers\Api\product_sales_order_employeeController;
 use App\Http\Controllers\Api\closing_store_purchase_orderController;
 use App\Http\Controllers\Api\TransferDailySalaryPresencesController;
+use App\Http\Controllers\Api\admin_cashless_user_cashlessController;
 use App\Http\Controllers\Api\PresenceTransferDailySalariesController;
 use App\Http\Controllers\Api\ProductProductionSupportFromsController;
 use App\Http\Controllers\Api\PurchaseOrderPurchaseReceiptsController;
 use App\Http\Controllers\Api\closing_courier_closing_storeController;
 use App\Http\Controllers\Api\PurchaseReceiptPurchaseOrdersController;
+use App\Http\Controllers\Api\CashlessProviderUserCashlessesController;
 use App\Http\Controllers\Api\presence_transfer_daily_salaryController;
 use App\Http\Controllers\Api\CashlessProviderAdminCashlessesController;
 use App\Http\Controllers\Api\purchase_order_purchase_receiptController;
@@ -1044,6 +1049,16 @@ Route::name('api.')
             'store',
         ])->name('cashless-providers.admin-cashlesses.store');
 
+        // CashlessProvider User Cashlesses
+        Route::get('/cashless-providers/{cashlessProvider}/user-cashlesses', [
+            CashlessProviderUserCashlessesController::class,
+            'index',
+        ])->name('cashless-providers.user-cashlesses.index');
+        Route::post('/cashless-providers/{cashlessProvider}/user-cashlesses', [
+            CashlessProviderUserCashlessesController::class,
+            'store',
+        ])->name('cashless-providers.user-cashlesses.store');
+
         Route::apiResource('franchise-groups', FranchiseGroupController::class);
 
         // FranchiseGroup Products
@@ -1707,10 +1722,14 @@ Route::name('api.')
             AdminCashlessUserCashlessesController::class,
             'index',
         ])->name('admin-cashlesses.user-cashlesses.index');
-        Route::post('/admin-cashlesses/{adminCashless}/user-cashlesses', [
-            AdminCashlessUserCashlessesController::class,
-            'store',
-        ])->name('admin-cashlesses.user-cashlesses.store');
+        Route::post(
+            '/admin-cashlesses/{adminCashless}/user-cashlesses/{userCashless}',
+            [AdminCashlessUserCashlessesController::class, 'store']
+        )->name('admin-cashlesses.user-cashlesses.store');
+        Route::delete(
+            '/admin-cashlesses/{adminCashless}/user-cashlesses/{userCashless}',
+            [AdminCashlessUserCashlessesController::class, 'destroy']
+        )->name('admin-cashlesses.user-cashlesses.destroy');
 
         Route::apiResource('user-cashlesses', UserCashlessController::class);
 
@@ -1723,6 +1742,20 @@ Route::name('api.')
             UserCashlessCashlessesController::class,
             'store',
         ])->name('user-cashlesses.cashlesses.store');
+
+        // UserCashless Admin Cashlesses
+        Route::get('/user-cashlesses/{userCashless}/admin-cashlesses', [
+            UserCashlessAdminCashlessesController::class,
+            'index',
+        ])->name('user-cashlesses.admin-cashlesses.index');
+        Route::post(
+            '/user-cashlesses/{userCashless}/admin-cashlesses/{adminCashless}',
+            [UserCashlessAdminCashlessesController::class, 'store']
+        )->name('user-cashlesses.admin-cashlesses.store');
+        Route::delete(
+            '/user-cashlesses/{userCashless}/admin-cashlesses/{adminCashless}',
+            [UserCashlessAdminCashlessesController::class, 'destroy']
+        )->name('user-cashlesses.admin-cashlesses.destroy');
 
         Route::apiResource(
             'purchase-receipts',
@@ -1821,4 +1854,16 @@ Route::name('api.')
             '/transfer-daily-salaries/{transferDailySalary}/presences/{presence}',
             [TransferDailySalaryPresencesController::class, 'destroy']
         )->name('transfer-daily-salaries.presences.destroy');
+
+        Route::apiResource('store-cashlesses', StoreCashlessController::class);
+
+        // StoreCashless User Cashlesses
+        Route::get('/store-cashlesses/{storeCashless}/user-cashlesses', [
+            StoreCashlessUserCashlessesController::class,
+            'index',
+        ])->name('store-cashlesses.user-cashlesses.index');
+        Route::post('/store-cashlesses/{storeCashless}/user-cashlesses', [
+            StoreCashlessUserCashlessesController::class,
+            'store',
+        ])->name('store-cashlesses.user-cashlesses.store');
     });

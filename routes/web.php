@@ -37,6 +37,7 @@ use App\Http\Controllers\MonthlySalaryController;
 use App\Http\Controllers\TransferStockController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\AdminCashlessController;
+use App\Http\Controllers\StoreCashlessController;
 use App\Http\Controllers\ClosingCourierController;
 use App\Http\Controllers\RemainingStockController;
 use App\Http\Controllers\FranchiseGroupController;
@@ -163,4 +164,5 @@ Route::prefix('/')
             'transfer-daily-salaries',
             TransferDailySalaryController::class
         );
+        Route::resource('store-cashlesses', StoreCashlessController::class);
     });

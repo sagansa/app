@@ -12,15 +12,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('user_cashlesses', function (Blueprint $table) {
+        Schema::create('store_cashlesses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('cashless_provider_id');
-            $table->unsignedBigInteger('store_id');
-            $table->unsignedBigInteger('store_cashless_id');
-            $table->string('email')->nullable();
-            $table->string('username', 50)->nullable();
-            $table->string('password')->nullable();
-            $table->string('no_telp')->nullable();
+            $table->string('name');
             $table->tinyInteger('status');
 
             $table->timestamps();
@@ -34,6 +28,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('user_cashlesses');
+        Schema::dropIfExists('store_cashlesses');
     }
 };

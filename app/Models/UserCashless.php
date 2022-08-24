@@ -21,12 +21,14 @@ class UserCashless extends Model
     ];
 
     protected $fillable = [
-        'admin_cashless_id',
+        'cashless_provider_id',
         'store_id',
+        'store_cashless_id',
         'email',
         'username',
         'password',
         'no_telp',
+        'status',
     ];
 
     protected $searchableFields = ['*'];
@@ -34,11 +36,6 @@ class UserCashless extends Model
     protected $table = 'user_cashlesses';
 
     protected $hidden = ['password'];
-
-    public function adminCashless()
-    {
-        return $this->belongsTo(AdminCashless::class);
-    }
 
     public function cashlesses()
     {
@@ -50,15 +47,25 @@ class UserCashless extends Model
         return $this->belongsTo(Store::class);
     }
 
+    public function storeCashless()
+    {
+        return $this->belongsTo(StoreCashless::class);
+    }
+
+    public function cashlessProvider()
+    {
+        return $this->belongsTo(CashlessProvider::class);
+    }
+
+    public function adminCashlesses()
+    {
+        return $this->belongsToMany(AdminCashless::class);
+    }
+
     public function delete_image()
     {
         if ($this->image && file_exists('storage/' . $this->image)) {
             unlink('storage/' . $this->image);
         }
-    }
-
-    public function getUserCashlessNameAttribute()
-    {
-        return $this->adminCashless->cashlessProvider->name . ' - ' . $this->store->nickname;
     }
 }

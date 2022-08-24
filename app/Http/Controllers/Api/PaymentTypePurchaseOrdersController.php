@@ -47,8 +47,8 @@ class PaymentTypePurchaseOrdersController extends Controller
             'taxes' => ['required'],
             'discounts' => ['required'],
             'notes' => ['nullable', 'max:255', 'string'],
-            'payment_status' => ['required'],
-            'order_status' => ['required'],
+            'payment_status' => ['required', 'max:255'],
+            'order_status' => ['required', 'max:255'],
             'created_by_id' => ['nullable', 'exists:users,id'],
             'approved_by_id' => ['nullable', 'exists:users,id'],
         ]);

@@ -27,8 +27,10 @@ class UserCashlessFactory extends Factory
             'username' => $this->faker->text(50),
             'password' => $this->faker->password,
             'no_telp' => $this->faker->randomNumber,
-            'admin_cashless_id' => \App\Models\AdminCashless::factory(),
+            'status' => $this->faker->numberBetween(1, 2),
             'store_id' => \App\Models\Store::factory(),
+            'store_cashless_id' => \App\Models\StoreCashless::factory(),
+            'cashless_provider_id' => \App\Models\CashlessProvider::factory(),
         ];
     }
 }

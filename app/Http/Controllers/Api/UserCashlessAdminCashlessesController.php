@@ -5,64 +5,64 @@ use Illuminate\Http\Request;
 use App\Models\UserCashless;
 use App\Models\AdminCashless;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserCashlessCollection;
+use App\Http\Resources\AdminCashlessCollection;
 
-class AdminCashlessUserCashlessesController extends Controller
+class UserCashlessAdminCashlessesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\AdminCashless $adminCashless
+     * @param \App\Models\UserCashless $userCashless
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, AdminCashless $adminCashless)
+    public function index(Request $request, UserCashless $userCashless)
     {
-        $this->authorize('view', $adminCashless);
+        $this->authorize('view', $userCashless);
 
         $search = $request->get('search', '');
 
-        $userCashlesses = $adminCashless
-            ->userCashlesses()
+        $adminCashlesses = $userCashless
+            ->adminCashlesses()
             ->search($search)
             ->latest()
             ->paginate();
 
-        return new UserCashlessCollection($userCashlesses);
+        return new AdminCashlessCollection($adminCashlesses);
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\AdminCashless $adminCashless
      * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AdminCashless $adminCashless
      * @return \Illuminate\Http\Response
      */
     public function store(
         Request $request,
-        AdminCashless $adminCashless,
-        UserCashless $userCashless
+        UserCashless $userCashless,
+        AdminCashless $adminCashless
     ) {
-        $this->authorize('update', $adminCashless);
+        $this->authorize('update', $userCashless);
 
-        $adminCashless
-            ->userCashlesses()
-            ->syncWithoutDetaching([$userCashless->id]);
+        $userCashless
+            ->adminCashlesses()
+            ->syncWithoutDetaching([$adminCashless->id]);
 
         return response()->noContent();
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\AdminCashless $adminCashless
      * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AdminCashless $adminCashless
      * @return \Illuminate\Http\Response
      */
     public function destroy(
         Request $request,
-        AdminCashless $adminCashless,
-        UserCashless $userCashless
+        UserCashless $userCashless,
+        AdminCashless $adminCashless
     ) {
-        $this->authorize('update', $adminCashless);
+        $this->authorize('update', $userCashless);
 
-        $adminCashless->userCashlesses()->detach($userCashless);
+        $userCashless->adminCashlesses()->detach($adminCashless);
 
         return response()->noContent();
     }

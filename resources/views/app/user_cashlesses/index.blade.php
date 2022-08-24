@@ -38,15 +38,12 @@
     <x-tables.card>
         <x-table>
             <x-slot name="head">
-
-                <x-tables.th-left-hide>Provider</x-tables.th-left-hide>
-                <x-tables.th-left>Store</x-tables.th-left>
-                @role('super-admin|manager')
-                    <x-tables.th-left-hide>Email Admin</x-tables.th-left-hide>
-                @endrole
-                <x-tables.th-hide>@lang('crud.user_cashlesses.inputs.email') User</x-tables.th-hide>
-                <x-tables.th-hide>@lang('crud.user_cashlesses.inputs.username')</x-tables.th-hide>
-                <x-tables.th-hide>@lang('crud.user_cashlesses.inputs.no_telp')</x-tables.th-hide>
+                <x-tables.th-left>@lang('crud.user_cashlesses.inputs.cashless_provider_id')</x-tables.th-left>
+                <x-tables.th-left-hide>@lang('crud.user_cashlesses.inputs.store_id')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.user_cashlesses.inputs.store_cashless_id')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.user_cashlesses.inputs.email')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.user_cashlesses.inputs.username')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.user_cashlesses.inputs.no_telp')</x-tables.th-left-hide>
                 @role('super-admin|manager|supervisor')
                     <x-tables.th-left-hide>@lang('crud.user_cashlesses.inputs.password')</x-tables.th-left-hide>
                 @endrole
@@ -56,30 +53,29 @@
                 @forelse($userCashlesses as $userCashless)
                     <tr class="hover:bg-gray-50">
                         <x-tables.td-left-main>
-                            <x-slot name="main">{{ $userCashless->adminCashless->cashlessProvider->name }}</x-slot>
+                            <x-slot name="main">{{ $userCashless->cashlessProvider->name }}</x-slot>
                             <x-slot name="sub">
-                                @role('super-admin|manager')
-                                    <p>{{ $userCashless->adminCashless->email }}</p>
-                                @endrole
-                                <p>store: {{ $userCashless->store->nickname }}</p>
+
+                                <p>store: {{ optional($userCashless->store)->nickname }}</p>
+                                <p>store cashless: {{ optional($userCashless->storeCashless)->name ?? '-' }}</p>
                                 <p>email: {{ $userCashless->email ?? '-' }}</p>
                                 <p>username: {{ $userCashless->username ?? '-' }}</p>
                                 <p>no telp: {{ $userCashless->no_telp ?? '-' }}</p>
-                                <p>password: {{ $userCashless->password ?? '-' }}</p>
+                                @role('super-admin|manager|supervisor')
+                                    <p>password: {{ $userCashless->password ?? '-' }}</p>
+                                @endrole
                             </x-slot>
                         </x-tables.td-left-main>
-                        <x-tables.td-left-hide>
-                            {{ $userCashless->store->nickname }}
+                        <x-tables.td-left-hide>{{ optional($userCashless->store)->nickname ?? '-' }}
                         </x-tables.td-left-hide>
-                        @role('super-admin|manager')
-                            <x-tables.td-left-hide>
-                                {{ $userCashless->adminCashless->email }}
-                            </x-tables.td-left-hide>
-                        @endrole
+                        <x-tables.td-left-hide>{{ optional($userCashless->storeCashless)->name ?? '-' }}
+                        </x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ $userCashless->email ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ $userCashless->username ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-right-hide>{{ $userCashless->no_telp ?? '-' }}</x-tables.td-right-hide>
-                        <x-tables.td-left-hide>{{ $userCashless->password ?? '-' }}</x-tables.td-left-hide>
+                        @role('super-admin|manager|supervisor')
+                            <x-tables.td-left-hide>{{ $userCashless->password ?? '-' }}</x-tables.td-left-hide>
+                        @endrole
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                 @can('update', $userCashless)

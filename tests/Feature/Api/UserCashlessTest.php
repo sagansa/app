@@ -6,7 +6,8 @@ use App\Models\User;
 use App\Models\UserCashless;
 
 use App\Models\Store;
-use App\Models\AdminCashless;
+use App\Models\StoreCashless;
+use App\Models\CashlessProvider;
 
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
@@ -67,15 +68,18 @@ class UserCashlessTest extends TestCase
     {
         $userCashless = UserCashless::factory()->create();
 
-        $adminCashless = AdminCashless::factory()->create();
         $store = Store::factory()->create();
+        $storeCashless = StoreCashless::factory()->create();
+        $cashlessProvider = CashlessProvider::factory()->create();
 
         $data = [
             'email' => $this->faker->email,
             'username' => $this->faker->text(50),
             'no_telp' => $this->faker->randomNumber,
-            'admin_cashless_id' => $adminCashless->id,
+            'status' => $this->faker->numberBetween(1, 2),
             'store_id' => $store->id,
+            'store_cashless_id' => $storeCashless->id,
+            'cashless_provider_id' => $cashlessProvider->id,
         ];
 
         $response = $this->putJson(

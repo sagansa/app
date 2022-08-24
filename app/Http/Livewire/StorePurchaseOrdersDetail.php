@@ -45,8 +45,8 @@ class StorePurchaseOrdersDetail extends Component
         'purchaseOrderDate' => ['required', 'date'],
         'purchaseOrder.taxes' => ['required', 'numeric'],
         'purchaseOrder.discounts' => ['required', 'numeric'],
-        'purchaseOrder.payment_status' => ['required', 'in:1,2'],
-        'purchaseOrder.order_status' => ['required', 'in:1,2,3'],
+        'purchaseOrder.payment_status' => ['required', 'max:255'],
+        'purchaseOrder.order_status' => ['required', 'max:255'],
         'purchaseOrder.notes' => ['nullable', 'max:255', 'string'],
         'purchaseOrder.created_by_id' => ['nullable', 'exists:users,id'],
         'purchaseOrder.approved_by_id' => ['nullable', 'exists:users,id'],
@@ -69,8 +69,8 @@ class StorePurchaseOrdersDetail extends Component
         $this->purchaseOrderDate = null;
         $this->purchaseOrder->payment_type_id = null;
         $this->purchaseOrder->supplier_id = null;
-        $this->purchaseOrder->payment_status = '1';
-        $this->purchaseOrder->order_status = '1';
+        $this->purchaseOrder->payment_status = null;
+        $this->purchaseOrder->order_status = null;
         $this->purchaseOrder->created_by_id = null;
         $this->purchaseOrder->approved_by_id = null;
 

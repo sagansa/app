@@ -81,7 +81,7 @@
                 </div>
             </x-partials.card>
 
-            @can('view-any', App\Models\UserCashless::class)
+            @can('view-any', App\Models\admin_cashless_user_cashless::class)
             <x-partials.card class="mt-5">
                 <x-slot name="title"> User Cashlesses </x-slot>
 

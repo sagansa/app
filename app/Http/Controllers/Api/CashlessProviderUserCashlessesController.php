@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Models\CashlessProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCashlessResource;
 use App\Http\Resources\UserCashlessCollection;
 
-class StoreUserCashlessesController extends Controller
+class CashlessProviderUserCashlessesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Store $store
+     * @param \App\Models\CashlessProvider $cashlessProvider
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Store $store)
+    public function index(Request $request, CashlessProvider $cashlessProvider)
     {
-        $this->authorize('view', $store);
+        $this->authorize('view', $cashlessProvider);
 
         $search = $request->get('search', '');
 
-        $userCashlesses = $store
+        $userCashlesses = $cashlessProvider
             ->userCashlesses()
             ->search($search)
             ->latest()
@@ -32,18 +32,15 @@ class StoreUserCashlessesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Store $store
+     * @param \App\Models\CashlessProvider $cashlessProvider
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Store $store)
+    public function store(Request $request, CashlessProvider $cashlessProvider)
     {
         $this->authorize('create', UserCashless::class);
 
         $validated = $request->validate([
-            'cashless_provider_id' => [
-                'required',
-                'exists:cashless_providers,id',
-            ],
+            'store_id' => ['required', 'exists:stores,id'],
             'store_cashless_id' => ['required', 'exists:store_cashlesses,id'],
             'email' => ['nullable', 'email'],
             'username' => ['nullable', 'max:50', 'string'],
@@ -52,7 +49,7 @@ class StoreUserCashlessesController extends Controller
             'status' => ['required', 'max:255'],
         ]);
 
-        $userCashless = $store->userCashlesses()->create($validated);
+        $userCashless = $cashlessProvider->userCashlesses()->create($validated);
 
         return new UserCashlessResource($userCashless);
     }

@@ -1,18 +1,30 @@
 @php $editing = isset($userCashless) @endphp
 
 <div class="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
-    <x-input.select name="admin_cashless_id" label="Admin Cashless">
-        @php $selected = old('admin_cashless_id', ($editing ? $userCashless->admin_cashless_id : '')) @endphp
+    <x-input.select
+        name="cashless_provider_id"
+        label="Cashless Provider"
+        required
+    >
+        @php $selected = old('cashless_provider_id', ($editing ? $userCashless->cashless_provider_id : '')) @endphp
         <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
-        @foreach($adminCashlesses as $value => $label)
+        @foreach($cashlessProviders as $value => $label)
         <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
         @endforeach
     </x-input.select>
 
-    <x-input.select name="store_id" label="Store">
+    <x-input.select name="store_id" label="Store" required>
         @php $selected = old('store_id', ($editing ? $userCashless->store_id : '')) @endphp
         <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
         @foreach($stores as $value => $label)
+        <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
+        @endforeach
+    </x-input.select>
+
+    <x-input.select name="store_cashless_id" label="Store Cashless" required>
+        @php $selected = old('store_cashless_id', ($editing ? $userCashless->store_cashless_id : '')) @endphp
+        <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
+        @foreach($storeCashlesses as $value => $label)
         <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
         @endforeach
     </x-input.select>
@@ -42,7 +54,14 @@
         label="Password"
         value="{{ old('password', ($editing ? $userCashless->password : '')) }}"
         maxlength="255"
+        placeholder="Password"
     ></x-input.text>
+
+    <x-input.select name="status" label="Status">
+        @php $selected = old('status', ($editing ? $userCashless->status : '1')) @endphp
+        <option value="1" {{ $selected == '1' ? 'selected' : '' }} >active</option>
+        <option value="2" {{ $selected == '2' ? 'selected' : '' }} >inactive</option>
+    </x-input.select>
 
     @if ($editing)
     <x-shows.dl>

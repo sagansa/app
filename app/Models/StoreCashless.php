@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Livewire\DataTables\HasValid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdminCashless extends Model
+class StoreCashless extends Model
 {
     use HasValid;
     use HasFactory;
@@ -20,28 +20,15 @@ class AdminCashless extends Model
         '4' => 'periksa ulang',
     ];
 
-    protected $fillable = [
-        'cashless_provider_id',
-        'username',
-        'email',
-        'no_telp',
-        'password',
-    ];
+    protected $fillable = ['name', 'status'];
 
     protected $searchableFields = ['*'];
 
-    protected $table = 'admin_cashlesses';
-
-    protected $hidden = ['password'];
-
-    public function cashlessProvider()
-    {
-        return $this->belongsTo(CashlessProvider::class);
-    }
+    protected $table = 'store_cashlesses';
 
     public function userCashlesses()
     {
-        return $this->belongsToMany(UserCashless::class);
+        return $this->hasMany(UserCashless::class);
     }
 
     public function delete_image()

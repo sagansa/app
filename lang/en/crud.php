@@ -1134,22 +1134,6 @@ return [
         ],
     ],
 
-    'admin_cashless_user_cashlesses' => [
-        'name' => 'Admin Cashless User Cashlesses',
-        'index_title' => 'User Cashlesses List',
-        'new_title' => 'New User Cashless',
-        'create_title' => 'Create User Cashless',
-        'edit_title' => 'Edit User Cashless',
-        'show_title' => 'Show User Cashless',
-        'inputs' => [
-            'store_id' => 'Store',
-            'email' => 'Email',
-            'username' => 'Username',
-            'no_telp' => 'No Telp',
-            'password' => 'Password',
-        ],
-    ],
-
     'admin_cashlesses' => [
         'name' => 'Admin Cashlesses',
         'index_title' => 'Admin Cashlesses List',
@@ -1174,12 +1158,14 @@ return [
         'edit_title' => 'Edit User Cashless',
         'show_title' => 'Show User Cashless',
         'inputs' => [
-            'admin_cashless_id' => 'Admin Cashless',
+            'cashless_provider_id' => 'Cashless Provider',
             'store_id' => 'Store',
+            'store_cashless_id' => 'Store Cashless',
             'email' => 'Email',
             'username' => 'Username',
             'no_telp' => 'No Telp',
             'password' => 'Password',
+            'status' => 'Status',
         ],
     ],
 
@@ -1323,6 +1309,31 @@ return [
         'inputs' => [
             'image' => 'Image',
             'amount' => 'Amount',
+        ],
+    ],
+
+    'admin_cashless_user_cashlesses' => [
+        'name' => 'Admin Cashless User Cashlesses',
+        'index_title' => ' List',
+        'new_title' => 'New Admin Cashless User Cashless',
+        'create_title' => 'Create Admin Cashless User Cashlesses',
+        'edit_title' => 'Edit Admin Cashless User Cashlesses',
+        'show_title' => 'Show Admin Cashless User Cashlesses',
+        'inputs' => [
+            'user_cashless_id' => 'User Cashless',
+        ],
+    ],
+
+    'store_cashlesses' => [
+        'name' => 'Store Cashlesses',
+        'index_title' => 'Store Cashlesses List',
+        'new_title' => 'New Store Cashless',
+        'create_title' => 'Create Store Cashless',
+        'edit_title' => 'Edit Store Cashless',
+        'show_title' => 'Show Store Cashless',
+        'inputs' => [
+            'name' => 'Name',
+            'status' => 'Status',
         ],
     ],
 

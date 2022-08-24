@@ -353,6 +353,9 @@
                   <x-sidebars.dropdown-link href="{{ route('admin-cashlesses.index') }}">
                       Admin Cashlesses
                   </x-sidebars.dropdown-link>
+                  <x-sidebars.dropdown-link href="{{ route('store-cashlesses.index') }}">
+                      Store Cashlesses
+                  </x-sidebars.dropdown-link>
                   <x-sidebars.dropdown-link href="{{ route('stores.index') }}">
                       Stores
                   </x-sidebars.dropdown-link>

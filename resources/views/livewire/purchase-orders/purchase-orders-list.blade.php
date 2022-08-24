@@ -128,6 +128,7 @@
                         @endrole
                         <x-tables.td-left-main>
                             <x-slot name="main">
+
                                 @if ($purchaseOrder->image == null)
                                     <x-partials.thumbnail src="" />
                                 @else
@@ -138,7 +139,8 @@
                                 @endif
                             </x-slot>
                             <x-slot name="sub">
-                                <p>{{ optional($purchaseOrder->store)->nickname ?? '-' }}</p>
+                                <p>{{ $purchaseOrder->id }} -{{ optional($purchaseOrder->store)->nickname ?? '-' }}
+                                </p>
                                 <p>{{ optional($purchaseOrder->supplier)->name ?? '-' }}</p>
                                 <p>
                                     @if ($purchaseOrder->payment_type_id == '1')
@@ -166,7 +168,8 @@
                             </x-slot>
                         </x-tables.td-left-main>
 
-                        <x-tables.td-left-hide>{{ optional($purchaseOrder->store)->nickname ?? '-' }}
+                        <x-tables.td-left-hide>{{ $purchaseOrder->id }} -
+                            {{ optional($purchaseOrder->store)->nickname ?? '-' }}
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
                             <p>{{ optional($purchaseOrder->supplier)->name ?? '-' }}</p>

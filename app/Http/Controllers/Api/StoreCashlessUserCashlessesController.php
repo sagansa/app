@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Models\StoreCashless;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCashlessResource;
 use App\Http\Resources\UserCashlessCollection;
 
-class StoreUserCashlessesController extends Controller
+class StoreCashlessUserCashlessesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Store $store
+     * @param \App\Models\StoreCashless $storeCashless
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Store $store)
+    public function index(Request $request, StoreCashless $storeCashless)
     {
-        $this->authorize('view', $store);
+        $this->authorize('view', $storeCashless);
 
         $search = $request->get('search', '');
 
-        $userCashlesses = $store
+        $userCashlesses = $storeCashless
             ->userCashlesses()
             ->search($search)
             ->latest()
@@ -32,10 +32,10 @@ class StoreUserCashlessesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Store $store
+     * @param \App\Models\StoreCashless $storeCashless
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Store $store)
+    public function store(Request $request, StoreCashless $storeCashless)
     {
         $this->authorize('create', UserCashless::class);
 
@@ -44,7 +44,7 @@ class StoreUserCashlessesController extends Controller
                 'required',
                 'exists:cashless_providers,id',
             ],
-            'store_cashless_id' => ['required', 'exists:store_cashlesses,id'],
+            'store_id' => ['required', 'exists:stores,id'],
             'email' => ['nullable', 'email'],
             'username' => ['nullable', 'max:50', 'string'],
             'no_telp' => ['nullable', 'max:255', 'string'],
@@ -52,7 +52,7 @@ class StoreUserCashlessesController extends Controller
             'status' => ['required', 'max:255'],
         ]);
 
-        $userCashless = $store->userCashlesses()->create($validated);
+        $userCashless = $storeCashless->userCashlesses()->create($validated);
 
         return new UserCashlessResource($userCashless);
     }

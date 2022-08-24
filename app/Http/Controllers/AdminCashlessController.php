@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Image;
-use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Models\AdminCashless;
 use App\Models\CashlessProvider;
@@ -43,13 +42,10 @@ class AdminCashlessController extends Controller
         $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
-        $stores = Store::orderBy('name', 'asc')
-            // ->whereIn('status', ['1'])
-            ->pluck('nickname', 'id');
 
         return view(
             'app.admin_cashlesses.create',
-            compact('cashlessProviders', 'stores')
+            compact('cashlessProviders')
         );
     }
 
@@ -62,6 +58,9 @@ class AdminCashlessController extends Controller
         $this->authorize('create', AdminCashless::class);
 
         $validated = $request->validated();
+
+        $validated['created_by_id'] = auth()->user()->id;
+        $validated['status'] = '1';
 
         $adminCashless = AdminCashless::create($validated);
 
@@ -94,13 +93,10 @@ class AdminCashlessController extends Controller
         $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
-        $stores = Store::orderBy('name', 'asc')
-            // ->whereNotIn('status', ['1'])
-            ->pluck('nickname', 'id');
 
         return view(
             'app.admin_cashlesses.edit',
-            compact('adminCashless', 'cashlessProviders', 'stores')
+            compact('adminCashless', 'cashlessProviders')
         );
     }
 

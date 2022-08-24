@@ -11,7 +11,7 @@ use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminCashlessUserCashlessesTest extends TestCase
+class UserCashlessAdminCashlessesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -31,41 +31,41 @@ class AdminCashlessUserCashlessesTest extends TestCase
     /**
      * @test
      */
-    public function it_gets_admin_cashless_user_cashlesses()
+    public function it_gets_user_cashless_admin_cashlesses()
     {
-        $adminCashless = AdminCashless::factory()->create();
         $userCashless = UserCashless::factory()->create();
+        $adminCashless = AdminCashless::factory()->create();
 
-        $adminCashless->userCashlesses()->attach($userCashless);
+        $userCashless->adminCashlesses()->attach($adminCashless);
 
         $response = $this->getJson(
-            route('api.admin-cashlesses.user-cashlesses.index', $adminCashless)
+            route('api.user-cashlesses.admin-cashlesses.index', $userCashless)
         );
 
-        $response->assertOk()->assertSee($userCashless->email);
+        $response->assertOk()->assertSee($adminCashless->username);
     }
 
     /**
      * @test
      */
-    public function it_can_attach_user_cashlesses_to_admin_cashless()
+    public function it_can_attach_admin_cashlesses_to_user_cashless()
     {
-        $adminCashless = AdminCashless::factory()->create();
         $userCashless = UserCashless::factory()->create();
+        $adminCashless = AdminCashless::factory()->create();
 
         $response = $this->postJson(
-            route('api.admin-cashlesses.user-cashlesses.store', [
-                $adminCashless,
+            route('api.user-cashlesses.admin-cashlesses.store', [
                 $userCashless,
+                $adminCashless,
             ])
         );
 
         $response->assertNoContent();
 
         $this->assertTrue(
-            $adminCashless
-                ->userCashlesses()
-                ->where('user_cashlesses.id', $userCashless->id)
+            $userCashless
+                ->adminCashlesses()
+                ->where('admin_cashlesses.id', $adminCashless->id)
                 ->exists()
         );
     }
@@ -73,24 +73,24 @@ class AdminCashlessUserCashlessesTest extends TestCase
     /**
      * @test
      */
-    public function it_can_detach_user_cashlesses_from_admin_cashless()
+    public function it_can_detach_admin_cashlesses_from_user_cashless()
     {
-        $adminCashless = AdminCashless::factory()->create();
         $userCashless = UserCashless::factory()->create();
+        $adminCashless = AdminCashless::factory()->create();
 
         $response = $this->deleteJson(
-            route('api.admin-cashlesses.user-cashlesses.store', [
-                $adminCashless,
+            route('api.user-cashlesses.admin-cashlesses.store', [
                 $userCashless,
+                $adminCashless,
             ])
         );
 
         $response->assertNoContent();
 
         $this->assertFalse(
-            $adminCashless
-                ->userCashlesses()
-                ->where('user_cashlesses.id', $userCashless->id)
+            $userCashless
+                ->adminCashlesses()
+                ->where('admin_cashlesses.id', $adminCashless->id)
                 ->exists()
         );
     }

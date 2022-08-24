@@ -351,6 +351,12 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update storeassets']);
         Permission::create(['name' => 'delete storeassets']);
 
+        Permission::create(['name' => 'list storecashlesses']);
+        Permission::create(['name' => 'view storecashlesses']);
+        Permission::create(['name' => 'create storecashlesses']);
+        Permission::create(['name' => 'update storecashlesses']);
+        Permission::create(['name' => 'delete storecashlesses']);
+
         Permission::create(['name' => 'list suppliers']);
         Permission::create(['name' => 'view suppliers']);
         Permission::create(['name' => 'create suppliers']);

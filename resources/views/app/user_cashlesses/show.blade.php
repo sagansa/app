@@ -17,10 +17,10 @@
                 <x-shows.dl>
                     <x-shows.sub-dl>
                         <x-shows.dt
-                            >@lang('crud.user_cashlesses.inputs.admin_cashless_id')</x-shows.dt
+                            >@lang('crud.user_cashlesses.inputs.cashless_provider_id')</x-shows.dt
                         >
                         <x-shows.dd
-                            >{{ optional($userCashless->adminCashless)->username
+                            >{{ optional($userCashless->cashlessProvider)->name
                             ?? '-' }}</x-shows.dd
                         >
                     </x-shows.sub-dl>
@@ -31,6 +31,15 @@
                         <x-shows.dd
                             >{{ optional($userCashless->store)->name ?? '-'
                             }}</x-shows.dd
+                        >
+                    </x-shows.sub-dl>
+                    <x-shows.sub-dl>
+                        <x-shows.dt
+                            >@lang('crud.user_cashlesses.inputs.store_cashless_id')</x-shows.dt
+                        >
+                        <x-shows.dd
+                            >{{ optional($userCashless->storeCashless)->name ??
+                            '-' }}</x-shows.dd
                         >
                     </x-shows.sub-dl>
                     <x-shows.sub-dl>
@@ -63,6 +72,14 @@
                         >
                         <x-shows.dd
                             >{{ $userCashless->password ?? '-' }}</x-shows.dd
+                        >
+                    </x-shows.sub-dl>
+                    <x-shows.sub-dl>
+                        <x-shows.dt
+                            >@lang('crud.user_cashlesses.inputs.status')</x-shows.dt
+                        >
+                        <x-shows.dd
+                            >{{ $userCashless->status ?? '-' }}</x-shows.dd
                         >
                     </x-shows.sub-dl>
                     <x-shows.sub-dl>

@@ -120,8 +120,6 @@
                         label="Payment Status"
                         wire:model="purchaseOrder.payment_status"
                     >
-                        <option value="1" {{ $selected == '1' ? 'selected' : '' }} >belum ditransfer</option>
-                        <option value="2" {{ $selected == '2' ? 'selected' : '' }} >sudah ditransfer</option>
                     </x-input.select>
 
                     <x-input.select
@@ -129,9 +127,6 @@
                         label="Order Status"
                         wire:model="purchaseOrder.order_status"
                     >
-                        <option value="1" {{ $selected == '1' ? 'selected' : '' }} >belum diterima</option>
-                        <option value="2" {{ $selected == '2' ? 'selected' : '' }} >sudah diterima</option>
-                        <option value="3" {{ $selected == '3' ? 'selected' : '' }} >dikembalikan</option>
                     </x-input.select>
 
                     <x-input.textarea
