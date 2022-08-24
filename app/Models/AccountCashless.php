@@ -72,6 +72,6 @@ class AccountCashless extends Model
 
     public function getAccountCashlessNameAttribute()
     {
-        return $this->cashlessProvider->name . ' - ' . $this->storeCashless->name;
+        return $this->cashlessProvider->name . ' - ' . $this->storeCashless->name . ' - ' . $this->store->nickname;
     }
 }
