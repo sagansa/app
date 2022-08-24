@@ -203,10 +203,11 @@
                         @endrole
 
                         <x-tables.td-left-hide>
-                            @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
+                            {{-- @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
                                 <p>{{ $purchaseOrderProduct->product->name }}</p>
                                 <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
-                            @endforeach
+                            @endforeach --}}
+                            <p>{{ $purchaseOrder->purchase_order_products_sum_subtotal_invoice }}</p>
                         </x-tables.td-left-hide>
                         @role('super-admin')
                             <x-tables.td-left-hide>

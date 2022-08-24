@@ -49,7 +49,7 @@ class PurchaseOrdersList extends Component
 
     public function getRowsQueryProperty()
     {
-        $purchaseOrders = PurchaseOrder::query()
+        $purchaseOrders = PurchaseOrder::withSum('purchaseOrderProducts', 'subtotal_invoice')
             ->select('*')
             ->join('stores', 'stores.id', '=', 'purchase_orders.store_id')
             ->join('payment_types', 'payment_types.id', '=', 'purchase_orders.payment_type_id')
@@ -85,6 +85,7 @@ class PurchaseOrdersList extends Component
 
     public function render()
     {
+        // dd($this->rows);
         return view('livewire.purchase-orders.purchase-orders-list', [
             'purchaseOrders' => $this->rows,
         ]);
