@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\UserCashless;
 use Illuminate\Http\Request;
+use App\Models\AccountCashless;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CashlessResource;
 use App\Http\Resources\CashlessCollection;
 
-class UserCashlessCashlessesController extends Controller
+class AccountCashlessCashlessesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AccountCashless $accountCashless
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, UserCashless $userCashless)
+    public function index(Request $request, AccountCashless $accountCashless)
     {
-        $this->authorize('view', $userCashless);
+        $this->authorize('view', $accountCashless);
 
         $search = $request->get('search', '');
 
-        $cashlesses = $userCashless
+        $cashlesses = $accountCashless
             ->cashlesses()
             ->search($search)
             ->latest()
@@ -32,21 +32,21 @@ class UserCashlessCashlessesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AccountCashless $accountCashless
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UserCashless $userCashless)
+    public function store(Request $request, AccountCashless $accountCashless)
     {
         $this->authorize('create', Cashless::class);
 
         $validated = $request->validate([
             'image' => ['nullable', 'image'],
+            'bruto_apl' => ['required', 'numeric', 'min:0'],
+            'netto_apl' => ['nullable', 'numeric', 'min:0'],
             'image_canceled' => ['image', 'nullable'],
-            'canceled' => ['required', 'numeric'],
-            'bruto_apl' => ['required', 'numeric'],
-            'netto_apl' => ['nullable', 'numeric'],
-            'bruto_real' => ['nullable', 'numeric'],
-            'netto_real' => ['nullable', 'numeric'],
+            'canceled' => ['required', 'numeric', 'min:0'],
+            'bruto_real' => ['nullable', 'numeric', 'min:0'],
+            'netto_real' => ['nullable', 'numeric', 'min:0'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -59,7 +59,7 @@ class UserCashlessCashlessesController extends Controller
                 ->store('public');
         }
 
-        $cashless = $userCashless->cashlesses()->create($validated);
+        $cashless = $accountCashless->cashlesses()->create($validated);
 
         return new CashlessResource($cashless);
     }

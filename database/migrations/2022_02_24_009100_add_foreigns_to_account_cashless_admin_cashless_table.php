@@ -12,20 +12,20 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('admin_cashless_user_cashless', function (
+        Schema::table('account_cashless_admin_cashless', function (
             Blueprint $table
         ) {
             $table
-                ->foreign('admin_cashless_id')
+                ->foreign('account_cashless_id')
                 ->references('id')
-                ->on('admin_cashlesses')
+                ->on('account_cashlesses')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
 
             $table
-                ->foreign('user_cashless_id')
+                ->foreign('admin_cashless_id')
                 ->references('id')
-                ->on('user_cashlesses')
+                ->on('admin_cashlesses')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });
@@ -38,11 +38,11 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::table('admin_cashless_user_cashless', function (
+        Schema::table('account_cashless_admin_cashless', function (
             Blueprint $table
         ) {
+            $table->dropForeign(['account_cashless_id']);
             $table->dropForeign(['admin_cashless_id']);
-            $table->dropForeign(['user_cashless_id']);
         });
     }
 };

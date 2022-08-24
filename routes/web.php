@@ -30,7 +30,6 @@ use App\Http\Controllers\RequestStockController;
 use App\Http\Controllers\CleanAndNeatController;
 use App\Http\Controllers\OutInProductController;
 use App\Http\Controllers\UtilityUsageController;
-use App\Http\Controllers\UserCashlessController;
 use App\Http\Controllers\ClosingStoreController;
 use App\Http\Controllers\MaterialGroupController;
 use App\Http\Controllers\MonthlySalaryController;
@@ -48,6 +47,7 @@ use App\Http\Controllers\ReceiptLoyverseController;
 use App\Http\Controllers\UtilityProviderController;
 use App\Http\Controllers\SelfConsumptionController;
 use App\Http\Controllers\PurchaseReceiptController;
+use App\Http\Controllers\AccountCashlessController;
 use App\Http\Controllers\CashlessProviderController;
 use App\Http\Controllers\SalesOrderOnlineController;
 use App\Http\Controllers\OnlineShopProviderController;
@@ -157,7 +157,6 @@ Route::prefix('/')
         );
         Route::resource('store-assets', StoreAssetController::class);
         Route::resource('admin-cashlesses', AdminCashlessController::class);
-        Route::resource('user-cashlesses', UserCashlessController::class);
         Route::resource('purchase-receipts', PurchaseReceiptController::class);
         Route::resource('closing-stores', ClosingStoreController::class);
         Route::resource(
@@ -165,4 +164,5 @@ Route::prefix('/')
             TransferDailySalaryController::class
         );
         Route::resource('store-cashlesses', StoreCashlessController::class);
+        Route::resource('account-cashlesses', AccountCashlessController::class);
     });

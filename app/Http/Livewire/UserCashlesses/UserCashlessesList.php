@@ -31,7 +31,7 @@ class UserCashlessesList extends Component
 
     protected $queryString = [
         'sortColumn' => [
-        'except' => 'user_cashlesses.date'
+        'except' => 'user_cashlesses.created_at'
         ],
         'sortDirection' => [
             'except' => 'desc',
@@ -54,7 +54,7 @@ class UserCashlessesList extends Component
     public function getRowsQueryProperty()
     {
         $userCashlesses = UserCashless::query()
-            ->select('*')
+            ->select(['user_cashlesses.*', 'stores.name as storename'])
             ->join('stores', 'stores.id', '=', 'user_cashlesses.store_id')
             ->join('cashless_providers', 'cashless_providers.id', '=', 'user_cashlesses.cashless_provider_id')
             ->join('store_cashlesses', 'store_cashlesses.id', '=', 'user_cashlesses.store_cashless_id');
@@ -78,32 +78,34 @@ class UserCashlessesList extends Component
         });
     }
 
-    // public function render()
-    // {
-    //     return view('livewire.user-cashlesses.user-cashlesses-list', [
-    //         'userCashlesses' => $this->rows,
-    //     ]);
-    // }
-
     public function render()
     {
-        $userCashlesses = UserCashless::query()
-            ->select('*')
-            ->join('stores', 'stores.id', '=', 'user_cashlesses.store_id')
-            ->join('cashless_providers', 'cashless_providers.id', '=', 'user_cashlesses.cashless_provider_id')
-            ->join('store_cashlesses', 'store_cashlesses.id', '=', 'user_cashlesses.store_cashless_id');
-
-        foreach($this->filters as $filter => $value) {
-            if (!empty($value)) {
-                $userCashlesses
-                    ->when($filter == 'store_id', fn($userCashlesses) => $userCashlesses->whereRelation('store', 'id', $value))
-                    ->when($filter == 'cashless_provider_id', fn($userCashlesses) => $userCashlesses->whereRelation('cashlessProvider', 'id', $value))
-                    ->when($filter == 'store_cashless_id', fn($userCashlesses) => $userCashlesses->whereRelation('storeCashless', 'id', $value));
-            }
-        }
-
+        // $userCashlesses = UserCashless::get();
+        dd($this->rows);
         return view('livewire.user-cashlesses.user-cashlesses-list', [
-            'userCashlesses' => $userCashlesses->paginate(20),
+            'userCashlesses' => $this->rows,
         ]);
     }
+
+    // public function render()
+    // {
+    //     $userCashlesses = UserCashless::query()
+    //         ->select('*')
+    //         ->join('stores', 'stores.id', '=', 'user_cashlesses.store_id')
+    //         ->join('cashless_providers', 'cashless_providers.id', '=', 'user_cashlesses.cashless_provider_id')
+    //         ->join('store_cashlesses', 'store_cashlesses.id', '=', 'user_cashlesses.store_cashless_id');
+
+    //     foreach($this->filters as $filter => $value) {
+    //         if (!empty($value)) {
+    //             $userCashlesses
+    //                 ->when($filter == 'store_id', fn($userCashlesses) => $userCashlesses->whereRelation('store', 'id', $value))
+    //                 ->when($filter == 'cashless_provider_id', fn($userCashlesses) => $userCashlesses->whereRelation('cashlessProvider', 'id', $value))
+    //                 ->when($filter == 'store_cashless_id', fn($userCashlesses) => $userCashlesses->whereRelation('storeCashless', 'id', $value));
+    //         }
+    //     }
+
+    //     return view('livewire.user-cashlesses.user-cashlesses-list', [
+    //         'userCashlesses' => $userCashlesses->paginate(20),
+    //     ]);
+    // }
 }

@@ -1,8 +1,8 @@
-@if ($userCashless->status != 2)
+@if ($accountCashless->status != 2)
 <x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.user_cashlesses.edit_title')
+            @lang('crud.account_cashlesses.edit_title')
         </h2>
     </x-slot>
 
@@ -10,21 +10,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-partials.card>
                 <x-slot name="title">
-                    <a href="{{ route('user-cashlesses.index') }}" class="mr-4"
+                    <a
+                        href="{{ route('account-cashlesses.index') }}"
+                        class="mr-4"
                         ><i class="mr-1 icon ion-md-arrow-back"></i
                     ></a>
                 </x-slot>
 
                 <x-form
                     method="PUT"
-                    action="{{ route('user-cashlesses.update', $userCashless) }}"
+                    action="{{ route('account-cashlesses.update', $accountCashless) }}"
                     class="mt-4"
                 >
-                    @include('app.user_cashlesses.form-inputs')
+                    @include('app.account_cashlesses.form-inputs')
 
                     <div class="mt-10">
                         <a
-                            href="{{ route('user-cashlesses.index') }}"
+                            href="{{ route('account-cashlesses.index') }}"
                             class="button"
                         >
                             <i
@@ -50,7 +52,7 @@
 </x-admin-layout>
 @else
 <x-admin-layout>
-    <a href="{{ route('user-cashlesses.index') }}" class="button">
+    <a href="{{ route('account-cashlesses.index') }}" class="button">
         <i class="mr-1 icon ion-md-return-left text-primary"></i>
         FORBIDDEN ACCESS @lang('crud.common.back')
     </a>

@@ -258,11 +258,6 @@
                         Admin Cashlesses
                         </x-dropdown-link>
                         @endcan
-                        @can('view-any', App\Models\UserCashless::class)
-                        <x-dropdown-link href="{{ route('user-cashlesses.index') }}">
-                        User Cashlesses
-                        </x-dropdown-link>
-                        @endcan
                         @can('view-any', App\Models\PurchaseReceipt::class)
                         <x-dropdown-link href="{{ route('purchase-receipts.index') }}">
                         Purchase Receipts
@@ -281,6 +276,11 @@
                         @can('view-any', App\Models\StoreCashless::class)
                         <x-dropdown-link href="{{ route('store-cashlesses.index') }}">
                         Store Cashlesses
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\AccountCashless::class)
+                        <x-dropdown-link href="{{ route('account-cashlesses.index') }}">
+                        Account Cashlesses
                         </x-dropdown-link>
                         @endcan
                 </x-nav-dropdown>
@@ -665,11 +665,6 @@
                 Admin Cashlesses
                 </x-jet-responsive-nav-link>
                 @endcan
-                @can('view-any', App\Models\UserCashless::class)
-                <x-jet-responsive-nav-link href="{{ route('user-cashlesses.index') }}">
-                User Cashlesses
-                </x-jet-responsive-nav-link>
-                @endcan
                 @can('view-any', App\Models\PurchaseReceipt::class)
                 <x-jet-responsive-nav-link href="{{ route('purchase-receipts.index') }}">
                 Purchase Receipts
@@ -688,6 +683,11 @@
                 @can('view-any', App\Models\StoreCashless::class)
                 <x-jet-responsive-nav-link href="{{ route('store-cashlesses.index') }}">
                 Store Cashlesses
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\AccountCashless::class)
+                <x-jet-responsive-nav-link href="{{ route('account-cashlesses.index') }}">
+                Account Cashlesses
                 </x-jet-responsive-nav-link>
                 @endcan
 

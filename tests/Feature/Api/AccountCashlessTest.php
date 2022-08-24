@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\Models\User;
-use App\Models\UserCashless;
+use App\Models\AccountCashless;
 
 use App\Models\Store;
 use App\Models\StoreCashless;
@@ -14,7 +14,7 @@ use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserCashlessTest extends TestCase
+class AccountCashlessTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -34,29 +34,32 @@ class UserCashlessTest extends TestCase
     /**
      * @test
      */
-    public function it_gets_user_cashlesses_list()
+    public function it_gets_account_cashlesses_list()
     {
-        $userCashlesses = UserCashless::factory()
+        $accountCashlesses = AccountCashless::factory()
             ->count(5)
             ->create();
 
-        $response = $this->getJson(route('api.user-cashlesses.index'));
+        $response = $this->getJson(route('api.account-cashlesses.index'));
 
-        $response->assertOk()->assertSee($userCashlesses[0]->email);
+        $response->assertOk()->assertSee($accountCashlesses[0]->email);
     }
 
     /**
      * @test
      */
-    public function it_stores_the_user_cashless()
+    public function it_stores_the_account_cashless()
     {
-        $data = UserCashless::factory()
+        $data = AccountCashless::factory()
             ->make()
             ->toArray();
 
-        $response = $this->postJson(route('api.user-cashlesses.store'), $data);
+        $response = $this->postJson(
+            route('api.account-cashlesses.store'),
+            $data
+        );
 
-        $this->assertDatabaseHas('user_cashlesses', $data);
+        $this->assertDatabaseHas('account_cashlesses', $data);
 
         $response->assertStatus(201)->assertJsonFragment($data);
     }
@@ -64,32 +67,33 @@ class UserCashlessTest extends TestCase
     /**
      * @test
      */
-    public function it_updates_the_user_cashless()
+    public function it_updates_the_account_cashless()
     {
-        $userCashless = UserCashless::factory()->create();
+        $accountCashless = AccountCashless::factory()->create();
 
+        $cashlessProvider = CashlessProvider::factory()->create();
         $store = Store::factory()->create();
         $storeCashless = StoreCashless::factory()->create();
-        $cashlessProvider = CashlessProvider::factory()->create();
 
         $data = [
             'email' => $this->faker->email,
-            'username' => $this->faker->text(50),
+            'username' => $this->faker->text(255),
             'no_telp' => $this->faker->randomNumber,
             'status' => $this->faker->numberBetween(1, 2),
+            'notes' => $this->faker->text,
+            'cashless_provider_id' => $cashlessProvider->id,
             'store_id' => $store->id,
             'store_cashless_id' => $storeCashless->id,
-            'cashless_provider_id' => $cashlessProvider->id,
         ];
 
         $response = $this->putJson(
-            route('api.user-cashlesses.update', $userCashless),
+            route('api.account-cashlesses.update', $accountCashless),
             $data
         );
 
-        $data['id'] = $userCashless->id;
+        $data['id'] = $accountCashless->id;
 
-        $this->assertDatabaseHas('user_cashlesses', $data);
+        $this->assertDatabaseHas('account_cashlesses', $data);
 
         $response->assertOk()->assertJsonFragment($data);
     }
@@ -97,15 +101,15 @@ class UserCashlessTest extends TestCase
     /**
      * @test
      */
-    public function it_deletes_the_user_cashless()
+    public function it_deletes_the_account_cashless()
     {
-        $userCashless = UserCashless::factory()->create();
+        $accountCashless = AccountCashless::factory()->create();
 
         $response = $this->deleteJson(
-            route('api.user-cashlesses.destroy', $userCashless)
+            route('api.account-cashlesses.destroy', $accountCashless)
         );
 
-        $this->assertModelMissing($userCashless);
+        $this->assertModelMissing($accountCashless);
 
         $response->assertNoContent();
     }

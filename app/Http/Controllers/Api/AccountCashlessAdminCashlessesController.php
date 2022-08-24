@@ -2,25 +2,25 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Models\UserCashless;
 use App\Models\AdminCashless;
+use App\Models\AccountCashless;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdminCashlessCollection;
 
-class UserCashlessAdminCashlessesController extends Controller
+class AccountCashlessAdminCashlessesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AccountCashless $accountCashless
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, UserCashless $userCashless)
+    public function index(Request $request, AccountCashless $accountCashless)
     {
-        $this->authorize('view', $userCashless);
+        $this->authorize('view', $accountCashless);
 
         $search = $request->get('search', '');
 
-        $adminCashlesses = $userCashless
+        $adminCashlesses = $accountCashless
             ->adminCashlesses()
             ->search($search)
             ->latest()
@@ -31,18 +31,18 @@ class UserCashlessAdminCashlessesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AccountCashless $accountCashless
      * @param \App\Models\AdminCashless $adminCashless
      * @return \Illuminate\Http\Response
      */
     public function store(
         Request $request,
-        UserCashless $userCashless,
+        AccountCashless $accountCashless,
         AdminCashless $adminCashless
     ) {
-        $this->authorize('update', $userCashless);
+        $this->authorize('update', $accountCashless);
 
-        $userCashless
+        $accountCashless
             ->adminCashlesses()
             ->syncWithoutDetaching([$adminCashless->id]);
 
@@ -51,18 +51,18 @@ class UserCashlessAdminCashlessesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UserCashless $userCashless
+     * @param \App\Models\AccountCashless $accountCashless
      * @param \App\Models\AdminCashless $adminCashless
      * @return \Illuminate\Http\Response
      */
     public function destroy(
         Request $request,
-        UserCashless $userCashless,
+        AccountCashless $accountCashless,
         AdminCashless $adminCashless
     ) {
-        $this->authorize('update', $userCashless);
+        $this->authorize('update', $accountCashless);
 
-        $userCashless->adminCashlesses()->detach($adminCashless);
+        $accountCashless->adminCashlesses()->detach($adminCashless);
 
         return response()->noContent();
     }

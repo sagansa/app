@@ -41,13 +41,16 @@ class ClosingStoreCashlessesController extends Controller
 
         $validated = $request->validate([
             'image' => ['nullable', 'image'],
-            'user_cashless_id' => ['required', 'exists:user_cashlesses,id'],
+            'account_cashless_id' => [
+                'required',
+                'exists:account_cashlesses,id',
+            ],
+            'bruto_apl' => ['required', 'numeric', 'min:0'],
+            'netto_apl' => ['nullable', 'numeric', 'min:0'],
             'image_canceled' => ['image', 'nullable'],
-            'canceled' => ['required', 'numeric'],
-            'bruto_apl' => ['required', 'numeric'],
-            'netto_apl' => ['nullable', 'numeric'],
-            'bruto_real' => ['nullable', 'numeric'],
-            'netto_real' => ['nullable', 'numeric'],
+            'canceled' => ['required', 'numeric', 'min:0'],
+            'bruto_real' => ['nullable', 'numeric', 'min:0'],
+            'netto_real' => ['nullable', 'numeric', 'min:0'],
         ]);
 
         if ($request->hasFile('image')) {

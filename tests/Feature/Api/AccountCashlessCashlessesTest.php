@@ -4,14 +4,14 @@ namespace Tests\Feature\Api;
 
 use App\Models\User;
 use App\Models\Cashless;
-use App\Models\UserCashless;
+use App\Models\AccountCashless;
 
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserCashlessCashlessesTest extends TestCase
+class AccountCashlessCashlessesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -31,17 +31,17 @@ class UserCashlessCashlessesTest extends TestCase
     /**
      * @test
      */
-    public function it_gets_user_cashless_cashlesses()
+    public function it_gets_account_cashless_cashlesses()
     {
-        $userCashless = UserCashless::factory()->create();
+        $accountCashless = AccountCashless::factory()->create();
         $cashlesses = Cashless::factory()
             ->count(2)
             ->create([
-                'user_cashless_id' => $userCashless->id,
+                'account_cashless_id' => $accountCashless->id,
             ]);
 
         $response = $this->getJson(
-            route('api.user-cashlesses.cashlesses.index', $userCashless)
+            route('api.account-cashlesses.cashlesses.index', $accountCashless)
         );
 
         $response->assertOk()->assertSee($cashlesses[0]->image);
@@ -50,17 +50,17 @@ class UserCashlessCashlessesTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_the_user_cashless_cashlesses()
+    public function it_stores_the_account_cashless_cashlesses()
     {
-        $userCashless = UserCashless::factory()->create();
+        $accountCashless = AccountCashless::factory()->create();
         $data = Cashless::factory()
             ->make([
-                'user_cashless_id' => $userCashless->id,
+                'account_cashless_id' => $accountCashless->id,
             ])
             ->toArray();
 
         $response = $this->postJson(
-            route('api.user-cashlesses.cashlesses.store', $userCashless),
+            route('api.account-cashlesses.cashlesses.store', $accountCashless),
             $data
         );
 
@@ -72,6 +72,9 @@ class UserCashlessCashlessesTest extends TestCase
 
         $cashless = Cashless::latest('id')->first();
 
-        $this->assertEquals($userCashless->id, $cashless->user_cashless_id);
+        $this->assertEquals(
+            $accountCashless->id,
+            $cashless->account_cashless_id
+        );
     }
 }

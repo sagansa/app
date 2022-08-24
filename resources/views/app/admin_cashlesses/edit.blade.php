@@ -46,11 +46,11 @@
                 </x-form>
             </x-partials.card>
 
-            @can('view-any', App\Models\UserCashless::class)
+            @can('view-any', App\Models\AccountCashless::class)
             <x-partials.card class="mt-5">
-                <x-slot name="title"> User Cashlesses </x-slot>
+                <x-slot name="title"> Account Cashlesses </x-slot>
 
-                <livewire:admin-cashless-user-cashlesses-detail
+                <livewire:admin-cashless-account-cashlesses-detail
                     :adminCashless="$adminCashless"
                 />
             </x-partials.card>

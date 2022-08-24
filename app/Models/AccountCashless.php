@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Livewire\DataTables\HasValid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdminCashless extends Model
+class AccountCashless extends Model
 {
     use HasValid;
     use HasFactory;
@@ -22,15 +22,19 @@ class AdminCashless extends Model
 
     protected $fillable = [
         'cashless_provider_id',
-        'username',
+        'store_id',
+        'store_cashless_id',
         'email',
-        'no_telp',
+        'username',
         'password',
+        'no_telp',
+        'status',
+        'notes',
     ];
 
     protected $searchableFields = ['*'];
 
-    protected $table = 'admin_cashlesses';
+    protected $table = 'account_cashlesses';
 
     protected $hidden = ['password'];
 
@@ -39,9 +43,24 @@ class AdminCashless extends Model
         return $this->belongsTo(CashlessProvider::class);
     }
 
-    public function accountCashlesses()
+    public function store()
     {
-        return $this->belongsToMany(AccountCashless::class);
+        return $this->belongsTo(Store::class);
+    }
+
+    public function storeCashless()
+    {
+        return $this->belongsTo(StoreCashless::class);
+    }
+
+    public function cashlesses()
+    {
+        return $this->hasMany(Cashless::class);
+    }
+
+    public function adminCashlesses()
+    {
+        return $this->belongsToMany(AdminCashless::class);
     }
 
     public function delete_image()
@@ -49,5 +68,10 @@ class AdminCashless extends Model
         if ($this->image && file_exists('storage/' . $this->image)) {
             unlink('storage/' . $this->image);
         }
+    }
+
+    public function getAccountCashlessNameAttribute()
+    {
+        return $this->cashlessProvider->name . ' - ' . $this->storeCashless->name;
     }
 }

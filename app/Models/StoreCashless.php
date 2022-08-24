@@ -26,9 +26,9 @@ class StoreCashless extends Model
 
     protected $table = 'store_cashlesses';
 
-    public function userCashlesses()
+    public function accountCashlesses()
     {
-        return $this->hasMany(UserCashless::class);
+        return $this->hasMany(AccountCashless::class);
     }
 
     public function delete_image()

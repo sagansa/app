@@ -14,9 +14,9 @@ return new class extends Migration {
     {
         Schema::table('cashlesses', function (Blueprint $table) {
             $table
-                ->foreign('user_cashless_id')
+                ->foreign('account_cashless_id')
                 ->references('id')
-                ->on('user_cashlesses')
+                ->on('account_cashlesses')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
 
@@ -37,7 +37,7 @@ return new class extends Migration {
     public function down()
     {
         Schema::table('cashlesses', function (Blueprint $table) {
-            $table->dropForeign(['user_cashless_id']);
+            $table->dropForeign(['account_cashless_id']);
             $table->dropForeign(['closing_store_id']);
         });
     }

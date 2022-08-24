@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AccountCashless;
 use Image;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -50,7 +51,7 @@ class ClosingStoreCashlessesDetail extends Component
     public function mount(ClosingStore $closingStore)
     {
         $this->closingStore = $closingStore;
-        $this->userCashlessesForSelect = UserCashless::where('store_id', $this->closingStore->store_id)->get()->pluck('id', 'user_cashless_name');
+        $this->accountCashlessesForSelect = AccountCashless::where('store_id', $this->closingStore->store_id)->get()->pluck('id', 'account_cashless_name');
         $this->resetCashlessData();
     }
 

@@ -43,7 +43,6 @@
               Auth::user()->can('view-any', App\Models\ClosingStore::class) ||
               Auth::user()->can('view-any', App\Models\ClosingCourier::class) ||
               Auth::user()->can('view-any', App\Models\Refund::class) ||
-              Auth::user()->can('view-any', App\Models\UserCashless::class) ||
               Auth::user()->can('view-any', App\Models\Receipts::class))
               <x-sidebars.nav-dropdown-mobile control="transactions" title="Transactions">
                   <x-slot name="content">
@@ -100,9 +99,9 @@
                           Refunds
                       </x-sidebars.dropdown-link>
                   @endcan
-                  @can('view-any', App\Models\UserCashless::class)
-                      <x-sidebars.dropdown-link href="{{ route('user-cashlesses.index') }}">
-                          User Cashlesses
+                  @can('view-any', App\Models\AccountCashless::class)
+                      <x-sidebars.dropdown-link href="{{ route('account-cashlesses.index') }}">
+                          Account Cashlesses
                       </x-sidebars.dropdown-link>
                   @endcan
                   {{-- @can('view-any', App\Models\Receipts::class)

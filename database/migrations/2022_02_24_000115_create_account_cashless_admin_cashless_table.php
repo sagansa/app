@@ -12,11 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('admin_cashless_user_cashless', function (
+        Schema::create('account_cashless_admin_cashless', function (
             Blueprint $table
         ) {
+            $table->unsignedBigInteger('account_cashless_id');
             $table->unsignedBigInteger('admin_cashless_id');
-            $table->unsignedBigInteger('user_cashless_id');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('admin_cashless_user_cashless');
+        Schema::dropIfExists('account_cashless_admin_cashless');
     }
 };

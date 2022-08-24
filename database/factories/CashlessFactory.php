@@ -29,8 +29,8 @@ class CashlessFactory extends Factory
             'netto_real' => $this->faker->randomNumber,
             'image_canceled' => $this->faker->text(255),
             'canceled' => $this->faker->randomNumber(0),
-            'user_cashless_id' => \App\Models\UserCashless::factory(),
             'closing_store_id' => \App\Models\ClosingStore::factory(),
+            'account_cashless_id' => \App\Models\AccountCashless::factory(),
         ];
     }
 }

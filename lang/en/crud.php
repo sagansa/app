@@ -1150,25 +1150,6 @@ return [
         ],
     ],
 
-    'user_cashlesses' => [
-        'name' => 'User Cashlesses',
-        'index_title' => 'User Cashlesses List',
-        'new_title' => 'New User Cashless',
-        'create_title' => 'Create User Cashless',
-        'edit_title' => 'Edit User Cashless',
-        'show_title' => 'Show User Cashless',
-        'inputs' => [
-            'cashless_provider_id' => 'Cashless Provider',
-            'store_id' => 'Store',
-            'store_cashless_id' => 'Store Cashless',
-            'email' => 'Email',
-            'username' => 'Username',
-            'no_telp' => 'No Telp',
-            'password' => 'Password',
-            'status' => 'Status',
-        ],
-    ],
-
     'store_purchase_orders' => [
         'name' => 'Store Purchase Orders',
         'index_title' => 'Purchase Orders List',
@@ -1204,19 +1185,6 @@ return [
         ],
     ],
 
-    'closing_store_presences' => [
-        'name' => 'ClosingStore Presences',
-        'index_title' => 'Presences List',
-        'new_title' => 'New Presence',
-        'create_title' => 'Create Presence',
-        'edit_title' => 'Edit Presence',
-        'show_title' => 'Show Presence',
-        'inputs' => [
-            'created_by_id' => 'Created By',
-            'amount' => 'Amount',
-        ],
-    ],
-
     'closing_store_purchase_orders' => [
         'name' => 'ClosingStore Purchase Orders',
         'index_title' => ' List',
@@ -1226,25 +1194,6 @@ return [
         'show_title' => 'Show closing_store_purchase_order',
         'inputs' => [
             'purchase_order_id' => 'Purchase Order',
-        ],
-    ],
-
-    'closing_store_cashlesses' => [
-        'name' => 'ClosingStore Cashlesses',
-        'index_title' => 'Cashlesses List',
-        'new_title' => 'New Cashless',
-        'create_title' => 'Create Cashless',
-        'edit_title' => 'Edit Cashless',
-        'show_title' => 'Show Cashless',
-        'inputs' => [
-            'image' => 'Image',
-            'user_cashless_id' => 'User Cashless',
-            'image_canceled' => 'Image Canceled',
-            'canceled' => 'Canceled',
-            'bruto_apl' => 'Bruto Application',
-            'netto_apl' => 'Netto Application',
-            'bruto_real' => 'Bruto Real',
-            'netto_real' => 'Netto Real',
         ],
     ],
 
@@ -1312,18 +1261,6 @@ return [
         ],
     ],
 
-    'admin_cashless_user_cashlesses' => [
-        'name' => 'Admin Cashless User Cashlesses',
-        'index_title' => ' List',
-        'new_title' => 'New Admin Cashless User Cashless',
-        'create_title' => 'Create Admin Cashless User Cashlesses',
-        'edit_title' => 'Edit Admin Cashless User Cashlesses',
-        'show_title' => 'Show Admin Cashless User Cashlesses',
-        'inputs' => [
-            'user_cashless_id' => 'User Cashless',
-        ],
-    ],
-
     'store_cashlesses' => [
         'name' => 'Store Cashlesses',
         'index_title' => 'Store Cashlesses List',
@@ -1334,6 +1271,70 @@ return [
         'inputs' => [
             'name' => 'Name',
             'status' => 'Status',
+        ],
+    ],
+
+    'closing_store_presences' => [
+        'name' => 'Closing Store Presences',
+        'index_title' => 'Presences List',
+        'new_title' => 'New Presence',
+        'create_title' => 'Create Presence',
+        'edit_title' => 'Edit Presence',
+        'show_title' => 'Show Presence',
+        'inputs' => [
+            'created_by_id' => 'Created By',
+            'amount' => 'Amount',
+        ],
+    ],
+
+    'admin_cashless_account_cashlesses' => [
+        'name' => 'Admin Cashless Account Cashlesses',
+        'index_title' => ' List',
+        'new_title' => 'New Account cashless admin cashless',
+        'create_title' => 'Create Admin Cashless Account Cashlesses',
+        'edit_title' => 'Edit Admin Cashless Account Cashlesses',
+        'show_title' => 'Show Admin Cashless Account Cashlesses',
+        'inputs' => [
+            'account_cashless_id' => 'Account Cashless',
+        ],
+    ],
+
+    'closing_store_cashlesses' => [
+        'name' => 'Closing Store Cashlesses',
+        'index_title' => 'Cashlesses List',
+        'new_title' => 'New Cashless',
+        'create_title' => 'Create Cashless',
+        'edit_title' => 'Edit Cashless',
+        'show_title' => 'Show Cashless',
+        'inputs' => [
+            'image' => 'Image',
+            'account_cashless_id' => 'Account Cashless',
+            'bruto_apl' => 'Bruto Apl',
+            'netto_apl' => 'Netto Apl',
+            'image_canceled' => 'Image Canceled',
+            'canceled' => 'Canceled',
+            'bruto_real' => 'Bruto Real',
+            'netto_real' => 'Netto Real',
+        ],
+    ],
+
+    'account_cashlesses' => [
+        'name' => 'Account Cashlesses',
+        'index_title' => 'Account Cashlesses List',
+        'new_title' => 'New Account cashless',
+        'create_title' => 'Create Account Cashless',
+        'edit_title' => 'Edit Account Cashless',
+        'show_title' => 'Show Account Cashless',
+        'inputs' => [
+            'cashless_provider_id' => 'Cashless Provider',
+            'store_id' => 'Store',
+            'store_cashless_id' => 'Store Cashless',
+            'email' => 'Email',
+            'username' => 'Username',
+            'password' => 'Password',
+            'no_telp' => 'No Telp',
+            'status' => 'Status',
+            'notes' => 'Notes',
         ],
     ],
 

@@ -1,7 +1,7 @@
 <div>
     <div>
-        @can('create', App\Models\UserCashless::class)
-        <button class="button" wire:click="newUserCashless">
+        @can('create', App\Models\AccountCashless::class)
+        <button class="button" wire:click="newAccountCashless">
             <i class="mr-1 icon ion-md-add text-primary"></i>
             @lang('crud.common.attach')
         </button>
@@ -15,12 +15,12 @@
             <div class="mt-5">
                 <div>
                     <x-input.select
-                        name="user_cashless_id"
-                        label="User Cashless"
-                        wire:model="user_cashless_id"
+                        name="account_cashless_id"
+                        label="Account Cashless"
+                        wire:model="account_cashless_id"
                     >
                         <option value="null" disabled>-- select --</option>
-                        @foreach($userCashlessesForSelect as $value => $label)
+                        @foreach($accountCashlessesForSelect as $value => $label)
                         <option value="{{ $value }}"  >{{ $label }}</option>
                         @endforeach
                     </x-input.select>
@@ -54,16 +54,16 @@
             <thead class="text-gray-700">
                 <tr>
                     <th class="px-4 py-3 text-left">
-                        @lang('crud.admin_cashless_user_cashlesses.inputs.user_cashless_id')
+                        @lang('crud.admin_cashless_account_cashlesses.inputs.account_cashless_id')
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody class="text-gray-600">
-                @foreach ($adminCashlessUserCashlesses as $userCashless)
+                @foreach ($adminCashlessAccountCashlesses as $accountCashless)
                 <tr class="hover:bg-gray-100">
                     <td class="px-4 py-3 text-left">
-                        {{ $userCashless->email ?? '-' }}
+                        {{ $accountCashless->email ?? '-' }}
                     </td>
                     <td class="px-4 py-3 text-right" style="width: 70px;">
                         <div
@@ -71,11 +71,12 @@
                             aria-label="Row Actions"
                             class="relative inline-flex align-middle"
                         >
-                            @can('delete-any', App\Models\UserCashless::class)
+                            @can('delete-any',
+                            App\Models\AccountCashless::class)
                             <button
                                 class="button button-danger"
                                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-                                wire:click="detach({{ $userCashless->id }})"
+                                wire:click="detach({{ $accountCashless->id }})"
                             >
                                 <i
                                     class="mr-1 icon ion-md-trash text-primary"
@@ -92,7 +93,7 @@
                 <tr>
                     <td colspan="2">
                         <div class="mt-10 px-4">
-                            {{ $adminCashlessUserCashlesses->render() }}
+                            {{ $adminCashlessAccountCashlesses->render() }}
                         </div>
                     </td>
                 </tr>

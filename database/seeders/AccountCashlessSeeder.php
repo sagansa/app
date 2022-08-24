@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserCashless;
 use Illuminate\Database\Seeder;
+use App\Models\AccountCashless;
 
-class UserCashlessSeeder extends Seeder
+class AccountCashlessSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class UserCashlessSeeder extends Seeder
      */
     public function run()
     {
-        UserCashless::factory()
+        AccountCashless::factory()
             ->count(5)
             ->create();
     }

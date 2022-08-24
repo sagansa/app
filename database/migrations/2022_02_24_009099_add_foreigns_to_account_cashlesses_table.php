@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('user_cashlesses', function (Blueprint $table) {
+        Schema::table('account_cashlesses', function (Blueprint $table) {
             $table
                 ->foreign('cashless_provider_id')
                 ->references('id')
@@ -43,7 +43,7 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::table('user_cashlesses', function (Blueprint $table) {
+        Schema::table('account_cashlesses', function (Blueprint $table) {
             $table->dropForeign(['cashless_provider_id']);
             $table->dropForeign(['store_id']);
             $table->dropForeign(['store_cashless_id']);

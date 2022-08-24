@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ]);
         $this->call(PermissionsSeeder::class);
 
+        $this->call(AccountCashlessSeeder::class);
         $this->call(AdminCashlessSeeder::class);
         $this->call(BankSeeder::class);
         $this->call(CashlessSeeder::class);
@@ -84,7 +85,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TransferStockSeeder::class);
         $this->call(UnitSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(UserCashlessSeeder::class);
         $this->call(UtilitySeeder::class);
         $this->call(UtilityProviderSeeder::class);
         $this->call(UtilityUsageSeeder::class);

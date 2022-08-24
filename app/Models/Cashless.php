@@ -21,8 +21,8 @@ class Cashless extends Model
     ];
 
     protected $fillable = [
+        'account_cashless_id',
         'image',
-        'user_cashless_id',
         'bruto_apl',
         'netto_apl',
         'bruto_real',
@@ -34,14 +34,14 @@ class Cashless extends Model
 
     protected $searchableFields = ['*'];
 
-    public function userCashless()
-    {
-        return $this->belongsTo(UserCashless::class);
-    }
-
     public function closingStore()
     {
         return $this->belongsTo(ClosingStore::class);
+    }
+
+    public function accountCashless()
+    {
+        return $this->belongsTo(AccountCashless::class);
     }
 
     public function delete_image()

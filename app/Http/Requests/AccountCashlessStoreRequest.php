@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserCashlessUpdateRequest extends FormRequest
+class AccountCashlessStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,10 +31,11 @@ class UserCashlessUpdateRequest extends FormRequest
             'store_id' => ['required', 'exists:stores,id'],
             'store_cashless_id' => ['required', 'exists:store_cashlesses,id'],
             'email' => ['nullable', 'email'],
-            'username' => ['nullable', 'max:50', 'string'],
-            'no_telp' => ['nullable', 'max:255', 'string'],
+            'username' => ['nullable', 'max:255', 'string'],
             'password' => ['nullable'],
+            'no_telp' => ['nullable', 'string'],
             'status' => ['required', 'max:255'],
+            'notes' => ['nullable', 'max:255', 'string'],
         ];
     }
 }

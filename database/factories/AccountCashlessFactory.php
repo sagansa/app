@@ -3,17 +3,17 @@
 namespace Database\Factories;
 
 use Illuminate\Support\Str;
-use App\Models\UserCashless;
+use App\Models\AccountCashless;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserCashlessFactory extends Factory
+class AccountCashlessFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = UserCashless::class;
+    protected $model = AccountCashless::class;
 
     /**
      * Define the model's default state.
@@ -24,13 +24,14 @@ class UserCashlessFactory extends Factory
     {
         return [
             'email' => $this->faker->email,
-            'username' => $this->faker->text(50),
+            'username' => $this->faker->text(255),
             'password' => $this->faker->password,
             'no_telp' => $this->faker->randomNumber,
             'status' => $this->faker->numberBetween(1, 2),
+            'notes' => $this->faker->text,
+            'cashless_provider_id' => \App\Models\CashlessProvider::factory(),
             'store_id' => \App\Models\Store::factory(),
             'store_cashless_id' => \App\Models\StoreCashless::factory(),
-            'cashless_provider_id' => \App\Models\CashlessProvider::factory(),
         ];
     }
 }

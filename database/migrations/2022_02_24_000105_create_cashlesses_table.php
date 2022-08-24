@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('cashlesses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('account_cashless_id');
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_cashless_id');
             $table->bigInteger('bruto_apl');
             $table->bigInteger('netto_apl')->nullable();
             $table->bigInteger('bruto_real')->nullable();

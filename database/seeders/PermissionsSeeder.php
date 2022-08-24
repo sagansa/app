@@ -15,6 +15,12 @@ class PermissionsSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create default permissions
+        Permission::create(['name' => 'list accountcashlesses']);
+        Permission::create(['name' => 'view accountcashlesses']);
+        Permission::create(['name' => 'create accountcashlesses']);
+        Permission::create(['name' => 'update accountcashlesses']);
+        Permission::create(['name' => 'delete accountcashlesses']);
+
         Permission::create(['name' => 'list admincashlesses']);
         Permission::create(['name' => 'view admincashlesses']);
         Permission::create(['name' => 'create admincashlesses']);
@@ -380,12 +386,6 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'create units']);
         Permission::create(['name' => 'update units']);
         Permission::create(['name' => 'delete units']);
-
-        Permission::create(['name' => 'list usercashlesses']);
-        Permission::create(['name' => 'view usercashlesses']);
-        Permission::create(['name' => 'create usercashlesses']);
-        Permission::create(['name' => 'update usercashlesses']);
-        Permission::create(['name' => 'delete usercashlesses']);
 
         Permission::create(['name' => 'list utilities']);
         Permission::create(['name' => 'view utilities']);

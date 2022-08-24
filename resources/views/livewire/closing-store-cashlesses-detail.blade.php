@@ -50,10 +50,10 @@
                     </div>
                 </x-input.image>
 
-                <x-input.select name="cashless.user_cashless_id" label="User Cashless"
-                    wire:model="cashless.user_cashless_id">
+                <x-input.select name="cashless.account_cashless_id" label="Account Cashless"
+                    wire:model="cashless.account_cashless_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($userCashlessesForSelect as $label => $value)
+                    @foreach ($accountCashlessesForSelect as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -136,7 +136,7 @@
                         @lang('crud.closing_store_cashlesses.inputs.image')
                     </x-tables.th-left>
                     <x-tables.th-left>
-                        @lang('crud.closing_store_cashlesses.inputs.user_cashless_id')
+                        @lang('crud.closing_store_cashlesses.inputs.account_cashless_id')
                     </x-tables.th-left>
                     <x-tables.th-left>
                         {{-- @lang('crud.closing_store_cashlesses.inputs.bruto_apl') --}}
@@ -180,7 +180,7 @@
                             @endif
                         </x-tables.td-left>
                         <x-tables.td-left>
-                            {{ optional($cashless->userCashless)->email ?? '-' }}
+                            {{ optional($cashless->accountCashless)->email ?? '-' }}
                         </x-tables.td-left>
                         <x-tables.td-right>
                             <p>Bruto: @currency($cashless->bruto_apl)</p>
