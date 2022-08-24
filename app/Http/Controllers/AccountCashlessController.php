@@ -104,13 +104,13 @@ class AccountCashlessController extends Controller
         $this->authorize('update', $accountCashless);
 
         $cashlessProviders = CashlessProvider::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $storeCashlesses = StoreCashless::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 
         return view(
