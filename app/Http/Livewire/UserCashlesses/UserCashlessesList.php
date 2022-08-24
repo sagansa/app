@@ -13,10 +13,17 @@ use App\Models\Store;
 use App\Models\StoreCashless;
 use App\Models\UserCashless;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserCashlessesList extends Component
 {
-    use WithPerPagePagination, WithSorting, WithModal, WithBulkAction, WithCachedRows, WithFilter;
+    use WithPagination;
+    use WithPerPagePagination;
+    use WithSorting;
+    use WithModal;
+    use WithBulkAction;
+    use WithCachedRows;
+    use WithFilter;
 
     public UserCashless $editing;
 
@@ -71,10 +78,32 @@ class UserCashlessesList extends Component
         });
     }
 
+    // public function render()
+    // {
+    //     return view('livewire.user-cashlesses.user-cashlesses-list', [
+    //         'userCashlesses' => $this->rows,
+    //     ]);
+    // }
+
     public function render()
     {
+        $userCashlesses = UserCashless::query()
+            ->select('*')
+            ->join('stores', 'stores.id', '=', 'user_cashlesses.store_id')
+            ->join('cashless_providers', 'cashless_providers.id', '=', 'user_cashlesses.cashless_provider_id')
+            ->join('store_cashlesses', 'store_cashlesses.id', '=', 'user_cashlesses.store_cashless_id');
+
+        foreach($this->filters as $filter => $value) {
+            if (!empty($value)) {
+                $userCashlesses
+                    ->when($filter == 'store_id', fn($userCashlesses) => $userCashlesses->whereRelation('store', 'id', $value))
+                    ->when($filter == 'cashless_provider_id', fn($userCashlesses) => $userCashlesses->whereRelation('cashlessProvider', 'id', $value))
+                    ->when($filter == 'store_cashless_id', fn($userCashlesses) => $userCashlesses->whereRelation('storeCashless', 'id', $value));
+            }
+        }
+
         return view('livewire.user-cashlesses.user-cashlesses-list', [
-            'userCashlesses' => $this->rows,
+            'userCashlesses' => $userCashlesses->paginate(20),
         ]);
     }
 }
