@@ -1,39 +1,67 @@
-<x-admin-layout>
-    {{-- <x-slot name="header">
+<div>
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.user_cashlesses.index_title')
         </h2>
         <p class="mt-2 text-xs text-gray-700">Data seluruh account cashless</p>
     </x-slot>
 
-    <div class="mt-4 mb-5">
-        <div class="flex flex-wrap justify-between mt-1">
-            <div class="mt-1 md:w-1/3">
-                <form>
-                    <div class="flex items-center w-full">
-                        <x-inputs.text name="search" value="{{ $search ?? '' }}"
-                            placeholder="{{ __('crud.common.search') }}" autocomplete="off"></x-inputs.text>
+    <x-tables.topbar>
+        <x-slot name="search">
 
-                        <div class="ml-1">
+        </x-slot>
+        <x-slot name="action">
+            <div class="flex flex-wrap justify-between mt-1">
+                <div class="mt-1 md:w-2/3">
+                    <x-buttons.link wire:click.prevent="$toggle('showFilters')">
+                        @if ($showFilters)
+                            Hide
+                        @endif Advanced Search...
+                    </x-buttons.link>
+                    @if ($showFilters)
+                        <x-filters.group>
+                            <x-filters.label>Store</x-filters.label>
+                            <x-filters.select wire:model="filters.store_id">
+                                @foreach ($stores as $label => $value)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </x-filters.select>
+                        </x-filters.group>
+                        <x-filters.group>
+                            <x-filters.label>Store Cashless</x-filters.label>
+                            <x-filters.select wire:model="filters.store_cashless_id">
+                                @foreach ($storeCashlesses as $label => $value)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </x-filters.select>
+                        </x-filters.group>
+                        <x-filters.group>
+                            <x-filters.label>Cashless Provider</x-filters.label>
+                            <x-filters.select wire:model="filters.cashless_provider_id">
+                                @foreach ($cashlessProviders as $label => $value)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </x-filters.select>
+                        </x-filters.group>
+
+
+                        <x-buttons.link wire:click.prevent="resetFilters">Reset Filter
+                        </x-buttons.link>
+                    @endif
+                </div>
+                <div class="mt-1 text-right md:w-1/3">
+                    @can('create', App\Models\UserCashless::class)
+                        <a href="{{ route('user-cashlesses.create') }}">
                             <x-jet-button>
-                                <i class="icon ion-md-search"></i>
+                                <i class="mr-1 icon ion-md-add"></i>
+                                @lang('crud.common.create')
                             </x-jet-button>
-                        </div>
-                    </div>
-                </form>
+                        </a>
+                    @endcan
+                </div>
             </div>
-            <div class="mt-1 text-right md:w-1/3">
-                @can('create', App\Models\UserCashless::class)
-                    <a href="{{ route('user-cashlesses.create') }}">
-                        <x-jet-button>
-                            <i class="mr-1 icon ion-md-add"></i>
-                            @lang('crud.common.create')
-                        </x-jet-button>
-                    </a>
-                @endcan
-            </div>
-        </div>
-    </div>
+        </x-slot>
+    </x-tables.topbar>
 
     <x-tables.card>
         <x-table>
@@ -53,7 +81,8 @@
                 @forelse($userCashlesses as $userCashless)
                     <tr class="hover:bg-gray-50">
                         <x-tables.td-left-main>
-                            <x-slot name="main">{{ optional($userCashless->cashlessProvider)->name ?? '-' }}</x-slot>
+                            <x-slot name="main">{{ optional($userCashless->cashlessProvider)->name ?? '-' }}
+                            </x-slot>
                             <x-slot name="sub">
 
                                 <p>store: {{ optional($userCashless->store)->nickname ?? '-' }}</p>
@@ -100,7 +129,5 @@
             <x-slot name="foot"> </x-slot>
         </x-table>
     </x-tables.card>
-    <div class="px-4 mt-10">{!! $userCashlesses->render() !!}</div> --}}
-
-    <livewire:user-cashlesses.user-cashlesses-list />
-</x-admin-layout>
+    <div class="px-4 mt-10">{!! $userCashlesses->links() !!}</div>
+</div>

@@ -68,4 +68,9 @@ class UserCashless extends Model
             unlink('storage/' . $this->image);
         }
     }
+
+    public function getUserCashlessNameAttribute()
+    {
+        return $this->cashlessProvider->name . ' - ' . $this->storeCashless->name;
+    }
 }
