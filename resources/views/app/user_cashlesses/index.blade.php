@@ -53,10 +53,10 @@
                 @forelse($userCashlesses as $userCashless)
                     <tr class="hover:bg-gray-50">
                         <x-tables.td-left-main>
-                            <x-slot name="main">{{ $userCashless->cashlessProvider->name }}</x-slot>
+                            <x-slot name="main">{{ optional($userCashless->cashlessProvider)->name ?? '-' }}</x-slot>
                             <x-slot name="sub">
 
-                                <p>store: {{ optional($userCashless->store)->nickname }}</p>
+                                <p>store: {{ optional($userCashless->store)->nickname ?? '-' }}</p>
                                 <p>store cashless: {{ optional($userCashless->storeCashless)->name ?? '-' }}</p>
                                 <p>email: {{ $userCashless->email ?? '-' }}</p>
                                 <p>username: {{ $userCashless->username ?? '-' }}</p>
