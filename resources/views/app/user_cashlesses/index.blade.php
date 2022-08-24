@@ -1,5 +1,5 @@
 <x-admin-layout>
-    {{-- <x-slot name="header">
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.user_cashlesses.index_title')
         </h2>
@@ -100,7 +100,5 @@
             <x-slot name="foot"> </x-slot>
         </x-table>
     </x-tables.card>
-    <div class="px-4 mt-10">{!! $userCashlesses->render() !!}</div> --}}
-
-    <livewire:user-cashlesses.user-cashlesses-list />
+    <div class="px-4 mt-10">{!! $userCashlesses->render() !!}</div>
 </x-admin-layout>
