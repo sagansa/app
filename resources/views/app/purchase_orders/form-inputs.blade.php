@@ -80,9 +80,11 @@
         </x-input.select>
     @endrole
 
-    <x-input.hidden name="payment_status"
-        value="{{ old('payment_status', $editing ? $production->payment_status : '1') }}">
-    </x-input.hidden>
+    @role('supervisor|staff|manager')
+        <x-input.hidden name="payment_status"
+            value="{{ old('payment_status', $editing ? $purchaseOrder->payment_status : '1') }}">
+        </x-input.hidden>
+    @endrole
 
     <x-input.select name="order_status" label="Order Status">
         @php $selected = old('order_status', ($editing ? $purchaseOrder->order_status : '1')) @endphp
