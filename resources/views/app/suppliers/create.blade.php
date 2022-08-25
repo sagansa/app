@@ -12,8 +12,6 @@
                     <a href="{{ route('suppliers.index') }}" class="mr-4"><i class="mr-1 icon ion-md-arrow-back"></i></a>
                 </x-slot>
 
-                {{-- <livewire:suppliers.create-supplier-form /> --}}
-
                 <x-form method="POST" action="{{ route('suppliers.store') }}" class="mt-4">
                     @include('app.suppliers.form-inputs')
 
