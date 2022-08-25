@@ -109,7 +109,7 @@ class PurchaseOrderController extends Controller
             $validated['image'] = $fileimage;
         }
 
-        $validated['totals'] = $validated['discounts'] + $validated['taxes'];
+        // $validated['totals'] = $validated['discounts'] + $validated['taxes'];
         $validated['created_by_id'] = auth()->user()->id;
         $validated['payment_status'] = '1';
 
