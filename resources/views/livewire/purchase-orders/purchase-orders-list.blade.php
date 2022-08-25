@@ -231,11 +231,10 @@
                                     <a href="{{ route('purchase-orders.edit', $purchaseOrder) }}" class="mr-1">
                                         <x-buttons.edit></x-buttons.edit>
                                     </a>
-                                @elseif ($purchaseOrder->payment_status == '2' || $purchaseOrder->order_status == '2')
-                                    <a href="{{ route('purchase-orders.show', $purchaseOrder) }}" class="mr-1">
-                                        <x-buttons.show></x-buttons.show>
-                                    </a>
                                 @endif
+                                <a href="{{ route('purchase-orders.show', $purchaseOrder) }}" class="mr-1">
+                                    <x-buttons.show></x-buttons.show>
+                                </a>
                                 @can('delete', $purchaseOrder)
                                     <form action="{{ route('purchase-orders.destroy', $purchaseOrder) }}" method="POST"
                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
