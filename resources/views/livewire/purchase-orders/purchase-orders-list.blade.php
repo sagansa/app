@@ -254,5 +254,5 @@
             <x-slot name="foot"> </x-slot>
         </x-table>
     </x-tables.card>
-    {{-- <div class="px-4 mt-10">{!! $purchaseOrders->render() !!}</div> --}}
+    <div class="px-4 mt-10">{!! $purchaseOrders->render() !!}</div>
 </div>
