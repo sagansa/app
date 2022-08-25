@@ -228,11 +228,11 @@
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                 @if ($purchaseOrder->payment_status != '2' || $purchaseOrder->order_status != '2')
-                                    <a href="{{ route('purchase-orders.edit', $purchaseOrder) }}" class="mr-1">
+                                    <a href="{{ route('purchase-orders.edit', $purchaseOrder->id) }}" class="mr-1">
                                         <x-buttons.edit></x-buttons.edit>
                                     </a>
                                 @elseif($purchaseOrder->status == '2')
-                                    <a href="{{ route('purchase-orders.show', $purchaseOrder) }}" class="mr-1">
+                                    <a href="{{ route('purchase-orders.show', $purchaseOrder->id) }}" class="mr-1">
                                         <x-buttons.show></x-buttons.show>
                                     </a>
                                 @endif
