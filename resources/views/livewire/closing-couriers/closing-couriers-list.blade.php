@@ -54,10 +54,12 @@
     <x-tables.card>
         <x-table>
             <x-slot name="head">
-                <x-tables.th-left>@lang('crud.closing_couriers.inputs.image')</x-tables.th-left>
-                <x-tables.th-left-hide>@lang('crud.closing_couriers.inputs.bank_id')</x-tables.th-left-hide>
-                <x-tables.th-left-hide>@lang('crud.closing_couriers.inputs.total_cash_to_transfer')</x-tables.th-left-hide>
+                <x-tables.th-left>@lang('crud.closing_couriers.inputs.image') - @lang('crud.closing_couriers.inputs.bank_id')</x-tables.th-left>
+                {{-- <x-tables.th-left-hide></x-tables.th-left-hide> --}}
+                <x-tables.th-left-hide>Nominal Transfer</x-tables.th-left-hide>
                 <x-tables.th-left-hide>Detail</x-tables.th-left-hide>
+
+                <x-tables.th-left-hide>@lang('crud.closing_couriers.inputs.total_cash_to_transfer')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.closing_couriers.inputs.status')</x-tables.th-left-hide>
                 <th></th>
             </x-slot>
@@ -66,14 +68,22 @@
                     <tr class="hover:bg-gray-50">
                         <x-tables.td-left-main>
                             <x-slot name="main">
-                                @if ($closingCourier->image == null)
-                                    <x-partials.thumbnail src="" />
-                                @else
-                                    <a href="{{ \Storage::url($closingCourier->image) }}">
-                                        <x-partials.thumbnail
-                                            src="{{ $closingCourier->image ? \Storage::url($closingCourier->image) : '' }}" />
-                                    </a>
-                                @endif
+                                <div class="flex items-center">
+
+                                    @if ($closingCourier->image == null)
+                                        <x-partials.thumbnail src="" />
+                                    @else
+                                        <a href="{{ \Storage::url($closingCourier->image) }}">
+                                            <x-partials.thumbnail
+                                                src="{{ $closingCourier->image ? \Storage::url($closingCourier->image) : '' }}" />
+                                        </a>
+                                    @endif
+
+                                    <div class="ml-4">
+                                        <div class="font-medium text-gray-900">
+                                            {{ optional($closingCourier->bank)->name ?? '-' }}</div>
+                                    </div>
+                                </div>
                             </x-slot>
                             <x-slot name="sub">
                                 <p>{{ optional($closingCourier->bank)->name ?? '-' }}</p>
@@ -85,8 +95,6 @@
 
                         </x-tables.td-left-main>
 
-                        <x-tables.td-left-hide>{{ optional($closingCourier->bank)->name ?? '-' }}
-                        </x-tables.td-left-hide>
                         <x-tables.td-right-hide>@currency($closingCourier->total_cash_to_transfer)
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
@@ -98,8 +106,9 @@
                             @empty
                                 -
                             @endforelse
-                            @currency($closingCourier->closingStores->sum('total_cash_transfer'))
                         </x-tables.td-right-hide>
+                        <x-tables.td-right-hide>
+                            @currency($closingCourier->closingStores->sum('total_cash_transfer'))</x-tables.td-right-hide>
                         <x-tables.td-left-hide>
                             @role('staff|manager|supervisor')
                                 <x-spans.status-valid class="{{ $closingCourier->status_badge }}">
