@@ -231,7 +231,7 @@
                                     <a href="{{ route('purchase-orders.edit', $purchaseOrder) }}" class="mr-1">
                                         <x-buttons.edit></x-buttons.edit>
                                     </a>
-                                @elseif($purchaseOrder->status == '2')
+                                @elseif ($purchaseOrder->payment_status == '2' || $purchaseOrder->order_status == '2')
                                     <a href="{{ route('purchase-orders.show', $purchaseOrder) }}" class="mr-1">
                                         <x-buttons.show></x-buttons.show>
                                     </a>
