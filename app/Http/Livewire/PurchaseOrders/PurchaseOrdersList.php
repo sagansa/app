@@ -17,6 +17,8 @@ use Livewire\Component;
 
 class PurchaseOrdersList extends Component
 {
+    public $id;
+
     use WithPerPagePagination, WithSortingDate, WithModal, WithBulkAction, WithCachedRows, WithFilter;
 
     public PurchaseOrder $editing;
@@ -40,8 +42,10 @@ class PurchaseOrdersList extends Component
         'payment_type_id' => null,
     ];
 
-    public function mount()
+    public function mount($id)
     {
+        $this->id = $id;
+
         $this->suppliers = Supplier::orderBy('name', 'asc')->pluck('id', 'name');
         $this->stores = Store::orderBy('nickname', 'asc')->pluck('id', 'nickname');
         $this->paymentTypes = PaymentType::orderBy('name', 'asc')->whereIn('id', ['1', '2'])->pluck('id', 'name');
