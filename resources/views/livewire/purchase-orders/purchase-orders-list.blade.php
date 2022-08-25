@@ -107,9 +107,9 @@
                     <x-tables.th-left-hide>Report Payment</x-tables.th-left-hide>
                 @endrole
                 <x-tables.th-left-hide>Detail Order</x-tables.th-left-hide>
-                @role('super-admin')
+                {{-- @role('super-admin')
                     <x-tables.th-left-hide>Nominal Payment</x-tables.th-left-hide>
-                @endrole
+                @endrole --}}
                 <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.payment_status')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.order_status')</x-tables.th-left-hide>
                 @role('super-admin|supervisor|manager')
@@ -196,32 +196,16 @@
                                         sudah
                                     @endif
                                 @endforeach
-
-                                <p>@currency($purchaseOrder->totals)</p>
-
                             </x-tables.td-left-hide>
-                        @endrole
 
-                        <x-tables.td-left-hide>
-                            {{-- @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
-                                <p>{{ $purchaseOrderProduct->product->name }}</p>
-                                <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
-                            @endforeach --}}
-                            <p>{{ $purchaseOrder->purchase_order_products_sum_subtotal_invoice }}</p>
-                        </x-tables.td-left-hide>
-                        @role('super-admin')
                             <x-tables.td-left-hide>
-                                @foreach ($purchaseOrder->purchaseReceipts as $purchaseReceipt)
-                                    <p>@currency($purchaseReceipt->nominal_transfer)</p>
-                                @endforeach
+                                <p>discounts: @currency($purchaseOrder->discounts)</p>
+                                <p>taxes: @currency($purchaseOrder->taxes)</p>
+                                <p>subtotals @currency($purchaseOrder->purchase_order_products_sum_subtotal_invoice)</p>
+                                <p>totals: @currency($purchaseOrder->purchase_order_products_sum_subtotal_invoice - $purchaseOrder->discounts + $purchaseOrder->taxes)
+                                </p>
 
-                                @foreach ($purchaseOrder->closingStores as $closingStore)
-                                    @foreach ($closingStore->purchaseOrders as $purchaseOrder)
-                                        @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
-                                            <p>@currency($purchaseOrderProduct->subtotal_invoice)</p>
-                                        @endforeach
-                                    @endforeach
-                                @endforeach
+
                             </x-tables.td-left-hide>
                         @endrole
                         <x-tables.td-left-hide>
@@ -247,12 +231,11 @@
                                     <a href="{{ route('purchase-orders.edit', $purchaseOrder) }}" class="mr-1">
                                         <x-buttons.edit></x-buttons.edit>
                                     </a>
+                                @elseif($purchaseOrder->status == '2')
+                                    <a href="{{ route('purchase-orders.show', $purchaseOrder) }}" class="mr-1">
+                                        <x-buttons.show></x-buttons.show>
+                                    </a>
                                 @endif
-                                {{-- @elseif($purchaseOrder->status == '2') --}}
-                                <a href="{{ route('purchase-orders.show', $purchaseOrder) }}" class="mr-1">
-                                    <x-buttons.show></x-buttons.show>
-                                </a>
-                                {{-- @endif --}}
                                 @can('delete', $purchaseOrder)
                                     <form action="{{ route('purchase-orders.destroy', $purchaseOrder) }}" method="POST"
                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
@@ -271,5 +254,5 @@
             <x-slot name="foot"> </x-slot>
         </x-table>
     </x-tables.card>
-    <div class="px-4 mt-10">{!! $purchaseOrders->render() !!}</div>
+    {{-- <div class="px-4 mt-10">{!! $purchaseOrders->render() !!}</div> --}}
 </div>

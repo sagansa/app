@@ -42,7 +42,7 @@ class ClosingStorePurchaseOrdersTest extends TestCase
             route('api.closing-stores.purchase-orders.index', $closingStore)
         );
 
-        $response->assertOk()->assertSee($purchaseOrder->date);
+        $response->assertOk()->assertSee($purchaseOrder->image);
     }
 
     /**

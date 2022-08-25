@@ -12,9 +12,9 @@
                     <a href="{{ route('suppliers.index') }}" class="mr-4"><i class="mr-1 icon ion-md-arrow-back"></i></a>
                 </x-slot>
 
-                <livewire:suppliers.create-supplier-form />
+                {{-- <livewire:suppliers.create-supplier-form /> --}}
 
-                {{-- <x-form method="POST" action="{{ route('suppliers.store') }}" class="mt-4">
+                <x-form method="POST" action="{{ route('suppliers.store') }}" class="mt-4">
                     @include('app.suppliers.form-inputs')
 
                     <div class="mt-10">
@@ -28,7 +28,7 @@
                             @lang('crud.common.save')
                         </x-jet-button>
                     </div>
-                </x-form> --}}
+                </x-form>
             </x-partials.card>
         </div>
     </div>

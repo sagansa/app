@@ -42,7 +42,7 @@ class PurchaseOrderTest extends TestCase
 
         $response = $this->getJson(route('api.purchase-orders.index'));
 
-        $response->assertOk()->assertSee($purchaseOrders[0]->date);
+        $response->assertOk()->assertSee($purchaseOrders[0]->image);
     }
 
     /**
@@ -78,6 +78,7 @@ class PurchaseOrderTest extends TestCase
             'date' => $this->faker->date,
             'taxes' => $this->faker->randomNumber,
             'discounts' => $this->faker->randomNumber,
+            'totals' => $this->faker->randomNumber,
             'notes' => $this->faker->text,
             'payment_status' => $this->faker->numberBetween(1, 3),
             'order_status' => $this->faker->numberBetween(1, 3),

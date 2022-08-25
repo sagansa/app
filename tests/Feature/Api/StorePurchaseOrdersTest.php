@@ -44,7 +44,7 @@ class StorePurchaseOrdersTest extends TestCase
             route('api.stores.purchase-orders.index', $store)
         );
 
-        $response->assertOk()->assertSee($purchaseOrders[0]->date);
+        $response->assertOk()->assertSee($purchaseOrders[0]->image);
     }
 
     /**

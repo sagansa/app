@@ -184,7 +184,7 @@
                 </tr>
                 <tr>
                     <x-tables.th-total colspan="3">Totals</x-tables.th-total>
-                    <x-tables.td-total>@currency($purchaseOrderProducts->sum('subtotal_invoice') - $this->purchaseOrder->discounts + $this->purchaseOrder->taxes)</x-tables.td-total>
+                    <x-tables.td-total>@currency($this->purchaseOrder->totals)</x-tables.td-total>
                 </tr>
                 <tr>
                     <td colspan="6">

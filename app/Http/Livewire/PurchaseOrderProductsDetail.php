@@ -134,6 +134,7 @@ class PurchaseOrderProductsDetail extends Component
 
         $this->purchaseOrderProduct->save();
         $this->emit('setProductsSelect', []);
+        $this->emit($this->purchaseOrder->totals);
 
         $this->hideModal();
     }
@@ -167,6 +168,14 @@ class PurchaseOrderProductsDetail extends Component
 
     public function render()
     {
+        $this->purchaseOrder->subtotals = 0;
+
+        foreach ($this->purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct) {
+            $this->purchaseOrder->subtotals += $purchaseOrderProduct['subtotal_invoice'];
+        }
+
+        $this->purchaseOrder->totals = $this->purchaseOrder->subtotals - $this->purchaseOrder->discounts + $this->purchaseOrder->taxes;
+
         return view('livewire.purchase-order-products-detail', [
             'purchaseOrderProducts' => $this->purchaseOrder
                 ->purchaseOrderProducts()

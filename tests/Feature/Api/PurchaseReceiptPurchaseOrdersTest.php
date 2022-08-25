@@ -45,7 +45,7 @@ class PurchaseReceiptPurchaseOrdersTest extends TestCase
             )
         );
 
-        $response->assertOk()->assertSee($purchaseOrder->date);
+        $response->assertOk()->assertSee($purchaseOrder->image);
     }
 
     /**

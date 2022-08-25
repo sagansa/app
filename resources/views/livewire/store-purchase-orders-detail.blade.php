@@ -78,7 +78,7 @@
                         label="Payment Type"
                         wire:model="purchaseOrder.payment_type_id"
                     >
-                        <option value="null" disabled>-- select --</option>
+                        <option value="null" disabled>Please select the Payment Type</option>
                         @foreach($paymentTypesForSelect as $value => $label)
                         <option value="{{ $value }}"  >{{ $label }}</option>
                         @endforeach
@@ -89,7 +89,7 @@
                         label="Supplier"
                         wire:model="purchaseOrder.supplier_id"
                     >
-                        <option value="null" disabled>-- supplier --</option>
+                        <option value="null" disabled>Please select the Supplier</option>
                         @foreach($suppliersForSelect as $value => $label)
                         <option value="{{ $value }}"  >{{ $label }}</option>
                         @endforeach
@@ -99,20 +99,23 @@
                         name="purchaseOrderDate"
                         label="Date"
                         wire:model="purchaseOrderDate"
+                        max="255"
                     ></x-input.date>
 
                     <x-input.number
                         name="purchaseOrder.taxes"
                         label="Taxes"
                         wire:model="purchaseOrder.taxes"
-                        step="1"
+                        max="255"
+                        placeholder="Taxes"
                     ></x-input.number>
 
                     <x-input.number
                         name="purchaseOrder.discounts"
                         label="Discounts"
                         wire:model="purchaseOrder.discounts"
-                        step="1"
+                        max="255"
+                        placeholder="Discounts"
                     ></x-input.number>
 
                     <x-input.select
@@ -141,7 +144,7 @@
                         label="Created By"
                         wire:model="purchaseOrder.created_by_id"
                     >
-                        <option value="null" disabled>-- select --</option>
+                        <option value="null" disabled>Please select the User</option>
                         @foreach($usersForSelect as $value => $label)
                         <option value="{{ $value }}"  >{{ $label }}</option>
                         @endforeach

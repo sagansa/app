@@ -556,6 +556,7 @@ return [
             'date' => 'Date',
             'taxes' => 'Taxes',
             'discounts' => 'Discounts',
+            'totals' => 'Totals',
             'notes' => 'Notes',
             'payment_status' => 'Payment Status',
             'order_status' => 'Order Status',

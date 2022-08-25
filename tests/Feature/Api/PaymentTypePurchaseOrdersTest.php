@@ -44,7 +44,7 @@ class PaymentTypePurchaseOrdersTest extends TestCase
             route('api.payment-types.purchase-orders.index', $paymentType)
         );
 
-        $response->assertOk()->assertSee($purchaseOrders[0]->date);
+        $response->assertOk()->assertSee($purchaseOrders[0]->image);
     }
 
     /**

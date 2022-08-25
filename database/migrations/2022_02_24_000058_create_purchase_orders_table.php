@@ -14,14 +14,15 @@ return new class extends Migration {
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('payment_type_id');
             $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('supplier_id');
             $table->date('date');
             $table->bigInteger('taxes');
             $table->bigInteger('discounts');
+            $table->bigInteger('totals');
             $table->text('notes')->nullable();
-            $table->string('image')->nullable();
             $table->tinyInteger('payment_status');
             $table->tinyInteger('order_status');
             $table->unsignedBigInteger('created_by_id')->nullable();

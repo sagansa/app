@@ -36,15 +36,15 @@ class StorePurchaseOrdersDetail extends Component
     public $modalTitle = 'New PurchaseOrder';
 
     protected $rules = [
-        'purchaseOrderImage' => ['nullable', 'image'],
+        'purchaseOrderImage' => ['nullable', 'image', 'max:1024'],
         'purchaseOrder.payment_type_id' => [
             'required',
             'exists:payment_types,id',
         ],
         'purchaseOrder.supplier_id' => ['required', 'exists:suppliers,id'],
         'purchaseOrderDate' => ['required', 'date'],
-        'purchaseOrder.taxes' => ['required', 'numeric'],
-        'purchaseOrder.discounts' => ['required', 'numeric'],
+        'purchaseOrder.taxes' => ['required', 'max:255'],
+        'purchaseOrder.discounts' => ['required', 'max:255'],
         'purchaseOrder.payment_status' => ['required', 'max:255'],
         'purchaseOrder.order_status' => ['required', 'max:255'],
         'purchaseOrder.notes' => ['nullable', 'max:255', 'string'],
