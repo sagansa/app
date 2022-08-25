@@ -16,19 +16,19 @@
             value="{{ old('date', $editing ? optional($production->date)->format('Y-m-d') : '') }}" required>
         </x-input.date>
 
-        <x-input.hidden name="status" value="{{ old('result', $editing ? $production->status : '1') }}">
+        <x-input.hidden name="status" value="{{ old('status', $editing ? $production->status : '1') }}">
         </x-input.hidden>
     @endrole
 
     @role('supervisor')
-        <x-input.hidden name="store_id" value="{{ old('result', $editing ? $production->store_id : '') }}">
+        <x-input.hidden name="store_id" value="{{ old('store_id', $editing ? $production->store_id : '') }}">
         </x-input.hidden>
 
         <x-input.hidden name="date"
             value="{{ old('date', $editing ? optional($production->date)->format('Y-m-d') : '') }}">
         </x-input.hidden>
 
-        <x-input.hidden name="product_id" value="{{ old('result', $editing ? $production->product_id : '') }}">
+        <x-input.hidden name="product_id" value="{{ old('product_id', $editing ? $production->product_id : '') }}">
         </x-input.hidden>
 
         <x-input.hidden name="quantity" label="Quantity"

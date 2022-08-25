@@ -109,9 +109,12 @@ class PurchaseOrderController extends Controller
             $validated['image'] = $fileimage;
         }
 
-        // $validated['totals'] = $validated['discounts'] + $validated['taxes'];
         $validated['created_by_id'] = auth()->user()->id;
         $validated['payment_status'] = '1';
+        $validated['discounts'] = '0';
+        $validated['taxes'] = '0';
+
+        // dd($validated);
 
         $purchaseOrder = PurchaseOrder::create($validated);
 
