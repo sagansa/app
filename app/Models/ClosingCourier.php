@@ -13,11 +13,15 @@ class ClosingCourier extends Model
     use HasFactory;
     use Searchable;
 
+    const STATUS_BELUM_DIPERIKSA = '1';
+    const STATUS_VALID = '2';
+    const STATUS_PERBAIKI = '3';
+
     const STATUSES = [
         '1' => 'belum diperiksa',
         '2' => 'valid',
         '3' => 'diperbaiki',
-        '4' => 'periksa ulang',
+        // '4' => 'periksa ulang',
     ];
 
     protected $fillable = [

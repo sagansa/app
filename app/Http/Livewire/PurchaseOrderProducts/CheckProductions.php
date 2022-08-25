@@ -8,13 +8,11 @@ use App\Http\Livewire\DataTables\WithFilter;
 use App\Http\Livewire\DataTables\WithModal;
 use App\Http\Livewire\DataTables\WithPerPagePagination;
 use App\Http\Livewire\DataTables\WithSortingDate;
-use App\Models\ProductionFrom;
 use App\Models\PurchaseOrderProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class CheckProductions extends Component
 {

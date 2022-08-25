@@ -1,5 +1,5 @@
-<x-admin-layout>
-    {{-- <x-slot name="header">
+<div>
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.closing_couriers.index_title')
         </h2>
@@ -8,19 +8,35 @@
 
     <div class="mt-4 mb-5">
         <div class="flex flex-wrap justify-between mt-1">
-            <div class="mt-1 md:w-1/3">
-                <form>
-                    <div class="flex items-center w-full">
-                        <x-inputs.text name="search" value="{{ $search ?? '' }}"
-                            placeholder="{{ __('crud.common.search') }}" autocomplete="off"></x-inputs.text>
+            <div class="mt-1 md:w-2/3">
+                <x-buttons.link wire:click.prevent="$toggle('showFilters')">
+                    @if ($showFilters)
+                        Hide
+                    @endif Advanced Search...
+                </x-buttons.link>
+                @if ($showFilters)
+                    <x-filters.group>
+                        <x-filters.label>Bank</x-filters.label>
+                        <x-filters.select wire:model="filters.bank_id">
+                            @foreach ($banks as $label => $value)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </x-filters.select>
+                    </x-filters.group>
 
-                        <div class="ml-1">
-                            <x-jet-button>
-                                <i class="icon ion-md-search"></i>
-                            </x-jet-button>
-                        </div>
-                    </div>
-                </form>
+                    <x-filters.group>
+                        <x-filters.label>Status</x-filters.label>
+                        <x-filters.select wire:model="filters.status">
+                            @foreach (App\Models\ClosingCourier::STATUSES as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </x-filters.select>
+                    </x-filters.group>
+
+
+                    <x-buttons.link wire:click.prevent="resetFilters">Reset Filter
+                    </x-buttons.link>
+                @endif
             </div>
             <div class="mt-1 text-right md:w-1/3">
                 @can('create', App\Models\ClosingCourier::class)
@@ -75,18 +91,33 @@
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
                             @forelse ($closingCourier->closingStores as $closingStore)
-                                <p>{{ $closingStore->date->toFormattedDate() }}</p>
                                 <p>{{ $closingStore->store->nickname }}</p>
                                 <p>{{ $closingStore->shiftStore->name }}</p>
-                                <p>{{ $closingStore->total_cash_transfer }}</p>
+                                <p>{{ $closingStore->date->toFormattedDate() }}</p>
+                                {{-- <p>@currency($closingStore->total_cash_transfer)</p> --}}
                             @empty
                                 -
                             @endforelse
+                            @currency($closingCourier->closing_store_sum_total_cash_transfer)
                         </x-tables.td-right-hide>
                         <x-tables.td-left-hide>
-                            <x-spans.status-valid class="{{ $closingCourier->status_badge }}">
-                                {{ $closingCourier->status_name }}
-                            </x-spans.status-valid>
+                            @role('staff|manager|supervisor')
+                                <x-spans.status-valid class="{{ $closingCourier->status_badge }}">
+                                    {{ $closingCourier->status_name }}
+                                </x-spans.status-valid>
+                            @endrole
+                            @role('super-admin')
+                                <select
+                                    class="block w-full py-2 pl-3 pr-10 mt-1 text-xs border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                    wire:change="changeStatus({{ $closingCourier }}, $event.target.value)">
+                                    <option value="1" {{ $closingCourier->status == '1' ? 'selected' : '' }}>
+                                        belum diperiksa</option>
+                                    <option value="2" {{ $closingCourier->status == '2' ? 'selected' : '' }}>
+                                        valid</option>
+                                    <option value="3" {{ $closingCourier->status == '3' ? 'selected' : '' }}>
+                                        perbaiki</option>
+                                </select>
+                            @endrole
                         </x-tables.td-left-hide>
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
@@ -115,7 +146,5 @@
         <x-slot name="foot"> </x-slot>
     </x-table>
 </x-tables.card>
-<div class="px-4 mt-10">{!! $closingCouriers->render() !!}</div> --}}
-
-    <livewire:closing-couriers.closing-couriers-list />
-</x-admin-layout>
+<div class="px-4 mt-10">{!! $closingCouriers->render() !!}</div>
+</div>
