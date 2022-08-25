@@ -68,11 +68,6 @@ class AccountCashlessController extends Controller
 
         $validated = $request->validated();
 
-        if (!empty($validated['password'])) {
-            $validated['password'] = Hash::make($validated['password']);
-        }
-
-        $validated['created_by_id'] = auth()->user()->id;
         $validated['status'] = '1';
 
         $accountCashless = AccountCashless::create($validated);
@@ -136,20 +131,6 @@ class AccountCashlessController extends Controller
         $this->authorize('update', $accountCashless);
 
         $validated = $request->validated();
-
-        if (empty($validated['password'])) {
-            unset($validated['password']);
-        } else {
-            $validated['password'] = Hash::make($validated['password']);
-        }
-
-        if (
-            auth()
-                ->user()
-                ->hasRole('supervisor|manager|super-admin')
-        ) {
-            $validated['approved_by_id'] = auth()->user()->id;
-        }
 
         $accountCashless->update($validated);
 

@@ -73,7 +73,7 @@
                 <x-tables.th-left-hide>@lang('crud.account_cashlesses.inputs.username')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.account_cashlesses.inputs.no_telp')</x-tables.th-left-hide>
                 @role('super-admin|manager|supervisor')
-                    <x-tables.th-left-hide>@lang('crud.account_cashlesses.inputs.password')</x-tables.th-left-hide>
+                    {{-- <x-tables.th-left-hide>@lang('crud.account_cashlesses.inputs.password')</x-tables.th-left-hide> --}}
                     <x-tables.th-left-hide>created at</x-tables.th-left-hide>
                     <x-tables.th-left-hide>updated at</x-tables.th-left-hide>
                 @endrole
