@@ -128,6 +128,6 @@
             </x-slot>
         </x-table>
     </x-tables.card>
-    {{-- <div class="px-4 mt-10">{!! $purchaseReceipts->render() !!}</div> --}}
+    <div class="px-4 mt-10">{!! $purchaseReceipts->render() !!}</div>
     {{-- <div class="px-4 mt-10">{{ $purchaseReceipts->links() }}</div> --}}
 </div>
