@@ -98,7 +98,7 @@
                             @empty
                                 -
                             @endforelse
-                            @currency($closingCourier->closing_store_sum_total_cash_transfer)
+                            @currency($closingCourier->closingStores->sum('total_cash_transfer'))
                         </x-tables.td-right-hide>
                         <x-tables.td-left-hide>
                             @role('staff|manager|supervisor')
