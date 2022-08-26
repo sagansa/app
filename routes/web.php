@@ -165,5 +165,4 @@ Route::prefix('/')
         );
         Route::resource('store-cashlesses', StoreCashlessController::class);
         Route::resource('account-cashlesses', AccountCashlessController::class);
-        Route::get('productions', CheckProductions::class)->name('check-productions');
     });

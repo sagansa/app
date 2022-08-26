@@ -1,10 +1,10 @@
 <div>
-    {{-- <x-slot name="header">
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Check Productions
         </h2>
         <p class="mt-2 text-xs text-gray-700">---</p>
-    </x-slot> --}}
+    </x-slot>
 
     <x-tables.topbar>
         <x-slot name="search">
@@ -106,76 +106,5 @@
             </x-slot>
         </x-table>
     </x-tables.card>
-
-    {{-- <x-tables.card>
-        <x-table>
-            <x-slot name="head">
-                <x-tables.th-left>
-                    Product
-                </x-tables.th-left>
-                <x-tables.th-left>
-                    Quantity
-                </x-tables.th-left>
-                <x-tables.th-left>
-                    Store Production
-                </x-tables.th-left>
-                <x-tables.th-left>
-                    Store Purchase Order
-                </x-tables.th-left>
-                <x-tables.th-left>
-                    Status
-                </x-tables.th-left>
-            </x-slot>
-            <x-slot name="body">
-
-                @forelse ($productionFroms as $productionFrom)
-                    <tr class="hover:bg-gray-50">
-                        <x-tables.td-left-hide>
-                            {{ $productionFrom->purchaseOrderProduct->product->name }}
-                        </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>
-                            {{ $productionFrom->purchaseOrderProduct->quantity_product }}
-                            {{ $productionFrom->purchaseOrderProduct->product->unit->unit }}
-                        </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>
-                            {{ $productionFrom->production->store->nickname }} -
-                            {{ $productionFrom->production->date->toFormattedDate() }}
-                        </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>
-                            {{ $productionFrom->purchaseOrderProduct->purchaseOrder->store->nickname }} -
-                            {{ $productionFrom->purchaseOrderProduct->purchaseOrder->date->toFormattedDate() }}
-                        </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>
-                            <select
-                                class="block w-full py-2 pl-3 pr-10 mt-1 text-xs border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                                wire:change="changeStatus({{ $productionFrom->purchaseOrderProduct }}, $event.target.value)">
-                                <option value="1"
-                                    {{ $productionFrom->purchaseOrderProduct->status == '1' ? 'selected' : '' }}>
-                                    Process</option>
-                                <option value="2"
-                                    {{ $productionFrom->purchaseOrderProduct->status == '2' ? 'selected' : '' }}>
-                                    Done</option>
-                                <option value="3"
-                                    {{ $productionFrom->purchaseOrderProduct->status == '3' ? 'selected' : '' }}>
-                                    Not Include</option>
-                            </select>
-                        </x-tables.td-left-hide>
-                    </tr>
-                @empty
-                    empty
-                @endforelse
-
-            </x-slot>
-            <x-slot name="foot">
-                <tr>
-                    <td colspan="5">
-                        <div class="px-4 my-2">
-                            {{ $productionFroms->render() }}
-                        </div>
-                    </td>
-                </tr>
-            </x-slot>
-        </x-table>
-    </x-tables.card> --}}
 
 </div>

@@ -56,14 +56,14 @@
                     @endrole
                 </div>
                 <div class="mt-1 text-right md:w-1/3">
-                    @can('create', App\Models\Presence::class)
+                    {{-- @can('create', App\Models\Presence::class)
                         <a href="{{ route('presences.create') }}">
                             <x-jet-button>
                                 <i class="mr-1 icon ion-md-add"></i>
                                 @lang('crud.common.create')
                             </x-jet-button>
                         </a>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
         </x-slot>
@@ -139,7 +139,7 @@
                         </x-tables.td-left-hide> --}}
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                                @if ($presence->status != '2')
+                                {{-- @if ($presence->status != '2')
                                     <a href="{{ route('presences.edit', $presence) }}" class="mr-1">
                                         <x-buttons.edit></x-buttons.edit>
                                     </a>
@@ -147,22 +147,23 @@
                                     <a href="{{ route('presences.show', $presence) }}" class="mr-1">
                                         <x-buttons.show></x-buttons.show>
                                     </a>
-                                @endif @can('delete', $presence)
-                                <form action="{{ route('presences.destroy', $presence) }}" method="POST"
-                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                    @csrf @method('DELETE')
-                                    <x-buttons.delete></x-buttons.delete>
-                                </form>
-                            @endcan
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <x-tables.no-items-found colspan="7"> </x-tables.no-items-found>
-            @endforelse
-        </x-slot>
-        <x-slot name="foot"> </x-slot>
-    </x-table>
-</x-tables.card>
-<div class="px-4 mt-10">{!! $presences->render() !!}</div>
+                                @endif
+                                @can('delete', $presence)
+                                    <form action="{{ route('presences.destroy', $presence) }}" method="POST"
+                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                        @csrf @method('DELETE')
+                                        <x-buttons.delete></x-buttons.delete>
+                                    </form>
+                                @endcan --}}
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <x-tables.no-items-found colspan="7"> </x-tables.no-items-found>
+                @endforelse
+            </x-slot>
+            <x-slot name="foot"> </x-slot>
+        </x-table>
+    </x-tables.card>
+    <div class="px-4 mt-10">{!! $presences->render() !!}</div>
 </div>
