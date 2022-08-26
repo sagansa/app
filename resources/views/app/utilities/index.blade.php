@@ -3,7 +3,7 @@
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.utilities.index_title')
         </h2>
-        <p class="mt-2 text-xs text-gray-700">---</p>
+        <p class="mt-2 text-xs text-gray-700">daftar listrik, air, internet seluruh warung</p>
     </x-slot>
 
     <div class="mt-4 mb-5">
@@ -38,20 +38,36 @@
     <x-tables.card>
         <x-table>
             <x-slot name="head">
-                <x-tables.th-left>@lang('crud.utilities.inputs.number')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.utilities.inputs.name')</x-tables.th-left>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.number')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.name')</x-tables.th-left-hide>
                 <x-tables.th-left>@lang('crud.utilities.inputs.store_id')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.utilities.inputs.category')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.utilities.inputs.unit_id')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.utilities.inputs.utility_provider_id')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.utilities.inputs.pre_post')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.utilities.inputs.status')</x-tables.th-left>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.category')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.unit_id')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.utility_provider_id')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.pre_post')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.utilities.inputs.status')</x-tables.th-left-hide>
                 <th></th>
             </x-slot>
             <x-slot name="body">
                 @forelse($utilities as $utility)
                     <tr class="hover:bg-gray-50">
-                        <x-tables.td-left-hide>{{ $utility->number ?? '-' }}</x-tables.td-left-hide>
+                        <x-tables.td-left-main>
+                            <x-slot name="main">{{ $utility->number ?? '-' }}</x-slot>
+                            <x-slot name="sub">
+                                <p>{{ optional($utility->store)->nickname ?? '-' }}</p>
+                                <p>{{ $utility->name ?? '-' }}</p>
+                                <p>
+                                    @if ($utility->category == 1)
+                                        <p>listrik</p>
+                                    @elseif ($utility->category == 2)
+                                        <p>air</p>
+                                    @elseif ($utility->category == 3)
+                                        <p>internet</p>
+                                    @endif
+                                </p>
+                            </x-slot>
+
+                        </x-tables.td-left-main>
                         <x-tables.td-left-hide>{{ $utility->name ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ optional($utility->store)->nickname ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>

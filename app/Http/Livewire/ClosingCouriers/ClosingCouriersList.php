@@ -16,7 +16,6 @@ use Livewire\Component;
 
 class ClosingCouriersList extends Component
 {
-
     use WithPerPagePagination, WithSorting, WithModal, WithBulkAction, WithCachedRows, WithFilter;
 
     public ClosingCourier $editing;

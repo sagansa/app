@@ -74,8 +74,8 @@
                 <x-tables.th-left-hide>@lang('crud.account_cashlesses.inputs.no_telp')</x-tables.th-left-hide>
                 @role('super-admin|manager|supervisor')
                     <x-tables.th-left-hide>@lang('crud.account_cashlesses.inputs.password')</x-tables.th-left-hide>
-                    <x-tables.th-left-hide>created at</x-tables.th-left-hide>
-                    <x-tables.th-left-hide>updated at</x-tables.th-left-hide>
+                    {{-- <x-tables.th-left-hide>created at</x-tables.th-left-hide>
+                    <x-tables.th-left-hide>updated at</x-tables.th-left-hide> --}}
                 @endrole
                 <th></th>
             </x-slot>
@@ -106,8 +106,8 @@
                         <x-tables.td-right-hide>{{ $accountCashless->no_telp ?? '-' }}</x-tables.td-right-hide>
                         @role('super-admin|manager|supervisor')
                             <x-tables.td-left-hide>{{ $accountCashless->password ?? '-' }}</x-tables.td-left-hide>
-                            <x-tables.td-left-hide>{{ $accountCashless->created_at ?? '-' }}</x-tables.td-left-hide>
-                            <x-tables.td-left-hide>{{ $accountCashless->updated_at ?? '-' }}</x-tables.td-left-hide>
+                            {{-- <x-tables.td-left-hide>{{ $accountCashless->created_at ?? '-' }}</x-tables.td-left-hide>
+                            <x-tables.td-left-hide>{{ $accountCashless->updated_at ?? '-' }}</x-tables.td-left-hide> --}}
                         @endrole
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">

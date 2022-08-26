@@ -139,8 +139,7 @@
                                 @endif
                             </x-slot>
                             <x-slot name="sub">
-                                <p>{{ $purchaseOrder->id }} -{{ optional($purchaseOrder->store)->nickname ?? '-' }}
-                                </p>
+                                <p>{{ optional($purchaseOrder->store)->nickname ?? '-' }}</p>
                                 <p>{{ optional($purchaseOrder->supplier)->name ?? '-' }}</p>
                                 <p>
                                     @if ($purchaseOrder->payment_type_id == '1')

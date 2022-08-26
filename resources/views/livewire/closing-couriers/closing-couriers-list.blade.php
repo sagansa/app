@@ -55,10 +55,8 @@
         <x-table>
             <x-slot name="head">
                 <x-tables.th-left>@lang('crud.closing_couriers.inputs.image') - @lang('crud.closing_couriers.inputs.bank_id')</x-tables.th-left>
-                {{-- <x-tables.th-left-hide></x-tables.th-left-hide> --}}
                 <x-tables.th-left-hide>Nominal Transfer</x-tables.th-left-hide>
                 <x-tables.th-left-hide>Detail</x-tables.th-left-hide>
-
                 <x-tables.th-left-hide>@lang('crud.closing_couriers.inputs.total_cash_to_transfer')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>@lang('crud.closing_couriers.inputs.status')</x-tables.th-left-hide>
                 <th></th>
@@ -69,7 +67,6 @@
                         <x-tables.td-left-main>
                             <x-slot name="main">
                                 <div class="flex items-center">
-
                                     @if ($closingCourier->image == null)
                                         <x-partials.thumbnail src="" />
                                     @else
@@ -78,7 +75,6 @@
                                                 src="{{ $closingCourier->image ? \Storage::url($closingCourier->image) : '' }}" />
                                         </a>
                                     @endif
-
                                     <div class="ml-4">
                                         <div class="font-medium text-gray-900">
                                             {{ optional($closingCourier->bank)->name ?? '-' }}</div>
@@ -99,10 +95,8 @@
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
                             @forelse ($closingCourier->closingStores as $closingStore)
-                                <p>{{ $closingStore->store->nickname }}</p>
-                                <p>{{ $closingStore->shiftStore->name }}</p>
+                                <p>{{ $closingStore->store->nickname }} - {{ $closingStore->shiftStore->name }}</p>
                                 <p>{{ $closingStore->date->toFormattedDate() }}</p>
-                                {{-- <p>@currency($closingStore->total_cash_transfer)</p> --}}
                             @empty
                                 -
                             @endforelse

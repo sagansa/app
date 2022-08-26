@@ -101,6 +101,6 @@ class PurchaseOrder extends Model
 
     public function getPurchaseOrderNameAttribute()
     {
-        return $this->supplier->name . ' - ' . $this->date->toFormattedDate();
+        return $this->supplier->name . ' - ' . $this->date->toFormattedDate() . $this->purchaseOrderProducts->sum('subtotal_invoice');
     }
 }

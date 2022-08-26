@@ -29,7 +29,7 @@ class ClosingStorePurchaseOrdersDetail extends Component
         $this->closingStore = $closingStore;
         $this->purchaseOrdersForSelect = PurchaseOrder::where('store_id', $this->closingStore->store_id)
             ->whereIn('payment_type_id', ['2'])
-            ->whereIn('payment_status', ['1'])
+            ->whereIn('payment_status', ['1', '3'])
             ->get()
             ->pluck('purchase_order_name', 'id');
 

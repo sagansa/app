@@ -1,5 +1,5 @@
-<x-admin-layout>
-    {{-- <x-slot name="header">
+<div>
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.cleans_and_neats.index_title')
         </h2>
@@ -114,7 +114,5 @@
         <x-slot name="foot"> </x-slot>
     </x-table>
 </x-tables.card>
-<div class="px-4 mt-10">{!! $cleanAndNeats->render() !!}</div> --}}
-
-    <livewire:cleans-and-neats.cleans-and-neats-list />
-</x-admin-layout>
+<div class="px-4 mt-10">{!! $cleanAndNeats->render() !!}</div>
+</div>
