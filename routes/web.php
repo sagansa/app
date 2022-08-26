@@ -57,6 +57,7 @@ use App\Http\Controllers\VehicleCertificateController;
 use App\Http\Controllers\MovementAssetResultController;
 use App\Http\Controllers\TransferDailySalaryController;
 use App\Http\Controllers\ReceiptByItemLoyverseController;
+use App\Http\Livewire\PurchaseOrderProducts\CheckProductions;
 
 /*
 |--------------------------------------------------------------------------
@@ -165,4 +166,5 @@ Route::prefix('/')
         );
         Route::resource('store-cashlesses', StoreCashlessController::class);
         Route::resource('account-cashlesses', AccountCashlessController::class);
+        Route::get('purchase-order-products', CheckProductions::class)->name('check-productions');
     });
