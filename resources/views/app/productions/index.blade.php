@@ -121,24 +121,23 @@
                                     <a href="{{ route('productions.show', $production) }}" class="mr-1">
                                         <x-buttons.show></x-buttons.show>
                                     </a>
-                                @endif @can('delete', $production)
-                                <form action="{{ route('productions.destroy', $production) }}" method="POST"
-                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                    @csrf @method('DELETE')
-                                    <x-buttons.delete></x-buttons.delete>
-                                </form>
-                            @endcan
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <x-tables.no-items-found colspan="8"> </x-tables.no-items-found>
-            @endforelse
-        </x-slot>
-        <x-slot name="foot"> </x-slot>
-    </x-table>
-</x-tables.card>
-<div class="px-4 mt-10">{!! $productions->render() !!}</div>
-
-<livewire:purchase-order-products.check-productions />
+                                @endif
+                                @can('delete', $production)
+                                    <form action="{{ route('productions.destroy', $production) }}" method="POST"
+                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                        @csrf @method('DELETE')
+                                        <x-buttons.delete></x-buttons.delete>
+                                    </form>
+                                @endcan
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <x-tables.no-items-found colspan="8"> </x-tables.no-items-found>
+                @endforelse
+            </x-slot>
+            <x-slot name="foot"> </x-slot>
+        </x-table>
+    </x-tables.card>
+    <div class="px-4 mt-10">{!! $productions->render() !!}</div>
 </x-admin-layout>

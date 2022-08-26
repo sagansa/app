@@ -1,4 +1,4 @@
-<div>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Check Productions
@@ -107,4 +107,4 @@
         </x-table>
     </x-tables.card>
 
-</div>
+</x-admin-layout>
