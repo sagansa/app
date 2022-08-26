@@ -92,6 +92,9 @@
                     <x-tables.th-left>
                         Quantity
                     </x-tables.th-left>
+                    <x-tables.th-left>
+                        Unit Price
+                    </x-tables.th-left>
                     {{-- <x-tables.th-left>
                         @lang('crud.purchase_order_products.inputs.quantity_product')
                     </x-tables.th-left>
@@ -101,9 +104,9 @@
                     <x-tables.th-left>
                         @lang('crud.purchase_order_products.inputs.subtotal_invoice')
                     </x-tables.th-left>
-                    <x-tables.th-left>
+                    {{-- <x-tables.th-left>
                         @lang('crud.purchase_order_products.inputs.status')
-                    </x-tables.th-left>
+                    </x-tables.th-left> --}}
                     <th></th>
                 </tr>
             </x-slot>
@@ -132,9 +135,12 @@
                                 {{ $purchaseOrderProduct->unit->unit ?? '-' }}</p>
                         </x-tables.td-right>
                         <x-tables.td-right>
+                            @currency($purchaseOrderProduct->subtotal_invoice - $purchaseOrderProduct->quantity_product)
+                        </x-tables.td-right>
+                        <x-tables.td-right>
                             @currency($purchaseOrderProduct->subtotal_invoice)
                         </x-tables.td-right>
-                        @role('super-admin|manager')
+                        {{-- @role('super-admin|manager')
                             <x-tables.td-left>
                                 @if ($purchaseOrderProduct->status == 1)
                                     <x-spans.yellow>process</x-spans.yellow>
@@ -144,7 +150,7 @@
                                     <x-spans.red>no need</x-spans.red>
                                 @endif
                             </x-tables.td-left>
-                        @endrole
+                        @endrole --}}
                         <td class="px-4 py-1 text-right" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                 @if ($purchaseOrder->payment_status != 2 || $purchaseOrder->order_status != 2)
@@ -161,11 +167,11 @@
             </x-slot>
             <x-slot name="foot">
                 <tr>
-                    <x-tables.th-total colspan="3">Subtotals</x-tables.th-total>
+                    <x-tables.th-total colspan="4">Subtotals</x-tables.th-total>
                     <x-tables.td-total> @currency($purchaseOrderProducts->sum('subtotal_invoice'))</x-tables.td-total>
                 </tr>
                 <tr>
-                    <x-tables.th-total colspan="3">Discounts</x-tables.th-total>
+                    <x-tables.th-total colspan="4">Discounts</x-tables.th-total>
                     @if ($purchaseOrder->payment_status != 2 || $purchaseOrder->order_status != 2)
                         <x-input.wire-currency name="discounts" wiresubmit="updatePurchaseOrder"
                             wiremodel="state.discounts"></x-input.wire-currency>
@@ -174,7 +180,7 @@
                     @endif
                 </tr>
                 <tr>
-                    <x-tables.th-total colspan="3">Taxes</x-tables.th-total>
+                    <x-tables.th-total colspan="4">Taxes</x-tables.th-total>
                     @if ($purchaseOrder->payment_status != 2 || $purchaseOrder->order_status != 2)
                         <x-input.wire-currency name="taxes" wiresubmit="updatePurchaseOrder" wiremodel="state.taxes">
                         </x-input.wire-currency>
@@ -183,7 +189,7 @@
                     @endif
                 </tr>
                 <tr>
-                    <x-tables.th-total colspan="3">Totals</x-tables.th-total>
+                    <x-tables.th-total colspan="4">Totals</x-tables.th-total>
                     <x-tables.td-total>@currency($this->purchaseOrder->totals)</x-tables.td-total>
                 </tr>
                 <tr>
