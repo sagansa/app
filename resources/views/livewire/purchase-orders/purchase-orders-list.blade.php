@@ -190,7 +190,7 @@
                             <x-tables.td-left-hide>
                                 @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
                                     {{ $purchaseOrderProduct->product->name }} -
-                                    {{ $purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product }}
+                                    @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
                                 @endforeach
                             </x-tables.td-left-hide>
 
