@@ -189,8 +189,8 @@
                         @role('super-admin')
                             <x-tables.td-left-hide>
                                 @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
-                                    {{ $purchaseOrderProduct->product->name }} -
-                                    @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
+                                    <p> {{ $purchaseOrderProduct->product->name }} -
+                                        @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)</p>
                                 @endforeach
                             </x-tables.td-left-hide>
 
