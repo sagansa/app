@@ -76,6 +76,6 @@ class CheckProductions extends Component
     {
         return view('livewire.purchase-order-products.check-productions', [
             'purchaseOrderProducts' => $this->rows,
-        ])->extends('layouts.admin')->section('body');
+        ]);
     }
 }
