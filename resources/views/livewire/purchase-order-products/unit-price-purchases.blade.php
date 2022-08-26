@@ -32,7 +32,7 @@
                 </x-filters.group> --}}
                 <x-filters.group>
                     <x-filters.label>Product</x-filters.label>
-                    <x-filters.select wire:model="filters.supplier_id">
+                    <x-filters.select wire:model="filters.product_id">
                         @foreach ($products as $label => $value)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
