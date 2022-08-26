@@ -4,10 +4,10 @@
     <x-input.text name="name" label="Name" value="{{ old('name', $editing ? $supplier->name : '') }}" required>
     </x-input.text>
 
-    <x-input.number name="no_telp" label="No Telp" value="{{ old('no_telp', $editing ? $supplier->no_telp : '') }}"
-        required></x-input.number>
+    <x-input.number name="no_telp" label="No Telp" value="{{ old('no_telp', $editing ? $supplier->no_telp : '') }}">
+    </x-input.number>
 
-    <x-input.textarea name="address" label="Address" required>{{ old('address', $editing ? $supplier->address : '') }}
+    <x-input.textarea name="address" label="Address">{{ old('address', $editing ? $supplier->address : '') }}
     </x-input.textarea>
 
     @role('super-admin')
@@ -47,10 +47,10 @@
         </x-input.select>
     @endrole
 
-    <x-input.number name="codepos" label="Codepos" value="{{ old('codepos', $editing ? $supplier->codepos : '') }}"
-        required></x-input.number>
+    <x-input.number name="codepos" label="Codepos" value="{{ old('codepos', $editing ? $supplier->codepos : '') }}">
+    </x-input.number>
 
-    <x-input.select name="bank_id" label="Bank" required>
+    <x-input.select name="bank_id" label="Bank">
         @php $selected = old('bank_id', ($editing ? $supplier->bank_id : '')) @endphp
         <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
         @foreach ($banks as $value => $label)
@@ -60,11 +60,11 @@
     </x-input.select>
 
     <x-input.text name="bank_account_name" label="Bank Account Name"
-        value="{{ old('bank_account_name', $editing ? $supplier->bank_account_name : '') }}" maxlength="255" required>
+        value="{{ old('bank_account_name', $editing ? $supplier->bank_account_name : '') }}" maxlength="255">
     </x-input.text>
 
     <x-input.number name="bank_account_no" label="Bank Account No"
-        value="{{ old('bank_account_no', $editing ? $supplier->bank_account_no : '') }}" required></x-input.number>
+        value="{{ old('bank_account_no', $editing ? $supplier->bank_account_no : '') }}"></x-input.number>
 
     @role('super-admin|manager')
         <x-input.select name="status" label="Status">

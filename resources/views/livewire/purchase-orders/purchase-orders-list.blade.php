@@ -167,7 +167,7 @@
                             </x-slot>
                         </x-tables.td-left-main>
 
-                        <x-tables.td-left-hide>{{ $purchaseOrder->id }} -
+                        <x-tables.td-left-hide>
                             {{ optional($purchaseOrder->store)->nickname ?? '-' }}
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
