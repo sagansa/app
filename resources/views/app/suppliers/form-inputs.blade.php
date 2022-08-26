@@ -76,7 +76,7 @@
     @endrole
 
     @role('staff|supervisor')
-        <x-input.hidden name="status" value="{{ old('status', $editing ? $presence->status : '1') }}">
+        <x-input.hidden name="status" value="{{ old('status', $editing ? $supplier->status : '1') }}">
         </x-input.hidden>
     @endrole
 
