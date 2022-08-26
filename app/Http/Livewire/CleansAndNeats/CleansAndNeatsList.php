@@ -20,11 +20,11 @@ class CleansAndNeatsList extends Component
 
     public CleanAndNeat $editing;
 
-    public $sortColumn = 'cleans_and_neats.created_at';
+    public $sortColumn = 'clean_and_neats.created_at';
 
     protected $queryString = [
         'sortColumn' => [
-        'except' => 'cleans_and_neats.created_at'
+        'except' => 'clean_and_neats.created_at'
         ],
         'sortDirection' => [
             'except' => 'desc',
@@ -45,14 +45,14 @@ class CleansAndNeatsList extends Component
     public function getRowsQueryProperty()
     {
         $cleansAndNeats = CleanAndNeat::query()
-            ->select(['cleans_and_neats.*', 'users.name as username'])
-            ->join('users', 'users.id', '=', 'cleans_and_neats.created_by_id');
+            ->select(['clean_and_neats.*', 'users.name as username'])
+            ->join('users', 'users.id', '=', 'clean_and_neats.created_by_id');
 
         foreach ($this->filters as $filter => $value) {
             if (!empty($value)) {
                 $cleansAndNeats
-                    ->when($filter == 'bank_id', fn($cleansAndNeats) => $cleansAndNeats->whereRelation('bank', 'id', $value))
-                    ->when($filter == 'status', fn($cleansAndNeats) => $cleansAndNeats->where('closing_couriers.' . $filter, 'LIKE', '%' . $value . '%'));
+                    ->when($filter == 'created_by_id', fn($cleansAndNeats) => $cleansAndNeats->whereRelation('user', 'id', $value))
+                    ->when($filter == 'status', fn($cleansAndNeats) => $cleansAndNeats->where('clean_and_neats.' . $filter, 'LIKE', '%' . $value . '%'));
             }
         }
 

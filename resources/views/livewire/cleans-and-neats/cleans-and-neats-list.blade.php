@@ -47,7 +47,7 @@
                 <th></th>
             </x-slot>
             <x-slot name="body">
-                @forelse($cleanAndNeats as $cleanAndNeat)
+                @forelse($cleansAndNeats as $cleanAndNeat)
                     <tr class="hover:bg-gray-50">
                         <x-tables.td-left-hide>{{ $cleanAndNeat->created_at }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>
@@ -114,5 +114,5 @@
         <x-slot name="foot"> </x-slot>
     </x-table>
 </x-tables.card>
-<div class="px-4 mt-10">{!! $cleanAndNeats->render() !!}</div>
+<div class="px-4 mt-10">{!! $cleansAndNeats->render() !!}</div>
 </div>
