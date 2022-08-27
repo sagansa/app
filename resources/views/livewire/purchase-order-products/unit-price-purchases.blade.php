@@ -92,7 +92,9 @@
                             {{ $purchaseOrderProduct->product->unit->unit }}
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
-                            @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
+                            @if ($purchaseOrderProduct->subtotal_invoice != 0 || $purchaseOrderProduct->quantity_invoice != 0)
+                                @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
+                            @endif
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
                             @currency($purchaseOrderProduct->subtotal_invoice)
