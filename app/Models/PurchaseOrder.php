@@ -102,9 +102,9 @@ class PurchaseOrder extends Model
     public function getPurchaseOrderNameAttribute()
     {
         if($this->supplier->bank_account_name != null) {
-            return $this->supplier->name . ' - ' . $this->supplier->bank->name . ' - ' . $this->date->toFormattedDate() . $this->purchaseOrderProducts->sum('subtotal_invoice');
+            return $this->supplier->name . ' - ' . $this->supplier->bank->name . ' - ' . $this->date->toFormattedDate() . ' - ' . $this->purchaseOrderProducts->sum('subtotal_invoice');
         } else {
-            return $this->supplier->name . ' - ' . $this->date->toFormattedDate() . $this->purchaseOrderProducts->sum('subtotal_invoice');
+            return $this->supplier->name . ' - ' . $this->date->toFormattedDate() . ' - ' . $this->purchaseOrderProducts->sum('subtotal_invoice');
         }
 
     }

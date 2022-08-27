@@ -64,11 +64,13 @@
                         @lang('crud.purchase_order_products.inputs.quantity_product')
                     </x-tables.th-left>
                     <x-tables.th-left>
-                        Store Production
+                        Unit Price
                     </x-tables.th-left>
                     <x-tables.th-left>
-                        @lang('crud.purchase_order_products.inputs.status')
+                        Subtotal Invoice
                     </x-tables.th-left>
+
+
 
                 </tr>
             </x-slot>
@@ -90,13 +92,12 @@
                             {{ $purchaseOrderProduct->product->unit->unit }}
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
-                            @currency($purchaseOrderProduct->subtotal_invoice)
-
+                            @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
                         </x-tables.td-right-hide>
                         <x-tables.td-right-hide>
-                            @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
-
+                            @currency($purchaseOrderProduct->subtotal_invoice)
                         </x-tables.td-right-hide>
+
 
                     </tr>
                 @endforeach
