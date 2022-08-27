@@ -257,8 +257,8 @@ class ProductsList extends Component
         ]);
     }
 
-    public function updatedName()
-    {
-        $this->slug = SlugService::createSlug(Product::class, 'product.slug', $this->name);
-    }
+    // public function updatedName()
+    // {
+    //     $this->slug = SlugService::createSlug(Product::class, 'product.slug', $this->name);
+    // }
 }
