@@ -6,18 +6,17 @@ use App\Http\Livewire\DataTables\WithBulkAction;
 use App\Http\Livewire\DataTables\WithCachedRows;
 use App\Http\Livewire\DataTables\WithFilter;
 use App\Http\Livewire\DataTables\WithModal;
-use App\Http\Livewire\DataTables\WithPerPagePagination;
+use App\Http\Livewire\DataTables\WithSimpleTablePagination;
 use App\Http\Livewire\DataTables\WithSorting;
 use App\Models\Product;
 use App\Models\PurchaseOrderProduct;
 use App\Models\Store;
 use App\Models\Supplier;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class UnitPricePurchases extends Component
 {
-    use WithPerPagePagination, WithSorting, WithModal, WithBulkAction, WithCachedRows, WithFilter;
+    use WithSimpleTablePagination, WithSorting, WithModal, WithBulkAction, WithCachedRows, WithFilter;
 
     public PurchaseOrderProduct $editing;
 
