@@ -141,8 +141,6 @@
                                     </a>
                                 @endif
 
-
-
                             </x-slot>
                             <x-slot name="sub">
 
@@ -158,18 +156,12 @@
                                 {{-- <p>{{ optional($purchaseOrder->paymentType)->name ?? '-' }}</p> --}}
                                 <p>{{ $purchaseOrder->date->toFormattedDate() ?? '-' }}</p>
                                 <p>
-                                    @if ($purchaseOrder->payment_status == '1')
-                                        <x-spans.yellow>belum dibayar</x-spans.yellow>
-                                    @else
-                                        <x-spans.green>sudah dibayar</x-spans.green>
-                                    @endif
-                                    @if ($purchaseOrder->order_status == '1')
-                                        <x-spans.yellow>belum diterima</x-spans.yellow>
-                                    @elseif ($purchaseOrder->order_status == '2')
-                                        <x-spans.green>sudah diterima</x-spans.green>
-                                    @else
-                                        <x-spans.red>dikembalikan</x-spans.red>
-                                    @endif
+                                    <x-spans.status-valid class="{{ $purchaseOrder->payment_status_badge }}">
+                                        {{ $purchaseOrder->payment_status_name }}
+                                    </x-spans.status-valid>
+                                    <x-spans.status-valid class="{{ $purchaseOrder->order_status_badge }}">
+                                        {{ $purchaseOrder->order_status_name }}</x-spans.status-valid>
+                                    </x-tables.td-left-hide>
                                 </p>
                             </x-slot>
                         </x-tables.td-left-main>
