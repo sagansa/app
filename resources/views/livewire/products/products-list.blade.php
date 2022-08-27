@@ -89,12 +89,11 @@
 
                 </div>
                 <div class="mt-1 text-right md:w-1/3">
-                    @can('create', App\Models\PurchaseOrder::class)
-                        <a href="{{ route('purchase-orders.create') }}">
-                            <x-jet-button>
-                                <i class="mr-1 icon ion-md-add"></i>
-                                @lang('crud.common.create')
-                            </x-jet-button>
+                    @can('create', App\Models\Product::class)
+                        <x-jet-button wire:click="newProduct">
+                            <i class="mr-1 icon ion-md-add"></i>
+                            @lang('crud.common.create')
+                        </x-jet-button>
                         </a>
                     @endcan
                 </div>
@@ -150,30 +149,149 @@
                         </x-tables.td-left-hide>
                         <td class="px-4 py-3 text-center" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                                @if ($product->status != '2')
-                                    <a href="{{ route('products.edit', $product) }}" class="mr-1">
-                                        <x-buttons.edit></x-buttons.edit>
-                                    </a>
-                                @elseif($product->status == '2')
-                                    <a href="{{ route('products.show', $product) }}" class="mr-1">
-                                        <x-buttons.show></x-buttons.show>
-                                    </a>
-                                @endif @can('delete', $product)
-                                <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                    @csrf @method('DELETE')
-                                    <x-buttons.delete></x-buttons.delete>
-                                </form>
-                            @endcan
+                                @can('update', $product)
+                                    <x-buttons.edit wire:click="editProduct({{ $product->id }})">
+                                    </x-buttons.edit>
+                                @endcan
+                                @can('delete', $product)
+                                    <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                        @csrf @method('DELETE')
+                                        <x-buttons.delete></x-buttons.delete>
+                                    </form>
+                                @endcan
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <x-tables.no-items-found colspan="9"> </x-tables.no-items-found>
+                @endforelse
+            </x-slot>
+            <x-slot name="foot"> </x-slot>
+        </x-table>
+    </x-tables.card>
+    <div class="px-4 mt-10">{!! $products->render() !!}</div>
+
+    <x-modal wire:model="showingModal">
+        <div class="px-6 py-4">
+            <div class="text-lg font-bold">{{ $modalTitle }}</div>
+
+            <div class="mt-1 sm:space-y-5">
+
+                <x-input.image name="productImage" label="Image">
+                    <div image-url="{{ $editing && $product->image ? \Storage::url($product->image) : '' }}"
+                        x-data="imageViewer()" @refresh.window="refreshUrl()" class="mt-1 sm:mt-0 sm:col-span-2">
+                        <!-- Show the image -->
+                        <template x-if="imageUrl">
+                            <img :src="imageUrl" class="object-cover border border-gray-200 rounded "
+                                style="width: 100px; height: 100px;" />
+                        </template>
+
+                        <!-- Show the gray box when image is not available -->
+                        <template x-if="!imageUrl">
+                            <div class="bg-gray-100 border border-gray-200 rounded "
+                                style="width: 100px; height: 100px;"></div>
+                        </template>
+
+                        <div class="mt-2">
+                            <input type="file" name="productImage" id="productImage{{ $uploadIteration }}"
+                                wire:model="productImage" @change="fileChosen" />
                         </div>
-                    </td>
-                </tr>
-            @empty
-                <x-tables.no-items-found colspan="9"> </x-tables.no-items-found>
-            @endforelse
-        </x-slot>
-        <x-slot name="foot"> </x-slot>
-    </x-table>
-</x-tables.card>
-<div class="px-4 mt-10">{!! $products->render() !!}</div>
+
+                        @error('productImage')
+                            @include('components.inputs.partials.error')
+                        @enderror
+                    </div>
+                </x-input.image>
+
+                <x-input.text name="product.name" label="Name" wire:model="product.name" maxlength="255">
+                </x-input.text>
+
+                <x-input.text name="product.slug" label="Slug" wire:model="product.slug" maxlength="50">
+                </x-input.text>
+
+                <x-input.text name="product.sku" label="SKU" wire:model="product.sku" maxlength="255">
+                </x-input.text>
+
+                <x-input.text name="product.barcode" label="Barcode" wire:model="product.barcode" maxlength="255">
+                </x-input.text>
+
+                <x-input.textarea name="product.description" label="Description" wire:model="product.description"
+                    maxlength="255"></x-input.textarea>
+
+                <x-input.select name="product.unit_id" label="Unit" wire:model="product.unit_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($unitsForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.material_group_id" label="Material Group"
+                    wire:model="product.material_group_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($materialGroupsForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.franchise_group_id" label="Franchise Group"
+                    wire:model="product.franchise_group_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($franchiseGroupsForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.payment_type_id" label="Payment Type"
+                    wire:model="product.payment_type_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($paymentTypesForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.online_category_id" label="Online Category"
+                    wire:model="product.online_category_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($onlineCategoriesForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.product_group_id" label="Product Group"
+                    wire:model="product.product_group_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($productGroupsForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.restaurant_category_id" label="Restaurant Category"
+                    wire:model="product.restaurant_category_id">
+                    <option value="null" disabled>-- select --</option>
+                    @foreach ($restaurantCategoriesForSelect as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-input.select>
+
+                <x-input.select name="product.remaining" label="Remaining" wire:model="product.remaining">
+                    <option value="1" {{ $selected == '1' ? 'selected' : '' }}>active</option>
+                    <option value="2" {{ $selected == '2' ? 'selected' : '' }}>inactive</option>
+                </x-input.select>
+
+                <x-input.select name="product.request" label="Request" wire:model="product.request">
+                    <option value="1" {{ $selected == '1' ? 'selected' : '' }}>active</option>
+                    <option value="2" {{ $selected == '2' ? 'selected' : '' }}>inactive</option>
+                </x-input.select>
+
+            </div>
+        </div>
+
+        <div class="flex justify-between px-6 py-4 bg-gray-50">
+
+
+            <x-buttons.secondary wire:click="$toggle('showingModal')"> @lang('crud.common.cancel')</x-buttons.secondary>
+            <x-jet-button wire:click="save"> @lang('crud.common.save')</x-jet-button>
+        </div>
+    </x-modal>
 </div>

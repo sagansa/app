@@ -17,13 +17,35 @@ use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\RestaurantCategory;
 use App\Models\Unit;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class ProductsList extends Component
 {
     use WithSimpleTablePagination, WithSorting, WithModal, WithBulkAction, WithCachedRows, WithFilter;
 
-    public Product $editing;
+
+    use AuthorizesRequests;
+
+    public $productId;
+
+    public Product $product;
+    public $unitsForSelect = [];
+    public $materialGroupsForSelect = [];
+    public $franchiseGroupsForSelect = [];
+    public $paymentTypesForSelect = [];
+    public $onlineCategoriesForSelect = [];
+    public $productGroupsForSelect = [];
+    public $restaurantCategoriesForSelect = [];
+    public $productImage;
+    public $uploadIteration = 0;
+
+    public $selected = [];
+    public $editing = false;
+    public $allSelected = false;
+    public $showingModal = false;
+
+    public $modalTitle = 'New Product';
 
     public $sortColumn = 'products.created_at';
 
@@ -49,6 +71,36 @@ class ProductsList extends Component
         'unit_id' => null,
     ];
 
+    protected $rules = [
+        'productImage' => ['nullable', 'image', 'max:1024'],
+        'product.name' => ['required', 'max:255', 'string'],
+        'product.slug' => ['required', 'max:255', 'string'],
+        'product.sku' => ['nullable', 'max:255', 'string'],
+        'product.barcode' => ['nullable', 'max:255', 'string'],
+        'product.description' => ['nullable', 'max:255', 'string'],
+        'product.unit_id' => ['required', 'exists:units,id'],
+        'product.material_group_id' => [
+            'required',
+            'exists:material_groups,id',
+        ],
+        'product.franchise_group_id' => [
+            'required',
+            'exists:franchise_groups,id',
+        ],
+        'product.payment_type_id' => ['required', 'exists:payment_types,id'],
+        'product.online_category_id' => [
+            'required',
+            'exists:online_categories,id',
+        ],
+        'product.product_group_id' => ['required', 'exists:product_groups,id'],
+        'product.restaurant_category_id' => [
+            'required',
+            'exists:restaurant_categories,id',
+        ],
+        'product.remaining' => ['required'],
+        'product.request' => ['required'],
+    ];
+
     public function mount()
     {
         $this->units = Unit::orderBy('unit', 'asc')->pluck('id', 'unit');
@@ -59,6 +111,131 @@ class ProductsList extends Component
         $this->franchiseGroups = FranchiseGroup::orderBy('name', 'asc')->pluck('id', 'name');
         $this->onlineCategories = OnlineCategory::orderBy('name', 'asc')->pluck('id', 'name');
         $this->restaurantCategories = RestaurantCategory::orderBy('name', 'asc')->pluck('id', 'name');
+
+        $this->unitsForSelect = Unit::pluck('name', 'id');
+        $this->materialGroupsForSelect = MaterialGroup::pluck('name', 'id');
+        $this->franchiseGroupsForSelect = FranchiseGroup::pluck('name', 'id');
+        $this->paymentTypesForSelect = PaymentType::pluck('name', 'id');
+        $this->onlineCategoriesForSelect = OnlineCategory::pluck('name', 'id');
+        $this->productGroupsForSelect = ProductGroup::pluck('name', 'id');
+        $this->restaurantCategoriesForSelect = RestaurantCategory::pluck(
+            'name',
+            'id'
+        );
+        $this->resetProductData();
+    }
+
+    public function resetProductData()
+    {
+        $this->product = new Product();
+
+        $this->productImage = null;
+        $this->product->unit_id = null;
+        $this->product->material_group_id = null;
+        $this->product->franchise_group_id = null;
+        $this->product->payment_type_id = null;
+        $this->product->online_category_id = null;
+        $this->product->product_group_id = null;
+        $this->product->restaurant_category_id = null;
+        $this->product->remaining = '1';
+        $this->product->request = '1';
+
+        $this->dispatchBrowserEvent('refresh');
+    }
+
+    public function newProduct()
+    {
+        $this->editing = false;
+        $this->modalTitle = trans('crud.products.new_title');
+        $this->resetProductData();
+
+        $this->showModal();
+    }
+
+    public function editProduct(Product $product)
+    {
+        $this->editing = true;
+        $this->modalTitle = trans('crud.products.edit_title');
+        $this->product = $product;
+
+        $this->dispatchBrowserEvent('refresh');
+
+        $this->showModal();
+    }
+
+    public function showModal()
+    {
+        $this->resetErrorBag();
+        $this->showingModal = true;
+    }
+
+    public function hideModal()
+    {
+        $this->showingModal = false;
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        if (!$this->product->id) {
+            $this->authorize('create', Product::class);
+
+            $this->product->user_id = auth()->user()->id;
+        } else {
+            $this->authorize('update', $this->product);
+        }
+
+        if ($this->productImage) {
+            $this->product->image = $this->productImage->store('public');
+        }
+
+        $this->product->save();
+
+        $this->uploadIteration++;
+
+        $this->hideModal();
+
+        // $this->validate();
+
+        // if (!is_null($this->productId)) {
+        //     $this->product->save();
+        // } else {
+        //     Product::create($this->product);
+        // }
+        // $this->showModal = false;
+    }
+
+    public function destroySelected()
+    {
+        $this->authorize('delete-any', Product::class);
+
+        collect($this->selected)->each(function (string $id) {
+            $product = Product::findOrFail($id);
+
+            if ($product->image) {
+                Storage::delete($product->image);
+            }
+
+            $product->delete();
+        });
+
+        $this->selected = [];
+        $this->allSelected = false;
+
+        $this->resetProductData();
+    }
+
+    public function toggleFullSelection()
+    {
+        if (!$this->allSelected) {
+            $this->selected = [];
+            return;
+        }
+
+        foreach ($this->user->products as $product) {
+            array_push($this->selected, $product->id);
+        }
     }
 
     public function getRowsQueryProperty()
