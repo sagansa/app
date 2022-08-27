@@ -106,7 +106,15 @@
         <x-table>
             <x-slot name="head">
                 <x-tables.th-left>@lang('crud.products.inputs.image')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.products.inputs.name')</x-tables.th-left>
+                <x-tables.th-left wire:click="sortByColumn('name')">
+                    <x-spans.sort>@lang('crud.products.inputs.name')
+                        @if ($sortColumn == 'name')
+                            @include('svg.sort-' . $sortDirection)
+                        @else
+                            @include('svg.sort')
+                        @endif
+                    </x-spans.sort>
+                </x-tables.th-left>
                 <x-tables.th-left>@lang('crud.products.inputs.unit_id')</x-tables.th-left>
                 <x-tables.th-left>@lang('crud.products.inputs.material_group_id')</x-tables.th-left>
                 <x-tables.th-left>@lang('crud.products.inputs.payment_type_id')</x-tables.th-left>

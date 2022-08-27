@@ -8,7 +8,7 @@ use App\Http\Livewire\DataTables\WithFilter;
 use App\Http\Livewire\DataTables\WithModal;
 use App\Http\Livewire\DataTables\WithPerPagePagination;
 use App\Http\Livewire\DataTables\WithSimpleTablePagination;
-use App\Http\Livewire\DataTables\WithSorting;
+use App\Http\Livewire\DataTables\WithSortingName;
 use App\Models\FranchiseGroup;
 use App\Models\MaterialGroup;
 use App\Models\OnlineCategory;
@@ -18,12 +18,12 @@ use App\Models\ProductGroup;
 use App\Models\RestaurantCategory;
 use App\Models\Unit;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class ProductsList extends Component
 {
-    use WithSimpleTablePagination, WithSorting, WithModal, WithBulkAction, WithCachedRows, WithFilter;
-
+    use WithSimpleTablePagination, WithSortingName, WithModal, WithBulkAction, WithCachedRows, WithFilter;
 
     use AuthorizesRequests;
 
@@ -47,11 +47,11 @@ class ProductsList extends Component
 
     public $modalTitle = 'New Product';
 
-    public $sortColumn = 'products.created_at';
+    public $sortColumn = 'products.name';
 
     protected $queryString = [
         'sortColumn' => [
-        'except' => 'products.created_at'
+        'except' => 'products.name'
         ],
         'sortDirection' => [
             'except' => 'desc',
