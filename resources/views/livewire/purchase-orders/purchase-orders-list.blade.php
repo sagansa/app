@@ -128,6 +128,16 @@
                     <tr class="hover:bg-gray-50">
                         @role('super-admin')
                             <x-tables.td-checkbox id="{{ $purchaseOrder->id }}"></x-tables.td-checkbox>
+                            @role('staff')
+                                @if ($purchaseOrder->payment_status != 2 || $purchaseOrder->order_status != 2)
+                                    <x-buttons.notes wire:click="edit({{ $purchaseOrder->id }})">
+                                    </x-buttons.notes>
+                                @endif
+                            @endrole
+                            @role('supervisor|manager|super-admin')
+                                <x-buttons.notes wire:click="edit({{ $purchaseOrder->id }})">
+                                </x-buttons.notes>
+                            @endrole
                         @endrole
                         <x-tables.td-left-main>
                             <x-slot name="main">
@@ -171,8 +181,8 @@
                         </x-tables.td-left-main>
 
                         <x-tables.td-left-hide>
-                            {{ optional($purchaseOrder->store)->nickname ?? '-' }} -
-                            {{ $purchaseOrder->date->toFormattedDate() ?? '-' }}
+                            <p>{{ optional($purchaseOrder->store)->nickname ?? '-' }}</p>
+                            <p> {{ $purchaseOrder->date->toFormattedDate() ?? '-' }}</p>
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
                             <p>{{ optional($purchaseOrder->supplier)->name ?? '-' }}</p>
@@ -189,8 +199,9 @@
                         @role('super-admin')
                             <x-tables.td-left-hide>
                                 @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
-                                    <p> {{ $purchaseOrderProduct->product->name }} -
-                                        @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)</p>
+                                    <p> {{ $purchaseOrderProduct->product->name }}
+                                        - {{ $purchaseOrderProduct->quantity_product }}
+                                        {{ $purchaserOrderProduct->unit->unit }} - @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)</p>
                                 @endforeach
                             </x-tables.td-left-hide>
 
@@ -262,4 +273,37 @@
         </x-table>
     </x-tables.card>
     <div class="px-4 mt-10">{!! $purchaseOrders->render() !!}</div>
+
+    <!-- Save Purchase Order Modal -->
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" wire:ignore.self>
+        <form wire:submit.prevent="save">
+            <x-modals.dialog wire:model.defer="showEditModal">
+                <x-slot name="title">Purchase Order </x-slot>
+
+                <x-slot name="content">
+                    @role('super-admin|supervisor|manager')
+                        <x-inputs.group for="status" label="Status">
+                            <x-inputs.select name="status" label="status" wire:model.defer="editing.status" id="status">
+                                <option value="2">valid</option>
+                                <option value="3">perbaiki</option>
+                                @role('super-admin')
+                                    <option value="4">periksa ulang</option>
+                                @endrole
+                            </x-inputs.select>
+                        </x-inputs.group>
+                    @endrole
+                    <x-inputs.group for="notes" label="Notes">
+                        <x-inputs.textarea name="notes" label="notes" wire:model.defer="editing.notes"
+                            id="notes" />
+                    </x-inputs.group>
+                </x-slot>
+
+                <x-slot name="footer">
+                    <x-buttons.secondary wire:click="$set('showEditModal', false)">Cancel</x-buttons.secondary>
+                    <x-jet-button type="submit">Save</x-jet-button>
+                </x-slot>
+            </x-modals.dialog>
+        </form>
+    </div>
 </div>

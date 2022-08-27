@@ -41,6 +41,32 @@ class PurchaseOrdersList extends Component
         'payment_type_id' => null,
     ];
 
+    public function rules()
+    {
+        return [
+            'editing.notes' => 'nullable',
+            'editing.status' => 'required|in:1,2,3,4',
+        ];
+    }
+
+    public function edit(PurchaseOrder $purchaseOrder)
+    {
+        $this->editing = $purchaseOrder;
+
+        $this->showEditModal = true;
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        $this->editing['approved_by_id'] = Auth::user()->id;
+
+        $this->editing->save();
+
+        $this->showEditModal = false;
+    }
+
     public function mount()
     {
         $this->suppliers = Supplier::orderBy('name', 'asc')->pluck('id', 'name');
