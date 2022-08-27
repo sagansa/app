@@ -161,7 +161,6 @@
                                     </x-spans.status-valid>
                                     <x-spans.status-valid class="{{ $purchaseOrder->order_status_badge }}">
                                         {{ $purchaseOrder->order_status_name }}</x-spans.status-valid>
-                                    </x-tables.td-left-hide>
                                 </p>
                             </x-slot>
                         </x-tables.td-left-main>
