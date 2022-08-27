@@ -16,7 +16,7 @@ class Product extends Model
     use HasFactory;
     use Searchable;
     use SoftDeletes;
-    use Sluggable;
+    // use Sluggable;
 
     const STATUSES = [
         '1' => 'active',
