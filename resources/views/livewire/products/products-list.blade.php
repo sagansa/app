@@ -229,7 +229,7 @@
 
                 <x-input.select name="product.unit_id" label="Unit" wire:model="product.unit_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($unitsForSelect as $value => $label)
+                    @foreach ($units as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -237,7 +237,7 @@
                 <x-input.select name="product.material_group_id" label="Material Group"
                     wire:model="product.material_group_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($materialGroupsForSelect as $value => $label)
+                    @foreach ($materialGroups as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -245,7 +245,7 @@
                 <x-input.select name="product.franchise_group_id" label="Franchise Group"
                     wire:model="product.franchise_group_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($franchiseGroupsForSelect as $value => $label)
+                    @foreach ($franchiseGroups as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -253,7 +253,7 @@
                 <x-input.select name="product.payment_type_id" label="Payment Type"
                     wire:model="product.payment_type_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($paymentTypesForSelect as $value => $label)
+                    @foreach ($paymentTypes as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -261,7 +261,7 @@
                 <x-input.select name="product.online_category_id" label="Online Category"
                     wire:model="product.online_category_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($onlineCategoriesForSelect as $value => $label)
+                    @foreach ($onlineCategories as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -269,7 +269,7 @@
                 <x-input.select name="product.product_group_id" label="Product Group"
                     wire:model="product.product_group_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($productGroupsForSelect as $value => $label)
+                    @foreach ($productGroups as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>
@@ -277,7 +277,7 @@
                 <x-input.select name="product.restaurant_category_id" label="Restaurant Category"
                     wire:model="product.restaurant_category_id">
                     <option value="null" disabled>-- select --</option>
-                    @foreach ($restaurantCategoriesForSelect as $value => $label)
+                    @foreach ($restaurantCategories as $label => $value)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-input.select>

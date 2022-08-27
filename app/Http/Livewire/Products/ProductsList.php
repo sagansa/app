@@ -20,6 +20,7 @@ use App\Models\Unit;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductsList extends Component
 {
@@ -30,13 +31,6 @@ class ProductsList extends Component
     public $productId;
 
     public Product $product;
-    public $unitsForSelect = [];
-    public $materialGroupsForSelect = [];
-    public $franchiseGroupsForSelect = [];
-    public $paymentTypesForSelect = [];
-    public $onlineCategoriesForSelect = [];
-    public $productGroupsForSelect = [];
-    public $restaurantCategoriesForSelect = [];
     public $productImage;
     public $uploadIteration = 0;
 
@@ -112,16 +106,6 @@ class ProductsList extends Component
         $this->onlineCategories = OnlineCategory::orderBy('name', 'asc')->pluck('id', 'name');
         $this->restaurantCategories = RestaurantCategory::orderBy('name', 'asc')->pluck('id', 'name');
 
-        $this->unitsForSelect = Unit::pluck('name', 'id');
-        $this->materialGroupsForSelect = MaterialGroup::pluck('name', 'id');
-        $this->franchiseGroupsForSelect = FranchiseGroup::pluck('name', 'id');
-        $this->paymentTypesForSelect = PaymentType::pluck('name', 'id');
-        $this->onlineCategoriesForSelect = OnlineCategory::pluck('name', 'id');
-        $this->productGroupsForSelect = ProductGroup::pluck('name', 'id');
-        $this->restaurantCategoriesForSelect = RestaurantCategory::pluck(
-            'name',
-            'id'
-        );
         $this->resetProductData();
     }
 
@@ -271,5 +255,10 @@ class ProductsList extends Component
         return view('livewire.products.products-list', [
             'products' => $this->rows,
         ]);
+    }
+
+    public function updatedName()
+    {
+        $this->slug = SlugService::createSlug(Product::class, 'product.slug', $this->name);
     }
 }
