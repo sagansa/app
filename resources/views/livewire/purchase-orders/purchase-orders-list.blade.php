@@ -199,7 +199,7 @@
                                 @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)
                                     <p> {{ $purchaseOrderProduct->product->name }} -
                                         {{ $purchaseOrderProduct->quantity_product }}
-                                        {{ $purchaseOrderProduct->unit->unit }} -
+                                        {{ $purchaseOrderProduct->product->unit->unit }} -
                                         @if ($purchaseOrderProduct->subtotal_invoice != 0 || $purchaseOrderProduct->quantity_invoice != 0)
                                             @currency($purchaseOrderProduct->subtotal_invoice / $purchaseOrderProduct->quantity_product)
                                         @endif
