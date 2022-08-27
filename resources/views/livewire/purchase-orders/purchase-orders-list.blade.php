@@ -128,16 +128,6 @@
                     <tr class="hover:bg-gray-50">
                         @role('super-admin')
                             <x-tables.td-checkbox id="{{ $purchaseOrder->id }}"></x-tables.td-checkbox>
-                            @role('staff')
-                                @if ($purchaseOrder->payment_status != 2 || $purchaseOrder->order_status != 2)
-                                    <x-buttons.notes wire:click="edit({{ $purchaseOrder->id }})">
-                                    </x-buttons.notes>
-                                @endif
-                            @endrole
-                            @role('supervisor|manager|super-admin')
-                                <x-buttons.notes wire:click="edit({{ $purchaseOrder->id }})">
-                                </x-buttons.notes>
-                            @endrole
                         @endrole
                         <x-tables.td-left-main>
                             <x-slot name="main">
@@ -150,8 +140,12 @@
                                             src="{{ $purchaseOrder->image ? \Storage::url($purchaseOrder->image) : '' }}" />
                                     </a>
                                 @endif
+
+
+
                             </x-slot>
                             <x-slot name="sub">
+
                                 <p>{{ optional($purchaseOrder->store)->nickname ?? '-' }}</p>
                                 <p>{{ optional($purchaseOrder->supplier)->name ?? '-' }}</p>
                                 <p>
@@ -181,7 +175,20 @@
                         </x-tables.td-left-main>
 
                         <x-tables.td-left-hide>
-                            <p>{{ optional($purchaseOrder->store)->nickname ?? '-' }}</p>
+                            <p>
+                                @role('staff')
+                                    @if ($purchaseOrder->payment_status != 2 || $purchaseOrder->order_status != 2)
+                                        <x-buttons.notes wire:click="edit({{ $purchaseOrder->id }})">
+                                        </x-buttons.notes>
+                                    @endif
+                                @endrole
+                                @role('supervisor|manager|super-admin')
+                                    <x-buttons.notes wire:click="edit({{ $purchaseOrder->id }})">
+                                    </x-buttons.notes>
+                                @endrole
+                            </p>
+                            <p> {{ optional($purchaseOrder->store)->nickname ?? '-' }}
+                            </p>
                             <p> {{ $purchaseOrder->date->toFormattedDate() ?? '-' }}</p>
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
