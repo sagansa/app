@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.products.index_title')
         </h2>
@@ -107,5 +107,6 @@
         <x-slot name="foot"> </x-slot>
     </x-table>
 </x-tables.card>
-<div class="px-4 mt-10">{!! $products->render() !!}</div>
+<div class="px-4 mt-10">{!! $products->render() !!}</div> --}}
+    <livewire:products.products-list />
 </x-admin-layout>

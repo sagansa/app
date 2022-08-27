@@ -58,7 +58,7 @@ class UnitPricePurchases extends Component
                 }
             }
 
-            return $this->applySorting($purchaseOrderProducts);
+        return $this->applySorting($purchaseOrderProducts);
     }
 
     public function getRowsProperty()
@@ -70,7 +70,6 @@ class UnitPricePurchases extends Component
 
     public function render()
     {
-        $purchaseOrderProducts = PurchaseOrderProduct::get();
         return view('livewire.purchase-order-products.unit-price-purchases', [
             'purchaseOrderProducts' => $this->rows,
         ]);
