@@ -33,7 +33,7 @@ class ProductionsList extends Component
 
     public $filters = [
         'storename' => '',
-        'payment_status' => '',
+        'status' => '',
         'order_status' => '',
         'store_id' => null,
         'supplier_id' => null,
@@ -98,5 +98,35 @@ class ProductionsList extends Component
         return view('livewire.productions.productions-list', [
             'productions' => $this->rows,
         ]);
+    }
+
+     public function markAllAsValid()
+    {
+        Production::whereIn('id', $this->selectedRows)->update([
+            'status' => '2',
+            'approved_by_id' => Auth::user()->id,
+        ]);
+
+        $this->reset(['selectedRows']);
+    }
+
+    public function markAllAsBelumDiperiksa()
+    {
+        Production::whereIn('id', $this->selectedRows)->update([
+            'status' => '1',
+            'approved_by_id' => null,
+        ]);
+
+        $this->reset(['selectedRows']);
+    }
+
+    public function markAllAsPerbaiki()
+    {
+        Production::whereIn('id', $this->selectedRows)->update([
+            'status' => '3',
+            'approved_by_id' => Auth::user()->id,
+        ]);
+
+        $this->reset(['selectedRows']);
     }
 }
