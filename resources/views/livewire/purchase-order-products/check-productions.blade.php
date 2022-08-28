@@ -13,7 +13,9 @@
                     Hide
                 @endif Advanced Search...
             </x-buttons.link>
+
             @if ($showFilters)
+
                 <x-filters.group>
                     <x-filters.label>Status</x-filters.label>
                     <x-filters.select wire:model="filters.status">
@@ -25,6 +27,7 @@
 
                 <x-buttons.link wire:click="resetFilters">Reset Filter
                 </x-buttons.link>
+
             @endif
         </x-slot>
         <x-slot name="action">
@@ -38,9 +41,8 @@
                     <x-tables.th-left>
                         Store Purchase Order
                     </x-tables.th-left>
-
-
-                    @lang('crud.purchase_order_products.inputs.product_id')
+                    <x-tables.th-left>
+                        @lang('crud.purchase_order_products.inputs.product_id')
                     </x-tables.th-left>
                     <x-tables.th-left>
                         @lang('crud.purchase_order_products.inputs.quantity_product')
