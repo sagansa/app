@@ -53,20 +53,11 @@
         value="{{ old('date', $editing ? optional($purchaseOrder->date)->format('Y-m-d') : '') }}" required>
     </x-input.date>
 
-    {{-- <x-input.hidden name="taxes" value="{{ old('taxes', $editing ? $production->taxes : '0') }}">
-    </x-input.hidden> --}}
+    <x-input.hidden name="taxes" value="{{ old('taxes', $editing ? $purchaseOrder->taxes : '0') }}">
+    </x-input.hidden>
 
-    {{-- <x-input.hidden name="discounts" value="{{ old('discounts', $editing ? $production->discounts : '0') }}">
-    </x-input.hidden> --}}
-
-    <x-input.currency name="taxes" label="Taxes" value="{{ old('taxes', $editing ? $purchaseOrder->taxes : '0') }}">
-    </x-input.currency>
-
-    <x-input.currency name="discounts" label="Discounts"
-        value="{{ old('discounts', $editing ? $purchaseOrder->discounts : '0') }}"></x-input.currency>
-
-    <x-input.currency name="totals" label="Totals"
-        value="{{ old('totals', $editing ? $purchaseOrder->totals : '0') }}" required></x-input.currency>
+    <x-input.hidden name="discounts" value="{{ old('discounts', $editing ? $purchaseOrder->discounts : '0') }}">
+    </x-input.hidden>
 
     <x-input.textarea name="notes" label="Notes" maxlength="255">
         {{ old('notes', $editing ? $purchaseOrder->notes : '') }}</x-input.textarea>

@@ -24,11 +24,13 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductsList extends Component
 {
-    use WithSimpleTablePagination, WithSortingName, WithModal, WithBulkAction, WithCachedRows, WithFilter;
-
+    use WithSimpleTablePagination;
+    use WithSortingName;
+    use WithModal;
+    use WithBulkAction;
+    use WithCachedRows;
+    use WithFilter;
     use AuthorizesRequests;
-
-    public $productId;
 
     public Product $product;
     public $productImage;
@@ -66,7 +68,7 @@ class ProductsList extends Component
     ];
 
     protected $rules = [
-        'productImage' => ['nullable', 'image', 'max:1024'],
+        'productImage' => ['nullable', 'image'],
         'product.name' => ['required', 'max:255', 'string'],
         'product.slug' => ['required', 'max:255', 'string'],
         'product.sku' => ['nullable', 'max:255', 'string'],
@@ -179,15 +181,6 @@ class ProductsList extends Component
         $this->uploadIteration++;
 
         $this->hideModal();
-
-        // $this->validate();
-
-        // if (!is_null($this->productId)) {
-        //     $this->product->save();
-        // } else {
-        //     Product::create($this->product);
-        // }
-        // $this->showModal = false;
     }
 
     public function destroySelected()
@@ -210,17 +203,17 @@ class ProductsList extends Component
         $this->resetProductData();
     }
 
-    public function toggleFullSelection()
-    {
-        if (!$this->allSelected) {
-            $this->selected = [];
-            return;
-        }
+    // public function toggleFullSelection()
+    // {
+    //     if (!$this->allSelected) {
+    //         $this->selected = [];
+    //         return;
+    //     }
 
-        foreach ($this->user->products as $product) {
-            array_push($this->selected, $product->id);
-        }
-    }
+    //     foreach ($this->user->products as $product) {
+    //         array_push($this->selected, $product->id);
+    //     }
+    // }
 
     public function getRowsQueryProperty()
     {
@@ -257,8 +250,8 @@ class ProductsList extends Component
         ]);
     }
 
-    // public function updatedName()
-    // {
-    //     $this->slug = SlugService::createSlug(Product::class, 'product.slug', $this->name);
-    // }
+    public function updatedName()
+    {
+        $this->slug = SlugService::createSlug(Product::class, 'slug', $this->name);
+    }
 }
