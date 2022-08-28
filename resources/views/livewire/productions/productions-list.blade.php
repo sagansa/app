@@ -33,7 +33,6 @@
                     </x-filters.select>
                 </x-filters.group>
 
-
                 <x-buttons.link wire:click.prevent="resetFilters">Reset Filter
                 </x-buttons.link>
             @endif
@@ -108,9 +107,13 @@
                         <x-tables.td-left-hide>
                             <div class="font-bold">Main</div>
                             @foreach ($production->productionFroms as $productionFrom)
-                                <p> {{ $productionFrom->purchaseOrderProduct->product->name }} =
-                                    {{ $productionFrom->purchaseOrderProduct->quantity_product }}
-                                    {{ $productionFrom->purchaseOrderProduct->product->unit->unit }}</p>
+                                @if ($productionFrom->purchaseOrderProduct->product_id != null)
+                                    <p> {{ $productionFrom->purchaseOrderProduct->product->name }} =
+                                        {{ $productionFrom->purchaseOrderProduct->quantity_product }}
+                                        {{ $productionFrom->purchaseOrderProduct->product->unit->unit }}</p>
+                                @else
+                                    -
+                                @endif
                             @endforeach
                             <div class="font-bold">Support</div>
                             @foreach ($production->productionSupportFroms as $productionSupportFrom)
