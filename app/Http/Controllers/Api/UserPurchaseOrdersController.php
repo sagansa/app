@@ -47,7 +47,6 @@ class UserPurchaseOrdersController extends Controller
             'date' => ['required', 'date'],
             'taxes' => ['required', 'numeric', 'min:0'],
             'discounts' => ['required', 'numeric', 'min:0'],
-            'totals' => ['required', 'numeric', 'min:0'],
             'notes' => ['nullable', 'string', 'max:255'],
             'payment_status' => ['required'],
             'order_status' => ['required'],

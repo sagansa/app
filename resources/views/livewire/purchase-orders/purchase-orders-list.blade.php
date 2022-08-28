@@ -104,8 +104,9 @@
                 {{-- <x-tables.th-left-hide>@lang('crud.purchase_orders.inputs.payment_type_id')</x-tables.th-left-hide> --}}
 
 
-
-                <x-tables.th-left-hide>Unit Price</x-tables.th-left-hide>
+                @role('super-admin')
+                    <x-tables.th-left-hide>Unit Price</x-tables.th-left-hide>
+                @endrole
                 <x-tables.th-left-hide>Total</x-tables.th-left-hide>
                 {{-- @role('super-admin')
                     <x-tables.th-left-hide>Nominal Payment</x-tables.th-left-hide>
@@ -194,6 +195,14 @@
                         </x-tables.td-left-hide> --}}
                         {{-- <x-tables.td-left-hide>{{ $purchaseOrder->date->toFormattedDate() ?? '-' }}
                         </x-tables.td-left-hide> --}}
+
+                        @role('staff|supervisor|manager')
+                            <x-tables.td-left-hide>
+                                <p>totals: @currency($purchaseOrder->purchase_order_products_sum_subtotal_invoice - $purchaseOrder->discounts + $purchaseOrder->taxes)
+                                </p>
+                            </x-tables.td-left-hide>
+                        @endrole
+
                         @role('super-admin')
                             <x-tables.td-left-hide>
                                 @foreach ($purchaseOrder->purchaseOrderProducts as $purchaseOrderProduct)

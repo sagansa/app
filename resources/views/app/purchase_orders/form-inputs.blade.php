@@ -53,11 +53,19 @@
         value="{{ old('date', $editing ? optional($purchaseOrder->date)->format('Y-m-d') : '') }}" required>
     </x-input.date>
 
-    <x-input.hidden name="taxes" value="{{ old('taxes', $editing ? $purchaseOrder->taxes : '0') }}">
+    {{-- <x-input.number name="taxes" label="Taxes" value="{{ old('taxes', $editing ? $purchaseOrder->taxes : '') }}"
+        required></x-input.number>
+
+    <x-input.number name="discounts" label="Discounts"
+        value="{{ old('discounts', $editing ? $purchaseOrder->discounts : '') }}" required></x-input.number> --}}
+
+
+    <x-input.hidden name="taxes" value="{{ old('taxes', $editing ? $purchaseOrder->taxes : '1') }}">
     </x-input.hidden>
 
-    <x-input.hidden name="discounts" value="{{ old('discounts', $editing ? $purchaseOrder->discounts : '0') }}">
+    <x-input.hidden name="discounts" value="{{ old('discounts', $editing ? $purchaseOrder->discounts : '1') }}">
     </x-input.hidden>
+
 
     <x-input.textarea name="notes" label="Notes" maxlength="255">
         {{ old('notes', $editing ? $purchaseOrder->notes : '') }}</x-input.textarea>
@@ -71,7 +79,7 @@
         </x-input.select>
     @endrole
 
-    @role('supervisor|staff|manager')
+    @role('supervisor|amanger|staff')
         <x-input.hidden name="payment_status"
             value="{{ old('payment_status', $editing ? $purchaseOrder->payment_status : '1') }}">
         </x-input.hidden>
@@ -94,16 +102,10 @@
                 <x-shows.dt>Updated Date</x-shows.dt>
                 <x-shows.dd>{{ $purchaseOrder->updated_at }} </x-shows.dd>
             </x-shows.sub-dl>
-            @role('super-admin|manager|supervisor')
+            @role('super-admin')
                 <x-shows.sub-dl>
                     <x-shows.dt>Created By</x-shows.dt>
                     <x-shows.dd>{{ optional($purchaseOrder->created_by)->name ?? '-' }}
-                    </x-shows.dd>
-                </x-shows.sub-dl>
-                @endrole @role('staff|super-admin')
-                <x-shows.sub-dl>
-                    <x-shows.dt>Updated By</x-shows.dt>
-                    <x-shows.dd>{{ optional($purchaseOrder->approved_by)->name ?? '-' }}
                     </x-shows.dd>
                 </x-shows.sub-dl>
             @endrole

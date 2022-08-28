@@ -31,7 +31,6 @@ class PurchaseOrderUpdateRequest extends FormRequest
             'date' => ['required', 'date'],
             'taxes' => ['required', 'numeric', 'min:0'],
             'discounts' => ['required', 'numeric', 'min:0'],
-            'totals' => ['required', 'numeric', 'min:0'],
             'notes' => ['nullable', 'max:255', 'string'],
             'payment_status' => ['required'],
             'order_status' => ['required'],

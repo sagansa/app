@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->date('date');
             $table->bigInteger('taxes');
             $table->bigInteger('discounts');
-            $table->bigInteger('totals');
             $table->text('notes')->nullable();
             $table->tinyInteger('payment_status');
             $table->tinyInteger('order_status');

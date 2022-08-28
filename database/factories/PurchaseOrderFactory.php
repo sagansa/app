@@ -26,7 +26,6 @@ class PurchaseOrderFactory extends Factory
             'date' => $this->faker->date,
             'taxes' => $this->faker->randomNumber,
             'discounts' => $this->faker->randomNumber,
-            'totals' => $this->faker->randomNumber,
             'notes' => $this->faker->text,
             'payment_status' => $this->faker->numberBetween(1, 3),
             'order_status' => $this->faker->numberBetween(1, 3),

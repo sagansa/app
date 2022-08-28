@@ -201,7 +201,7 @@ class PurchaseOrderController extends Controller
         if (
             auth()
                 ->user()
-                ->hasRole('supervisor|manager|super-admin')
+                ->hasRole('manager|super-admin')
         ) {
             $validated['approved_by_id'] = auth()->user()->id;
         }

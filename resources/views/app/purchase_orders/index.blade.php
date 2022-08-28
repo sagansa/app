@@ -1,5 +1,5 @@
 <x-admin-layout>
-    @role('staff|supervisor')
+    {{-- @role('staff|supervisor')
         <x-slot name="header">
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 @lang('crud.purchase_orders.index_title')
@@ -180,9 +180,9 @@
             </x-table>
         </x-tables.card>
         <div class="px-4 mt-10">{!! $purchaseOrders->render() !!}</div>
-    @endrole
+    @endrole --}}
 
-    @role('super-admin')
-        <livewire:purchase-orders.purchase-orders-list />
-    @endrole
+    {{-- @role('super-admin') --}}
+    <livewire:purchase-orders.purchase-orders-list />
+    {{-- @endrole --}}
 </x-admin-layout>

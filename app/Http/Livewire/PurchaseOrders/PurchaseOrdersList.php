@@ -82,37 +82,7 @@ class PurchaseOrdersList extends Component
             ->join('payment_types', 'payment_types.id', '=', 'purchase_orders.payment_type_id')
             ->join('suppliers', 'suppliers.id', '=', 'purchase_orders.supplier_id');
 
-        if(Auth::user()->hasRole('supervisor')) {
-                foreach ($this->filters as $filter => $value) {
-                    if (!empty($value)) {
-                        $purchaseOrders
-                            ->when($filter == 'store_id', fn($purchaseOrders) => $purchaseOrders
-                                ->whereRelation('store', 'id', $value)
-                                ->where(function($query) {
-                                    return $query
-                                        ->where('approved_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('approved_by_id');
-                                }))
-
-                            ->when($filter == 'status', fn($purchaseOrders) => $purchaseOrders
-                                ->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%')
-                                ->where(function($query) {
-                                    return $query
-                                        ->where('approved_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('approved_by_id');
-                                }));
-                    } elseif (empty($value)) {
-                        $purchaseOrders
-                            ->when($filter == 'status', fn($purchaseOrders) => $purchaseOrders
-                                ->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%')
-                                ->where(function($query) {
-                                    return $query
-                                        ->where('approved_by_id', '=', Auth::user()->id)
-                                        ->orWhereNull('approved_by_id');
-                                }));
-                    }
-                }
-            } elseif (Auth::user()->hasRole('staff')) {
+        if (Auth::user()->hasRole('staff|supervisor')) {
 
                 $purchaseOrders->where('created_by_id', '=', Auth::user()->id);
 
@@ -126,7 +96,7 @@ class PurchaseOrdersList extends Component
                             ->when($filter == 'order_status', fn($purchaseOrders) => $purchaseOrders->where('purchase_orders.' . $filter, 'LIKE', '%' . $value . '%'));
                     }
                 }
-            } elseif(Auth::user()->hasRole('super-admin')) {
+            } elseif(Auth::user()->hasRole('super-admin|manager')) {
             foreach ($this->filters as $filter => $value) {
                 if (!empty($value)) {
                     $purchaseOrders
