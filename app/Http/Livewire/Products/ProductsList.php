@@ -225,7 +225,7 @@ class ProductsList extends Component
                         ->when($filter == 'payment_type_id', fn($products) => $products->whereRelation('paymentType', 'id', $value))
                         ->when($filter == 'product_group_id', fn($products) => $products->whereRelation('productGroup', 'id', $value))
                         ->when($filter == 'material_group_id', fn($products) => $products->whereRelation('materialGroup', 'id', $value))
-                        ->when($filter == 'franchsie_group_id', fn($products) => $products->whereRelation('franchiseGroup', 'id', $value))
+                        ->when($filter == 'franchise_group_id', fn($products) => $products->whereRelation('franchiseGroup', 'id', $value))
                         ->when($filter == 'online_category_id', fn($products) => $products->whereRelation('onlineCategory', 'id', $value))
                         ->when($filter == 'restaurant_category_id', fn($products) => $products->whereRelation('restaurantCategory', 'id', $value))
                         ->when($filter == 'remaining', fn($purchaseOrders) => $purchaseOrders->where('products.' . $filter, 'LIKE', '%' . $value . '%'))

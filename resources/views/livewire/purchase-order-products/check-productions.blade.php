@@ -39,9 +39,8 @@
                         Store Purchase Order
                     </x-tables.th-left>
 
-                    <x-tables.th-left>Material Group</x-tables.th-left>
-                    <x-tables.th-left>
-                        @lang('crud.purchase_order_products.inputs.product_id')
+
+                    @lang('crud.purchase_order_products.inputs.product_id')
                     </x-tables.th-left>
                     <x-tables.th-left>
                         @lang('crud.purchase_order_products.inputs.quantity_product')
@@ -66,8 +65,7 @@
                         <x-tables.td-left-hide>
                             {{ optional($purchaseOrderProduct->product)->name ?? '-' }}
                         </x-tables.td-left-hide>
-                        <x-tables.td-left-hide>{{ $purchaseOrderProduct->product->materialGroup->name }}
-                        </x-tables.td-left-hide>
+
                         <x-tables.td-left-hide>
                             {{ $purchaseOrderProduct->quantity_product ?? '-' }}
 

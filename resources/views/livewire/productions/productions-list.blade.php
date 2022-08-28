@@ -1,5 +1,5 @@
-<x-admin-layout>
-    {{-- <x-slot name="header">
+<div>
+    <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.productions.index_title')
         </h2>
@@ -7,38 +7,67 @@
             sebelum diproses lebih lanjut</p>
     </x-slot>
 
-    <div class="mt-4 mb-5">
-        <div class="flex flex-wrap justify-between mt-1">
-            <div class="md:w-1/3">
-                <form>
-                    <div class="flex items-center w-full">
-                        <x-inputs.text name="search" value="{{ $search ?? '' }}"
-                            placeholder="{{ __('crud.common.search') }}" autocomplete="off"></x-inputs.text>
+    <x-tables.topbar>
+        <x-slot name="search">
+            <x-buttons.link wire:click.prevent="$toggle('showFilters')">
+                @if ($showFilters)
+                    Hide
+                @endif Advanced Search...
+            </x-buttons.link>
+            @if ($showFilters)
+                <x-filters.group>
+                    <x-filters.label>Store</x-filters.label>
+                    <x-filters.select wire:model="filters.store_id">
+                        @foreach ($stores as $label => $value)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-filters.select>
+                </x-filters.group>
 
-                        <div class="ml-1">
+                <x-filters.group>
+                    <x-filters.label>Status</x-filters.label>
+                    <x-filters.select wire:model="filters.status">
+                        @foreach (App\Models\Production::STATUSES as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-filters.select>
+                </x-filters.group>
+
+
+                <x-buttons.link wire:click.prevent="resetFilters">Reset Filter
+                </x-buttons.link>
+            @endif
+        </x-slot>
+        <x-slot name="action">
+            <div class="flex flex-wrap justify-between mt-1">
+                <div class="mt-1 md:w-1/3">
+                    @role('super-admin')
+                        <x-buttons.green wire:click.prevent="markAllAsSudahDibayar">Sudah Dibayar</x-buttons.green>
+                        <x-buttons.yellow wire:click.prevent="markAllAsBelumDibayar">Belum Dibayar</x-buttons.yellow>
+                        <x-buttons.red wire:click.prevent='markAllAsTidakValid'>Tidak Valid</x-buttons.red>
+                    @endrole
+                </div>
+                <div class="mt-1 text-right md:w-1/3">
+                    @can('create', App\Models\Productions::class)
+                        <a href="{{ route('productions.create') }}">
                             <x-jet-button>
-                                <i class="icon ion-md-search"></i>
+                                <i class="mr-1 icon ion-md-add"></i>
+                                @lang('crud.common.create')
                             </x-jet-button>
-                        </div>
-                    </div>
-                </form>
+                        </a>
+                    @endcan
+                </div>
             </div>
-            <div class="text-right md:w-1/3">
-                @can('create', App\Models\Production::class)
-                    <a href="{{ route('productions.create') }}">
-                        <x-jet-button>
-                            <i class="mr-1 icon ion-md-add"></i>
-                            @lang('crud.common.create')
-                        </x-jet-button>
-                    </a>
-                @endcan
-            </div>
-        </div>
-    </div>
+        </x-slot>
+
+    </x-tables.topbar>
 
     <x-tables.card>
         <x-table>
             <x-slot name="head">
+                @role('super-admin')
+                    <th></th>
+                @endrole
                 <x-tables.th-left>@lang('crud.productions.inputs.store_id')</x-tables.th-left>
                 <x-tables.th-left-hide>@lang('crud.productions.inputs.date')</x-tables.th-left-hide>
                 <x-tables.th-left-hide>FROM PRODUCT</x-tables.th-left-hide>
@@ -55,6 +84,9 @@
             <x-slot name="body">
                 @forelse($productions as $production)
                     <tr class="hover:bg-gray-50">
+                        @role('super-admin')
+                            <x-tables.td-checkbox id="{{ $production->id }}"></x-tables.td-checkbox>
+                        @endrole
                         <x-tables.td-left-main>
                             <x-slot name="main">{{ optional($production->store)->nickname ?? '-' }}</x-slot>
                             <x-slot name="sub">
@@ -139,6 +171,5 @@
             <x-slot name="foot"> </x-slot>
         </x-table>
     </x-tables.card>
-    <div class="px-4 mt-10">{!! $productions->render() !!}</div> --}}
-    <livewire:productions.productions-list />
-</x-admin-layout>
+    <div class="px-4 mt-10">{!! $productions->render() !!}</div>
+</div>
