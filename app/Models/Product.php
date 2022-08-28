@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Livewire\DataTables\HasValid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Cviebrock\EloquentSluggable\Sluggable;
+// use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
 {
@@ -16,21 +16,21 @@ class Product extends Model
     use HasFactory;
     use Searchable;
     use SoftDeletes;
-    use Sluggable;
+    // use Sluggable;
 
     const STATUSES = [
         '1' => 'active',
         '2' => 'inactive',
     ];
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
+    // public function sluggable(): array
+    // {
+    //     return [
+    //         'slug' => [
+    //             'source' => 'name'
+    //         ]
+    //     ];
+    // }
 
     protected $fillable = [
         'name',
