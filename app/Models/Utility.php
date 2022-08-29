@@ -60,6 +60,6 @@ class Utility extends Model
 
     public function getUtilityNameAttribute()
     {
-        return $this->store_id . ' - ' . $this->number . ' - ' . $this->utilityProvider->name . ' - ' . $this->unit->unit;
+        return $this->store->nickname . ' - ' . $this->number . ' - ' . $this->utilityProvider->name . ' - ' . $this->unit->unit;
     }
 }
