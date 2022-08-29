@@ -14,10 +14,10 @@ class SalesOrderOnline extends Model
     use Searchable;
 
     const STATUSES = [
-        '1' => 'belum diperiksa',
+        '1' => 'belum dikirim',
         '2' => 'valid',
-        '3' => 'diperbaiki',
-        '4' => 'periksa ulang',
+        '3' => 'sudah dikirim',
+        '4' => 'dikembalikan',
     ];
 
     protected $fillable = [
@@ -80,7 +80,7 @@ class SalesOrderOnline extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('price', 'quantity');
     }
 
     public function delete_image()

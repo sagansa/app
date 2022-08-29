@@ -23,14 +23,14 @@ class Product extends Model
         '2' => 'inactive',
     ];
 
-    // public function sluggable(): array
-    // {
-    //     return [
-    //         'slug' => [
-    //             'source' => 'name'
-    //         ]
-    //     ];
-    // }
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     protected $fillable = [
         'name',

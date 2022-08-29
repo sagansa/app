@@ -136,7 +136,7 @@ class SalesOrderOnlineController extends Controller
             ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $onlineShopProviders = OnlineShopProvider::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
         $deliveryServices = DeliveryService::orderBy('name', 'asc')
             ->whereIn('status', ['1'])

@@ -40,7 +40,7 @@ class UserSalesOrderOnlinesController extends Controller
         $this->authorize('create', SalesOrderOnline::class);
 
         $validated = $request->validate([
-            'image' => ['nullable', 'image', 'max:1024'],
+            'image' => ['nullable', 'image'],
             'store_id' => ['required', 'exists:stores,id'],
             'online_shop_provider_id' => [
                 'required',
@@ -51,14 +51,25 @@ class UserSalesOrderOnlinesController extends Controller
                 'exists:delivery_services,id',
             ],
             'customer_id' => ['nullable', 'exists:customers,id'],
+            'delivery_address_id' => [
+                'nullable',
+                'exists:delivery_addresses,id',
+            ],
             'receipt_no' => ['nullable', 'max:255', 'string'],
             'date' => ['required', 'date'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2,3,4'],
             'notes' => ['nullable', 'max:255', 'string'],
+            'image_sent' => ['image', 'nullable'],
         ]);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('public');
+        }
+
+        if ($request->hasFile('image_sent')) {
+            $validated['image_sent'] = $request
+                ->file('image_sent')
+                ->store('public');
         }
 
         $salesOrderOnline = $user

@@ -426,6 +426,9 @@
                   <x-sidebars.dropdown-link href="{{ route('employee-statuses.index') }}">
                       Employee Statuses
                   </x-sidebars.dropdown-link>
+                  <x-sidebars.dropdown-link href="{{ route('delivery-services.index') }}">
+                      Delivery Services
+                  </x-sidebars.dropdown-link>
               </x-sidebars.nav-dropdown-mobile>
           @endrole
       </ul>

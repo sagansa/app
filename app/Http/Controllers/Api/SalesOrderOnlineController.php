@@ -43,6 +43,12 @@ class SalesOrderOnlineController extends Controller
             $validated['image'] = $request->file('image')->store('public');
         }
 
+        if ($request->hasFile('image_sent')) {
+            $validated['image_sent'] = $request
+                ->file('image_sent')
+                ->store('public');
+        }
+
         $salesOrderOnline = SalesOrderOnline::create($validated);
 
         return new SalesOrderOnlineResource($salesOrderOnline);
@@ -81,6 +87,16 @@ class SalesOrderOnlineController extends Controller
             $validated['image'] = $request->file('image')->store('public');
         }
 
+        if ($request->hasFile('image_sent')) {
+            if ($salesOrderOnline->image_sent) {
+                Storage::delete($salesOrderOnline->image_sent);
+            }
+
+            $validated['image_sent'] = $request
+                ->file('image_sent')
+                ->store('public');
+        }
+
         $salesOrderOnline->update($validated);
 
         return new SalesOrderOnlineResource($salesOrderOnline);
@@ -99,6 +115,10 @@ class SalesOrderOnlineController extends Controller
 
         if ($salesOrderOnline->image) {
             Storage::delete($salesOrderOnline->image);
+        }
+
+        if ($salesOrderOnline->image_sent) {
+            Storage::delete($salesOrderOnline->image_sent);
         }
 
         $salesOrderOnline->delete();

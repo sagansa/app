@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('approved_by_id')->nullable();
+            $table->string('image_sent')->nullable();
 
             $table->timestamps();
         });

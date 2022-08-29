@@ -77,6 +77,7 @@ use App\Http\Controllers\Api\UtilityProviderController;
 use App\Http\Controllers\Api\SelfConsumptionController;
 use App\Http\Controllers\Api\PurchaseReceiptController;
 use App\Http\Controllers\Api\AccountCashlessController;
+use App\Http\Controllers\Api\DeliveryServiceController;
 use App\Http\Controllers\Api\UserVehicleTaxesController;
 use App\Http\Controllers\Api\StoreProductionsController;
 use App\Http\Controllers\Api\StoreStoreAssetsController;
@@ -185,6 +186,7 @@ use App\Http\Controllers\Api\ProductPurchaseOrderProductsController;
 use App\Http\Controllers\Api\product_sales_order_employeeController;
 use App\Http\Controllers\Api\closing_store_purchase_orderController;
 use App\Http\Controllers\Api\TransferDailySalaryPresencesController;
+use App\Http\Controllers\Api\DeliveryServiceOutInProductsController;
 use App\Http\Controllers\Api\PresenceTransferDailySalariesController;
 use App\Http\Controllers\Api\ProductProductionSupportFromsController;
 use App\Http\Controllers\Api\PurchaseOrderPurchaseReceiptsController;
@@ -198,7 +200,9 @@ use App\Http\Controllers\Api\CashlessProviderAdminCashlessesController;
 use App\Http\Controllers\Api\purchase_order_purchase_receiptController;
 use App\Http\Controllers\Api\account_cashless_admin_cashlessController;
 use App\Http\Controllers\Api\ProductionProductionSupportFromsController;
+use App\Http\Controllers\Api\DeliveryAddressSalesOrderOnlinesController;
 use App\Http\Controllers\Api\MovementAssetMovementAssetAuditsController;
+use App\Http\Controllers\Api\DeliveryServiceSalesOrderOnlinesController;
 use App\Http\Controllers\Api\CashlessProviderAccountCashlessesController;
 use App\Http\Controllers\Api\PurchaseOrderPurchaseOrderProductsController;
 use App\Http\Controllers\Api\OnlineShopProviderSalesOrderOnlinesController;
@@ -1869,4 +1873,29 @@ Route::name('api.')
             '/account-cashlesses/{accountCashless}/admin-cashlesses/{adminCashless}',
             [AccountCashlessAdminCashlessesController::class, 'destroy']
         )->name('account-cashlesses.admin-cashlesses.destroy');
+
+        Route::apiResource(
+            'delivery-services',
+            DeliveryServiceController::class
+        );
+
+        // DeliveryService Out In Products
+        Route::get('/delivery-services/{deliveryService}/out-in-products', [
+            DeliveryServiceOutInProductsController::class,
+            'index',
+        ])->name('delivery-services.out-in-products.index');
+        Route::post('/delivery-services/{deliveryService}/out-in-products', [
+            DeliveryServiceOutInProductsController::class,
+            'store',
+        ])->name('delivery-services.out-in-products.store');
+
+        // DeliveryService Sales Order Onlines
+        Route::get('/delivery-services/{deliveryService}/sales-order-onlines', [
+            DeliveryServiceSalesOrderOnlinesController::class,
+            'index',
+        ])->name('delivery-services.sales-order-onlines.index');
+        Route::post(
+            '/delivery-services/{deliveryService}/sales-order-onlines',
+            [DeliveryServiceSalesOrderOnlinesController::class, 'store']
+        )->name('delivery-services.sales-order-onlines.store');
     });

@@ -70,8 +70,6 @@ class SalesOrderOnlineControllerTest extends TestCase
 
         $response = $this->post(route('sales-order-onlines.store'), $data);
 
-        unset($data['delivery_address_id']);
-
         $this->assertDatabaseHas('sales_order_onlines', $data);
 
         $salesOrderOnline = SalesOrderOnline::latest('id')->first();
@@ -135,6 +133,7 @@ class SalesOrderOnlineControllerTest extends TestCase
             'receipt_no' => $this->faker->text(255),
             'status' => $this->faker->numberBetween(1, 4),
             'notes' => $this->faker->text,
+            'image_sent' => $this->faker->text(255),
             'store_id' => $store->id,
             'online_shop_provider_id' => $onlineShopProvider->id,
             'customer_id' => $customer->id,
@@ -148,8 +147,6 @@ class SalesOrderOnlineControllerTest extends TestCase
             route('sales-order-onlines.update', $salesOrderOnline),
             $data
         );
-
-        unset($data['delivery_address_id']);
 
         $data['id'] = $salesOrderOnline->id;
 

@@ -370,12 +370,14 @@ return [
             'online_shop_provider_id' => 'Online Shop Provider',
             'delivery_service_id' => 'Delivery Service',
             'customer_id' => 'Customer',
+            'delivery_address_id' => 'Delivery Address',
             'receipt_no' => 'Receipt No',
             'date' => 'Date',
             'status' => 'Status',
             'created_by_id' => 'Created By',
             'approved_by_id' => 'Approved By',
             'notes' => 'Notes',
+            'image_sent' => 'Image Sent',
         ],
     ],
 
@@ -1337,11 +1339,11 @@ return [
 
     'delivery_services' => [
         'name' => 'Delivery Services',
-        'index_title' => 'DeliveryServices List',
-        'new_title' => 'New Delivery service',
-        'create_title' => 'Create DeliveryService',
-        'edit_title' => 'Edit DeliveryService',
-        'show_title' => 'Show DeliveryService',
+        'index_title' => 'Delivery Services List',
+        'new_title' => 'New Delivery Service',
+        'create_title' => 'Create Delivery Service',
+        'edit_title' => 'Edit Delivery Service',
+        'show_title' => 'Show Delivery Service',
         'inputs' => [
             'name' => 'Name',
             'status' => 'Status',

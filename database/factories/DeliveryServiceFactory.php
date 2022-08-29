@@ -24,7 +24,7 @@ class DeliveryServiceFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'status' => $this->faker->numberBetween(0, 127),
+            'status' => $this->faker->numberBetween(1, 2),
         ];
     }
 }

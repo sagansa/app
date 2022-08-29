@@ -72,6 +72,16 @@
                     </x-shows.sub-dl>
                     <x-shows.sub-dl>
                         <x-shows.dt
+                            >@lang('crud.sales_order_onlines.inputs.delivery_address_id')</x-shows.dt
+                        >
+                        <x-shows.dd
+                            >{{
+                            optional($salesOrderOnline->deliveryAddress)->name
+                            ?? '-' }}</x-shows.dd
+                        >
+                    </x-shows.sub-dl>
+                    <x-shows.sub-dl>
+                        <x-shows.dt
                             >@lang('crud.sales_order_onlines.inputs.receipt_no')</x-shows.dt
                         >
                         <x-shows.dd
@@ -120,6 +130,23 @@
                         <x-shows.dd
                             >{{ $salesOrderOnline->notes ?? '-' }}</x-shows.dd
                         >
+                    </x-shows.sub-dl>
+                    <x-shows.sub-dl>
+                        <x-shows.dt
+                            >@lang('crud.sales_order_onlines.inputs.image_sent')</x-shows.dt
+                        >
+                        @if ($salesOrderOnline->image_sent != null)
+                        <x-partials.thumbnail src="" size="150" />
+                        @else
+                        <a
+                            href="{{ \Storage::url($salesOrderOnline->image_sent) }}"
+                        >
+                            <x-partials.thumbnail
+                                src="{{ $salesOrderOnline->image_sent ? \Storage::url($salesOrderOnline->image_sent) : '' }}"
+                                size="150"
+                            />
+                        </a>
+                        @endif
                     </x-shows.sub-dl>
                     <x-shows.sub-dl>
                         <x-shows.dt>Created Date</x-shows.dt>

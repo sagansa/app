@@ -116,7 +116,7 @@ class DeliveryServiceControllerTest extends TestCase
 
         $data = [
             'name' => $this->faker->name,
-            'status' => $this->faker->numberBetween(0, 127),
+            'status' => $this->faker->numberBetween(1, 2),
         ];
 
         $response = $this->put(

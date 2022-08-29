@@ -48,6 +48,7 @@ use App\Http\Controllers\UtilityProviderController;
 use App\Http\Controllers\SelfConsumptionController;
 use App\Http\Controllers\PurchaseReceiptController;
 use App\Http\Controllers\AccountCashlessController;
+use App\Http\Controllers\DeliveryServiceController;
 use App\Http\Controllers\CashlessProviderController;
 use App\Http\Controllers\SalesOrderOnlineController;
 use App\Http\Controllers\OnlineShopProviderController;
@@ -165,4 +166,5 @@ Route::prefix('/')
         );
         Route::resource('store-cashlesses', StoreCashlessController::class);
         Route::resource('account-cashlesses', AccountCashlessController::class);
+        Route::resource('delivery-services', DeliveryServiceController::class);
     });

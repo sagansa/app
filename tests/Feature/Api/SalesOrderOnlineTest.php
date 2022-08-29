@@ -61,8 +61,6 @@ class SalesOrderOnlineTest extends TestCase
             $data
         );
 
-        unset($data['delivery_address_id']);
-
         $this->assertDatabaseHas('sales_order_onlines', $data);
 
         $response->assertStatus(201)->assertJsonFragment($data);
@@ -88,6 +86,7 @@ class SalesOrderOnlineTest extends TestCase
             'receipt_no' => $this->faker->text(255),
             'status' => $this->faker->numberBetween(1, 4),
             'notes' => $this->faker->text,
+            'image_sent' => $this->faker->text(255),
             'store_id' => $store->id,
             'online_shop_provider_id' => $onlineShopProvider->id,
             'customer_id' => $customer->id,
@@ -101,8 +100,6 @@ class SalesOrderOnlineTest extends TestCase
             route('api.sales-order-onlines.update', $salesOrderOnline),
             $data
         );
-
-        unset($data['delivery_address_id']);
 
         $data['id'] = $salesOrderOnline->id;
 

@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('bank_id');
             $table->bigInteger('total_cash_to_transfer');
             $table->string('image')->nullable();
-            $table->text('notes');
             $table->tinyInteger('status');
+            $table->text('notes')->nullable();
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('approved_by_id')->nullable();
 

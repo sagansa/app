@@ -27,6 +27,7 @@ class SalesOrderOnlineFactory extends Factory
             'receipt_no' => $this->faker->text(255),
             'status' => $this->faker->numberBetween(1, 4),
             'notes' => $this->faker->text,
+            'image_sent' => $this->faker->text(255),
             'store_id' => \App\Models\Store::factory(),
             'online_shop_provider_id' => \App\Models\OnlineShopProvider::factory(),
             'customer_id' => \App\Models\Customer::factory(),
