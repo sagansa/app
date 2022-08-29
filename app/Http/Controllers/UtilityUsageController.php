@@ -76,7 +76,7 @@ class UtilityUsageController extends Controller
 
         return view(
             'app.utility_usages.create',
-            compact('stores', 'utilities', 'users', 'users')
+            compact( 'utilities', 'users', 'users')
         );
     }
 
@@ -149,7 +149,7 @@ class UtilityUsageController extends Controller
 
         return view(
             'app.utility_usages.edit',
-            compact('utilityUsage', 'stores', 'utilities', 'users', 'users')
+            compact('utilityUsage', 'utilities', 'users', 'users')
         );
     }
 
