@@ -66,9 +66,9 @@ class UtilityUsageController extends Controller
         $stores = Store::orderBy('nickname', 'asc')
             ->whereNotIn('status', ['8'])
             ->pluck('nickname', 'id');
-        $utilities = Utility::get()->orderBy('utility_name', 'asc')
+        $utilities = Utility::orderBy('store_id', 'asc')
             ->whereIn('status', ['1'])
-
+            ->get()
             ->pluck('utility_name', 'id');
         $users = User::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
