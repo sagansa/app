@@ -67,10 +67,10 @@
                             <input type="checkbox" value="{{ $productionFrom->id }}" wire:model="selected" />
                         </x-tables.td-left>
                         <x-tables.td-left>
-                            {{ $productionFrom->purchaseOrderProduct->purchaseOrder->store->nickname ?? '-' }}
+                            {{ optional($productionFrom->purchaseOrderProduct)->purchaseOrder->store->nickname ?? '-' }}
                         </x-tables.td-left>
                         <x-tables.td-left>
-                            {{ $productionFrom->purchaseOrderProduct->purchaseOrder->date->toFormattedDate() ?? '-' }}
+                            {{ optional($productionFrom->purchaseOrderProduct)->purchaseOrder->date->toFormattedDate() ?? '-' }}
                         </x-tables.td-left>
                         <x-tables.td-left>
                             {{ optional($productionFrom->purchaseOrderProduct)->product->name ?? '-' }}
