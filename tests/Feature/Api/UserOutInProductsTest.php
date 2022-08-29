@@ -63,6 +63,8 @@ class UserOutInProductsTest extends TestCase
             $data
         );
 
+        unset($data['delivery_service_id']);
+
         $this->assertDatabaseHas('out_in_products', $data);
 
         $response->assertStatus(201)->assertJsonFragment($data);

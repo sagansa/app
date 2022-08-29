@@ -40,10 +40,10 @@ class UserOutInProductsController extends Controller
         $this->authorize('create', OutInProduct::class);
 
         $validated = $request->validate([
-            'image' => ['nullable', 'image'],
+            'image' => ['nullable', 'image', 'max:1024'],
             'stock_card_id' => ['required', 'exists:stock_cards,id'],
             'out_in' => ['required', 'max:255'],
-            'to_from' => ['required', 'max:50', 'string'],
+            're' => ['nullable', 'max:50', 'string'],
             'status' => ['required', 'max:255'],
             'notes' => ['nullable', 'max:255', 'string'],
         ]);

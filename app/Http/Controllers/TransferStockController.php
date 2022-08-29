@@ -27,7 +27,7 @@ class TransferStockController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        
+
         if(Auth::user()->hasRole('supervisor')) {
             $transferStocks = TransferStock::search($search)
                 ->where('approved_by_id', '=', Auth::user()->id)

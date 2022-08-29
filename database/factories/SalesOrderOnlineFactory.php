@@ -25,7 +25,6 @@ class SalesOrderOnlineFactory extends Factory
         return [
             'date' => $this->faker->date,
             'receipt_no' => $this->faker->text(255),
-            'total' => $this->faker->randomNumber,
             'status' => $this->faker->numberBetween(1, 4),
             'notes' => $this->faker->text,
             'store_id' => \App\Models\Store::factory(),
@@ -33,6 +32,8 @@ class SalesOrderOnlineFactory extends Factory
             'customer_id' => \App\Models\Customer::factory(),
             'created_by_id' => \App\Models\User::factory(),
             'approved_by_id' => \App\Models\User::factory(),
+            'delivery_service_id' => \App\Models\DeliveryService::factory(),
+            'delivery_address_id' => \App\Models\DeliveryAddress::factory(),
         ];
     }
 }

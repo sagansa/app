@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->string('image')->nullable();
             $table->unsignedBigInteger('stock_card_id');
             $table->tinyInteger('out_in');
-            $table->string('to_from', 50);
+            $table->string('re', 50)->nullable();
+            $table->unsignedBigInteger('delivery_service_id');
             $table->tinyInteger('status');
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('created_by_id')->nullable();

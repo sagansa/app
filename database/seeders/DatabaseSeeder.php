@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContractLocationSeeder::class);
         $this->call(CustomerSeeder::class);
         $this->call(DeliveryAddressSeeder::class);
+        $this->call(DeliveryServiceSeeder::class);
         $this->call(DistrictSeeder::class);
         $this->call(EmployeeSeeder::class);
         $this->call(EmployeeStatusSeeder::class);

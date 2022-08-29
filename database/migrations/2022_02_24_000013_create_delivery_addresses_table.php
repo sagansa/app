@@ -22,8 +22,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('regency_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('village_id')->nullable();
-            $table->integer('codepos');
-            $table->string('gps_location');
+            $table->integer('codepos')->nullable();
+            $table->string('gps_location')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
 
             $table->timestamps();

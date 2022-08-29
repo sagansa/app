@@ -24,10 +24,11 @@ class SalesOrderOnline extends Model
         'image',
         'store_id',
         'online_shop_provider_id',
+        'delivery_service_id',
         'date',
         'customer_id',
+        'delivery_address_id',
         'receipt_no',
-        'total',
         'status',
         'notes',
         'created_by_id',
@@ -65,6 +66,16 @@ class SalesOrderOnline extends Model
     public function approved_by()
     {
         return $this->belongsTo(User::class, 'approved_by_id');
+    }
+
+    public function deliveryService()
+    {
+        return $this->belongsTo(DeliveryService::class);
+    }
+
+    public function deliveryAddress()
+    {
+        return $this->belongsTo(DeliveryAddress::class);
     }
 
     public function products()

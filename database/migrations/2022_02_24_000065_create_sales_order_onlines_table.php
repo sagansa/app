@@ -17,12 +17,13 @@ return new class extends Migration {
             $table->string('image')->nullable();
             $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('online_shop_provider_id');
+            $table->unsignedBigInteger('delivery_service_id');
             $table->date('date');
             $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('delivery_address_id')->nullable();
             $table->string('receipt_no')->nullable();
-            $table->bigInteger('total')->nullable();
             $table->tinyInteger('status');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('approved_by_id')->nullable();
 

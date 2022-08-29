@@ -68,6 +68,11 @@ class DeliveryAddress extends Model
         return $this->hasMany(SalesOrderEmployee::class);
     }
 
+    public function salesOrderOnlines()
+    {
+        return $this->hasMany(SalesOrderOnline::class);
+    }
+
     public function delete_image()
     {
         if ($this->image && file_exists('storage/' . $this->image)) {

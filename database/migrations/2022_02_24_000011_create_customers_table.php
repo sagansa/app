@@ -15,7 +15,10 @@ return new class extends Migration {
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('no_telp')->unique();
+            $table
+                ->string('no_telp')
+                ->nullable()
+                ->unique();
             $table->tinyInteger('status');
             $table->unsignedBigInteger('user_id')->nullable();
 

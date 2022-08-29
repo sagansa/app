@@ -23,8 +23,8 @@ class SalesOrderOnlineProductsDetail extends Component
 
     protected $rules = [
         'product_id' => ['required', 'exists:products,id'],
-        'quantity' => ['required', 'numeric', 'min:0'],
-        'price' => ['required', 'numeric', 'min:0'],
+        'quantity' => ['required', 'numeric', 'gt:0'],
+        'price' => ['required', 'numeric', 'gt:0'],
     ];
 
     public function mount(SalesOrderOnline $salesOrderOnline)

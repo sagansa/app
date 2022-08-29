@@ -283,6 +283,11 @@
                         Account Cashlesses
                         </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\DeliveryService::class)
+                        <x-dropdown-link href="{{ route('delivery-services.index') }}">
+                        Delivery Services
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
@@ -688,6 +693,11 @@
                 @can('view-any', App\Models\AccountCashless::class)
                 <x-jet-responsive-nav-link href="{{ route('account-cashlesses.index') }}">
                 Account Cashlesses
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\DeliveryService::class)
+                <x-jet-responsive-nav-link href="{{ route('delivery-services.index') }}">
+                Delivery Services
                 </x-jet-responsive-nav-link>
                 @endcan
 

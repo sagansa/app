@@ -42,10 +42,10 @@ class UserCustomersController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'max:255', 'string'],
             'no_telp' => [
-                'required',
+                'nullable',
                 'unique:customers,no_telp',
-                'numeric',
-                'digits_between:8,16',
+                'max:255',
+                'string',
             ],
             'status' => ['required', 'max:255'],
         ]);

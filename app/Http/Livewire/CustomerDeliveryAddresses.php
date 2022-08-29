@@ -36,21 +36,15 @@ class CustomerDeliveryAddresses extends Component
         'deliveryAddress.recipients_name' => ['required', 'max:255', 'string'],
         'deliveryAddress.recipients_telp_no' => [
             'required',
-            'numeric',
-            'digits_between:8,16',
+            'max:255',
+            'string',
         ],
         'deliveryAddress.address' => ['required', 'max:255', 'string'],
         'deliveryAddress.province_id' => ['nullable', 'exists:provinces,id'],
         'deliveryAddress.regency_id' => ['nullable', 'exists:regencies,id'],
         'deliveryAddress.district_id' => ['nullable', 'exists:districts,id'],
         'deliveryAddress.village_id' => ['nullable', 'exists:villages,id'],
-        'deliveryAddress.codepos' => [
-            'required',
-            'numeric',
-            'digits:5',
-            'min:0',
-        ],
-        'deliveryAddress.gps_location' => ['required', 'max:255', 'string'],
+        'deliveryAddress.codepos' => ['nullable', 'numeric'],
     ];
 
     public function mount(Customer $customer)

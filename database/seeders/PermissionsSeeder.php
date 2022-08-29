@@ -87,6 +87,12 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update deliveryaddresses']);
         Permission::create(['name' => 'delete deliveryaddresses']);
 
+        Permission::create(['name' => 'list deliveryservices']);
+        Permission::create(['name' => 'view deliveryservices']);
+        Permission::create(['name' => 'create deliveryservices']);
+        Permission::create(['name' => 'update deliveryservices']);
+        Permission::create(['name' => 'delete deliveryservices']);
+
         Permission::create(['name' => 'list districts']);
         Permission::create(['name' => 'view districts']);
         Permission::create(['name' => 'create districts']);

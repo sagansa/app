@@ -46,15 +46,17 @@ class OnlineShopProviderSalesOrderOnlinesController extends Controller
         $validated = $request->validate([
             'image' => ['nullable', 'image', 'max:1024'],
             'store_id' => ['required', 'exists:stores,id'],
+            'delivery_service_id' => [
+                'required',
+                'exists:delivery_services,id',
+            ],
             'customer_id' => ['nullable', 'exists:customers,id'],
             'receipt_no' => ['nullable', 'max:255', 'string'],
             'date' => ['required', 'date'],
-            'total' => ['nullable', 'numeric', 'min:0'],
-            'status' => ['required', 'max:255'],
             'status' => ['required', 'max:255'],
             'created_by_id' => ['nullable', 'exists:users,id'],
-            'notes' => ['required', 'max:255', 'string'],
             'approved_by_id' => ['nullable', 'exists:users,id'],
+            'notes' => ['nullable', 'max:255', 'string'],
         ]);
 
         if ($request->hasFile('image')) {

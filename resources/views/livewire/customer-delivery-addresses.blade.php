@@ -100,13 +100,6 @@
                         label="Codepos"
                         wire:model="deliveryAddress.codepos"
                     ></x-input.number>
-
-                    <x-input.text
-                        name="deliveryAddress.gps_location"
-                        label="GPS Location"
-                        wire:model="deliveryAddress.gps_location"
-                        maxlength="255"
-                    ></x-input.text>
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@
                     @endrole
                 </div>
                 <div class="mt-1 text-right md:w-1/3">
-                    @can('create', App\Models\Productions::class)
+                    @can('create', App\Models\Production::class)
                         <a href="{{ route('productions.create') }}">
                             <x-jet-button>
                                 <i class="mr-1 icon ion-md-add"></i>
