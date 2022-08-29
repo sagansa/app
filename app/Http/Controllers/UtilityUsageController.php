@@ -63,9 +63,9 @@ class UtilityUsageController extends Controller
      */
     public function create(Request $request)
     {
-        $stores = Store::orderBy('nickname', 'asc')
-            ->whereNotIn('status', ['8'])
-            ->pluck('nickname', 'id');
+        // $stores = Store::orderBy('nickname', 'asc')
+        //     ->whereNotIn('status', ['8'])
+        //     ->pluck('nickname', 'id');
         $utilities = Utility::orderBy('store_id', 'asc')
             ->whereIn('status', ['1'])
             ->get()
@@ -136,9 +136,9 @@ class UtilityUsageController extends Controller
     {
         $this->authorize('update', $utilityUsage);
 
-        $stores = Store::orderBy('nickname', 'asc')
-            ->whereNotIn('status', ['8'])
-            ->pluck('nickname', 'id');
+        // $stores = Store::orderBy('nickname', 'asc')
+        //     ->whereNotIn('status', ['8'])
+        //     ->pluck('nickname', 'id');
         $utilities = Utility::orderBy('number', 'asc')
             ->whereIn('status', ['1'])
             ->get()

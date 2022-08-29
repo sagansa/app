@@ -70,9 +70,7 @@
                                         @endif
                                     </div>
                                     <div class="ml-3">
-
-                                        {{ optional($utilityUsage->store)->nickname ?? '-' }}
-
+                                        {{ optional($utilityUsage->utility)->store->nickname ?? '-' }}
                                     </div>
                                 </div>
                             </x-slot>

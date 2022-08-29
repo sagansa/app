@@ -24,39 +24,17 @@
         </div>
     </x-input.image>
 
-    @role('staff|super-admin|manager')
-        <x-input.select name="store_id" label="Store" required>
-            @php $selected = old('store_id', ($editing ? $utilityUsage->store_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
-            @foreach ($stores as $value => $label)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}</option>
-            @endforeach
-        </x-input.select>
+    <x-input.select id="utility_id" name="utility_id" label="Utility" required>
+        @php $selected = old('utility_id', ($editing ? $utilityUsage->utility_id : '')) @endphp
+        <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
+        @foreach ($utilities as $value => $label)
+            <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}</option>
+        @endforeach
+    </x-input.select>
 
-        <x-input.select id="utility_id" name="utility_id" label="Utility" required>
-            @php $selected = old('utility_id', ($editing ? $utilityUsage->utility_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>-- select --</option>
-            @foreach ($utilities as $value => $label)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}</option>
-            @endforeach
-            {{-- @foreach ($utilities as $utility)
-                <option value="{{ $utility->id }}">{{ $utility->store->nickname }}
-                    @if ($utility->category == 1)
-                        <span>internet</span>
-                    @elseif ($utility->category == 2)
-                        <span>listrik</span>
-                    @elseif ($utility->category == 3)
-                        <span>air</span>
-                    @endif
-                    - {{ $utility->number }} -
-                    {{ $utility->unit->unit }}
-                </option>
-            @endforeach --}}
-        </x-input.select>
+    <x-input.number name="result" label="Result" value="{{ old('result', $editing ? $utilityUsage->result : '') }}"
+        step="0.01" required></x-input.number>
 
-        <x-input.number name="result" label="Result" value="{{ old('result', $editing ? $utilityUsage->result : '') }}"
-            step="0.01" required></x-input.number>
-    @endrole
 
     @if ($editing)
         @role('manager|super-admin')

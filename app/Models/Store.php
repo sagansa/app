@@ -106,11 +106,6 @@ class Store extends Model
         return $this->hasMany(SelfConsumption::class);
     }
 
-    public function utiliyUsages()
-    {
-        return $this->hasMany(UtilityUsage::class);
-    }
-
     public function stockCards()
     {
         return $this->hasMany(StockCard::class);

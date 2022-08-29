@@ -22,7 +22,6 @@ class UtilityUsage extends Model
 
     protected $fillable = [
         'image',
-        'store_id',
         'utility_id',
         'result',
         'status',
@@ -34,11 +33,6 @@ class UtilityUsage extends Model
     protected $searchableFields = ['*'];
 
     protected $table = 'utility_usages';
-
-    public function store()
-    {
-        return $this->belongsTo(Store::class);
-    }
 
     public function created_by()
     {
