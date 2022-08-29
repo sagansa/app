@@ -1,7 +1,7 @@
 <div>
     <div>
         @can('create', App\Models\SalesOrderOnline::class)
-            @if ($salesOrderOnline->status != 1)
+            @if ($salesOrderOnline->status != 2)
                 <button class="button" wire:click="newProduct">
                     <i class="mr-1 icon ion-md-add text-primary"></i>
                     @lang('crud.common.attach')
