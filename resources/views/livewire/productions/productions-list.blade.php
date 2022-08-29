@@ -107,13 +107,10 @@
                         <x-tables.td-left-hide>
                             <div class="font-bold">Main</div>
                             @foreach ($production->productionFroms as $productionFrom)
-                                @if ($productionFrom->purchase_order_product_id != null)
-                                    <p> {{ $productionFrom->purchaseOrderProduct->product->name }} =
-                                        {{ $productionFrom->purchaseOrderProduct->quantity_product }}
-                                        {{ $productionFrom->purchaseOrderProduct->product->unit->unit }}</p>
-                                @else
-                                    -
-                                @endif
+                                <p> {{ optional($productionFrom->purchaseOrderProduct)->product->name ?? '-' }} =
+                                    {{ optional($productionFrom->purchaseOrderProduct)->quantity_product ?? '-' }}
+                                    {{ optional($productionFrom->purchaseOrderProduct)->product->unit->unit ?? '-' }}
+                                </p>
                             @endforeach
                             <div class="font-bold">Support</div>
                             @foreach ($production->productionSupportFroms as $productionSupportFrom)
