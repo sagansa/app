@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VehicleStoreRequest extends FormRequest
+class UtilityBillStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,11 @@ class VehicleStoreRequest extends FormRequest
     {
         return [
             'image' => ['nullable', 'image'],
-            'no_register' => ['required', 'max:15', 'string'],
-            'type' => ['required', 'in:1,2,3'],
-            'store_id' => ['required', 'exists:stores,id'],
-            'user_id' => ['required', 'exists:users,id'],
-            'status' => ['required', 'in:1,2'],
-            'notes' => ['nullable', 'max:255', 'string'],
+            'utility_id' => ['required', 'exists:utilities,id'],
+            'date' => ['required', 'date'],
+            'amount' => ['nullable', 'numeric', 'gt:0'],
+            'initial_indicator' => ['nullable', 'numeric', 'gt:0'],
+            'last_indicator' => ['required', 'numeric'],
         ];
     }
 }

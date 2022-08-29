@@ -25,6 +25,7 @@ use App\Http\Controllers\VehicleTaxController;
 use App\Http\Controllers\StoreAssetController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PaymentTypeController;
+use App\Http\Controllers\UtilityBillController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\RequestStockController;
 use App\Http\Controllers\CleanAndNeatController;
@@ -167,4 +168,5 @@ Route::prefix('/')
         Route::resource('store-cashlesses', StoreCashlessController::class);
         Route::resource('account-cashlesses', AccountCashlessController::class);
         Route::resource('delivery-services', DeliveryServiceController::class);
+        Route::resource('utility-bills', UtilityBillController::class);
     });

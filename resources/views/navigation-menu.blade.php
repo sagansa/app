@@ -288,6 +288,11 @@
                         Delivery Services
                         </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\UtilityBill::class)
+                        <x-dropdown-link href="{{ route('utility-bills.index') }}">
+                        Utility Bills
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
@@ -698,6 +703,11 @@
                 @can('view-any', App\Models\DeliveryService::class)
                 <x-jet-responsive-nav-link href="{{ route('delivery-services.index') }}">
                 Delivery Services
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\UtilityBill::class)
+                <x-jet-responsive-nav-link href="{{ route('utility-bills.index') }}">
+                Utility Bills
                 </x-jet-responsive-nav-link>
                 @endcan
 

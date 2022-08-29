@@ -1350,6 +1350,23 @@ return [
         ],
     ],
 
+    'utility_bills' => [
+        'name' => 'Utility Bills',
+        'index_title' => 'Utility Bills List',
+        'new_title' => 'New Utility Bill',
+        'create_title' => 'Create Utility Bill',
+        'edit_title' => 'Edit Utility Bill',
+        'show_title' => 'Show Utility Bill',
+        'inputs' => [
+            'image' => 'Image',
+            'utility_id' => 'Utility',
+            'date' => 'Date',
+            'amount' => 'Amount',
+            'initial_indicator' => 'Initial Indicator',
+            'last_indicator' => 'Last Indicator',
+        ],
+    ],
+
     'roles' => [
         'name' => 'Roles',
         'index_title' => 'Roles List',

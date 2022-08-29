@@ -31,6 +31,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\UserRefundsController;
 use App\Http\Controllers\Api\PaymentTypeController;
 use App\Http\Controllers\Api\FuelServiceController;
+use App\Http\Controllers\Api\UtilityBillController;
 use App\Http\Controllers\Api\UserVehiclesController;
 use App\Http\Controllers\Api\UserProductsController;
 use App\Http\Controllers\Api\UserHygienesController;
@@ -113,6 +114,7 @@ use App\Http\Controllers\Api\StorePurchaseOrdersController;
 use App\Http\Controllers\Api\StoreTransferStocksController;
 use App\Http\Controllers\Api\PaymentTypeProductsController;
 use App\Http\Controllers\Api\BankClosingCouriersController;
+use App\Http\Controllers\Api\UtilityUtilityBillsController;
 use App\Http\Controllers\Api\MovementAssetResultController;
 use App\Http\Controllers\Api\TransferDailySalaryController;
 use App\Http\Controllers\Api\UserPurchaseReceiptsController;
@@ -1536,6 +1538,16 @@ Route::name('api.')
             'store',
         ])->name('utilities.utility-usages.store');
 
+        // Utility Utility Bills
+        Route::get('/utilities/{utility}/utility-bills', [
+            UtilityUtilityBillsController::class,
+            'index',
+        ])->name('utilities.utility-bills.index');
+        Route::post('/utilities/{utility}/utility-bills', [
+            UtilityUtilityBillsController::class,
+            'store',
+        ])->name('utilities.utility-bills.store');
+
         Route::apiResource('units', UnitController::class);
 
         // Unit Products
@@ -1898,4 +1910,6 @@ Route::name('api.')
             '/delivery-services/{deliveryService}/sales-order-onlines',
             [DeliveryServiceSalesOrderOnlinesController::class, 'store']
         )->name('delivery-services.sales-order-onlines.store');
+
+        Route::apiResource('utility-bills', UtilityBillController::class);
     });

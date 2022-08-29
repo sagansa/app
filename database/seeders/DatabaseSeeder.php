@@ -87,6 +87,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UnitSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(UtilitySeeder::class);
+        $this->call(UtilityBillSeeder::class);
         $this->call(UtilityProviderSeeder::class);
         $this->call(UtilityUsageSeeder::class);
         $this->call(VehicleSeeder::class);

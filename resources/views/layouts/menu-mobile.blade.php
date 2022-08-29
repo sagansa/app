@@ -124,6 +124,11 @@
                           Account Cashlesses
                       </x-sidebars.dropdown-link>
                   @endcan
+                  @can('view-any', App\Models\UtilityBill::class)
+                      <x-sidebars.dropdown-link href="{{ route('utility-bills.index') }}">
+                          Utility Bills
+                      </x-sidebars.dropdown-link>
+                  @endcan
                   {{-- @can('view-any', App\Models\Receipts::class)
                         <x-sidebars.dropdown-link href="{{ route('all-receipts.index') }}">
                             Receipt Loyverse

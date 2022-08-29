@@ -47,7 +47,7 @@ class UserCustomersController extends Controller
                 'max:255',
                 'string',
             ],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2'],
         ]);
 
         $customer = $user->customers()->create($validated);

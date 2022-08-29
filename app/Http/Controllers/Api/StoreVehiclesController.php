@@ -42,9 +42,9 @@ class StoreVehiclesController extends Controller
         $validated = $request->validate([
             'image' => ['nullable', 'image'],
             'no_register' => ['required', 'max:15', 'string'],
-            'type' => ['required', 'max:255'],
+            'type' => ['required', 'in:1,2,3'],
             'user_id' => ['required', 'exists:users,id'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2'],
             'notes' => ['nullable', 'max:255', 'string'],
         ]);
 

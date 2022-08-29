@@ -45,7 +45,7 @@ class SalesOrderOnlineController extends Controller
     public function create(Request $request)
     {
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
         $onlineShopProviders = OnlineShopProvider::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
@@ -133,7 +133,7 @@ class SalesOrderOnlineController extends Controller
         $this->authorize('update', $salesOrderOnline);
 
         $stores = Store::orderBy('name', 'asc')
-            ->whereIn('status', ['1'])
+            ->whereIn('status', ['8'])
             ->pluck('name', 'id');
         $onlineShopProviders = OnlineShopProvider::orderBy('name', 'asc')
             // ->whereIn('status', ['1'])

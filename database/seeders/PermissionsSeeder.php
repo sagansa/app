@@ -399,6 +399,12 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update utilities']);
         Permission::create(['name' => 'delete utilities']);
 
+        Permission::create(['name' => 'list utilitybills']);
+        Permission::create(['name' => 'view utilitybills']);
+        Permission::create(['name' => 'create utilitybills']);
+        Permission::create(['name' => 'update utilitybills']);
+        Permission::create(['name' => 'delete utilitybills']);
+
         Permission::create(['name' => 'list utilityproviders']);
         Permission::create(['name' => 'view utilityproviders']);
         Permission::create(['name' => 'create utilityproviders']);
