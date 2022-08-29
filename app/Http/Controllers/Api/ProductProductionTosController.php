@@ -40,7 +40,7 @@ class ProductProductionTosController extends Controller
         $this->authorize('create', ProductionTo::class);
 
         $validated = $request->validate([
-            'quantity' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric', 'gt:0'],
         ]);
 
         $productionTo = $product->productionTos()->create($validated);

@@ -42,8 +42,8 @@ class UserClosingCouriersController extends Controller
         $validated = $request->validate([
             'image' => ['nullable', 'image'],
             'bank_id' => ['required', 'exists:banks,id'],
-            'total_cash_to_transfer' => ['required', 'min:0', 'numeric'],
-            'status' => ['required'],
+            'total_cash_to_transfer' => ['required', 'numeric', 'gt:0'],
+            'status' => ['required', 'in:1,2,3,4'],
             'notes' => ['nullable', 'max:255', 'string'],
         ]);
 

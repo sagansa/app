@@ -26,7 +26,7 @@ class RemainingStockStoreRequest extends FormRequest
         return [
             'date' => ['required', 'date'],
             'store_id' => ['required', 'exists:stores,id'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2,3,4'],
             'notes' => ['nullable', 'max:255', 'string'],
             'created_by_id' => ['nullable', 'exists:users,id'],
             'approved_by_id' => ['nullable', 'exists:users,id'],

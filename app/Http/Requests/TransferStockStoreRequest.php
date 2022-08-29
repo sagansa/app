@@ -27,7 +27,7 @@ class TransferStockStoreRequest extends FormRequest
             'date' => ['required', 'date'],
             'from_store_id' => ['required', 'exists:stores,id'],
             'to_store_id' => ['required', 'exists:stores,id'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2,3,4'],
             'received_by_id' => ['required', 'exists:users,id'],
             'sent_by_id' => ['required', 'exists:users,id'],
             'approved_by_id' => ['nullable', 'exists:users,id'],

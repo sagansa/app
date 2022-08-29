@@ -41,7 +41,7 @@ class StoreTransferStocksController extends Controller
 
         $validated = $request->validate([
             'date' => ['required', 'date'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2,3,4'],
             'received_by_id' => ['required', 'exists:users,id'],
             'sent_by_id' => ['required', 'exists:users,id'],
             'approved_by_id' => ['nullable', 'exists:users,id'],
