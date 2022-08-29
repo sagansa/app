@@ -38,18 +38,46 @@
     <x-tables.card>
         <x-table>
             <x-slot name="head">
-                <x-tables.th-left>@lang('crud.stores.inputs.name')</x-tables.th-left>
+                <x-tables.th-left-hide>id</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.stores.inputs.name')</x-tables.th-left-hide>
                 <x-tables.th-left>@lang('crud.stores.inputs.nickname')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.stores.inputs.no_telp')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.stores.inputs.email')</x-tables.th-left>
-                <x-tables.th-left>@lang('crud.stores.inputs.status')</x-tables.th-left>
+                <x-tables.th-left-hide>@lang('crud.stores.inputs.no_telp')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.stores.inputs.email')</x-tables.th-left-hide>
+                <x-tables.th-left-hide>@lang('crud.stores.inputs.status')</x-tables.th-left-hide>
                 <th></th>
             </x-slot>
             <x-slot name="body">
                 @forelse($stores as $store)
                     <tr class="hover:bg-gray-50">
+                        <x-tables.td-left-hide>{{ $store->id ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ $store->name ?? '-' }}</x-tables.td-left-hide>
-                        <x-tables.td-left-hide>{{ $store->nickname ?? '-' }}</x-tables.td-left-hide>
+                        <x-tables.td-left-main>
+                            <x-slot name="main">{{ $store->id ?? '-' }} - {{ $store->nickname ?? '-' }}</x-slot>
+                            <x-slot name="sub">
+                                <p>{{ $store->name ?? '-' }}</p>
+                                <p>{{ $store->no_telp ?? '-' }}</p>
+                                <p>{{ $store->email ?? '-' }}</p>
+                                <p>
+                                    @if ($store->status == 1)
+                                        <p>warung</p>
+                                    @elseif ($store->status == 2)
+                                        <p>gudang</p>
+                                    @elseif ($store->status == 3)
+                                        <p>produksi</p>
+                                    @elseif ($store->status == 4)
+                                        <p>warung + gudang</p>
+                                    @elseif ($store->status == 5)
+                                        <p>warung + produksi</p>
+                                    @elseif ($store->status == 6)
+                                        <p>gudang + produksi</p>
+                                    @elseif ($store->status == 7)
+                                        <p>warung + gudang + produksi</p>
+                                    @elseif ($store->status == 8)
+                                        <p>tidak aktif</p>
+                                    @endif
+                                </p>
+                            </x-slot>
+                        </x-tables.td-left-main>
                         <x-tables.td-right-hide>{{ $store->no_telp ?? '-' }}</x-tables.td-right-hide>
                         <x-tables.td-left-hide>{{ $store->email ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>

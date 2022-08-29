@@ -43,7 +43,7 @@ class UserTransferStocksController extends Controller
             'date' => ['required', 'date'],
             'from_store_id' => ['required', 'exists:stores,id'],
             'to_store_id' => ['required', 'exists:stores,id'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2,3,4'],
             'notes' => ['nullable', 'max:255', 'string'],
         ]);
 

@@ -41,7 +41,7 @@ class StoreRemainingStocksController extends Controller
 
         $validated = $request->validate([
             'date' => ['required', 'date'],
-            'status' => ['required', 'max:255'],
+            'status' => ['required', 'in:1,2,3,4'],
             'notes' => ['nullable', 'max:255', 'string'],
             'created_by_id' => ['nullable', 'exists:users,id'],
             'approved_by_id' => ['nullable', 'exists:users,id'],

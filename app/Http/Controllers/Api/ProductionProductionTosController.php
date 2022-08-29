@@ -41,7 +41,7 @@ class ProductionProductionTosController extends Controller
 
         $validated = $request->validate([
             'product_id' => ['required', 'exists:products,id'],
-            'quantity' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric', 'gt:0'],
         ]);
 
         $productionTo = $production->productionTos()->create($validated);

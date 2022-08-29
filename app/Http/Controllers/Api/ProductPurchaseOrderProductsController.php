@@ -40,10 +40,10 @@ class ProductPurchaseOrderProductsController extends Controller
         $this->authorize('create', PurchaseOrderProduct::class);
 
         $validated = $request->validate([
-            'quantity_product' => ['required', 'numeric', 'min:1'],
+            'quantity_product' => ['required', 'numeric', 'gt:0'],
             'unit_id' => ['required', 'exists:units,id'],
-            'quantity_invoice' => ['required', 'numeric', 'min:1'],
-            'subtotal_invoice' => ['required', 'min:1', 'numeric'],
+            'quantity_invoice' => ['required', 'numeric', 'gt:0'],
+            'subtotal_invoice' => ['required', 'numeric', 'gt:0'],
             'status' => ['required'],
         ]);
 
