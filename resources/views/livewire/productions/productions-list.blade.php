@@ -107,7 +107,7 @@
                         <x-tables.td-left-hide>
                             <div class="font-bold">Main</div>
                             @foreach ($production->productionFroms as $productionFrom)
-                                @if ($productionFrom->purchaseOrderProduct->product_id != null)
+                                @if ($productionFrom->purchase_order_product_id != null)
                                     <p> {{ $productionFrom->purchaseOrderProduct->product->name }} =
                                         {{ $productionFrom->purchaseOrderProduct->quantity_product }}
                                         {{ $productionFrom->purchaseOrderProduct->product->unit->unit }}</p>

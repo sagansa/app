@@ -52,9 +52,9 @@
                         <x-tables.td-left-hide>{{ $store->id ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-hide>{{ $store->name ?? '-' }}</x-tables.td-left-hide>
                         <x-tables.td-left-main>
-                            <x-slot name="main">{{ $store->id ?? '-' }} - {{ $store->nickname ?? '-' }}</x-slot>
+                            <x-slot name="main">{{ $store->nickname ?? '-' }}</x-slot>
                             <x-slot name="sub">
-                                <p>{{ $store->name ?? '-' }}</p>
+                                <p>{{ $store->id }} - {{ $store->name ?? '-' }}</p>
                                 <p>{{ $store->no_telp ?? '-' }}</p>
                                 <p>{{ $store->email ?? '-' }}</p>
                                 <p>
