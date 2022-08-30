@@ -79,13 +79,14 @@ class SalesOrderOnlinesList extends Component
 
     public function getRowsQueryProperty()
     {
-        $salesOrderOnlines = SalesOrderOnline::query()
-            ->select(['sales_order_onlines.*', 'stores.name as storename'])
-            ->join('stores', 'stores.id', '=', 'sales_order_onlines.store_id')
-            ->join('customers', 'customers.id', '=', 'sales_order_onlines.customer_id')
-            ->join('online_shop_providers', 'online_shop_providers.id', '=', 'sales_order_onlines.online_shop_provider_id')
-            ->join('delivery_services', 'delivery_services.id', '=', 'sales_order_onlines.delivery_service_id');
+        // $salesOrderOnlines = SalesOrderOnline::query()
+        //     ->select(['sales_order_onlines.*', 'stores.name as storename'])
+        //     ->join('stores', 'stores.id', '=', 'sales_order_onlines.store_id')
+        //     ->join('customers', 'customers.id', '=', 'sales_order_onlines.customer_id')
+        //     ->join('online_shop_providers', 'online_shop_providers.id', '=', 'sales_order_onlines.online_shop_provider_id')
+        //     ->join('delivery_services', 'delivery_services.id', '=', 'sales_order_onlines.delivery_service_id');
 
+        $salesOrderOnlines = SalesOrderOnline::query();
 
         foreach ($this->filters as $filter => $value) {
                 if (!empty($value)) {
@@ -97,12 +98,6 @@ class SalesOrderOnlinesList extends Component
                         ->when($filter == 'status', fn($salesOrderOnlines) => $salesOrderOnlines->where('sales_order_onlines.' . $filter, 'LIKE', '%' . $value . '%'));
                 }
             }
-
-        // if (Auth::user()->hasRole('staff|supervisor')) {
-
-        //         $salesOrderOnlines->where('created_by_id', '=', Auth::user()->id);
-
-        // }
 
         return $this->applySorting($salesOrderOnlines);
     }

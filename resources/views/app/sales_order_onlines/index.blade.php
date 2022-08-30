@@ -137,5 +137,5 @@
 </x-tables.card>
 <div class="px-4 mt-10">{!! $salesOrderOnlines->render() !!}</div>
 
-{{-- <livewire:sales-order-onlines.sales-order-onlines-list /> --}}
+<livewire:sales-order-onlines.sales-order-onlines-list />
 </x-admin-layout>
