@@ -1,13 +1,13 @@
 <div>
     <div>
-        @can('create', App\Models\SalesOrderOnline::class)
-            @if ($salesOrderOnline->status != 2)
-                <button class="button" wire:click="newProduct">
-                    <i class="mr-1 icon ion-md-add text-primary"></i>
-                    @lang('crud.common.attach')
-                </button>
-            @endif
-        @endcan
+        {{-- @can('create', App\Models\SalesOrderOnline::class) --}}
+        @if ($salesOrderOnline->status != 2)
+            <button class="button" wire:click="newProduct">
+                <i class="mr-1 icon ion-md-add text-primary"></i>
+                @lang('crud.common.attach')
+            </button>
+        @endif
+        {{-- @endcan --}}
     </div>
 
     <x-modal wire:model="showingModal">
@@ -76,15 +76,15 @@
                         </x-tables.td-right>
                         <td class="px-4 py-3 text-right" style="width: 70px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                                @can('delete-any', App\Models\SalesOrderOnline::class)
-                                    @if ($salesOrderOnline->status != 2)
-                                        <button class="button button-danger"
-                                            onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-                                            wire:click="detach({{ $product->id }})">
-                                            <i class="icon ion-md-trash text-primary"></i>
-                                        </button>
-                                    @endif
-                                @endcan
+                                {{-- @can('delete-any', App\Models\SalesOrderOnline::class) --}}
+                                @if ($salesOrderOnline->status != 2)
+                                    <button class="button button-danger"
+                                        onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
+                                        wire:click="detach({{ $product->id }})">
+                                        <i class="icon ion-md-trash text-primary"></i>
+                                    </button>
+                                @endif
+                                {{-- @endcan --}}
                             </div>
                         </td>
                     </tr>
