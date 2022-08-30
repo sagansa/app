@@ -30,7 +30,7 @@ class SalesOrderOnlineProductsDetail extends Component
     public function mount(SalesOrderOnline $salesOrderOnline)
     {
         $this->salesOrderOnline = $salesOrderOnline;
-        $this->productsForSelect = Product::whereNotIn('online_category_id', ['4'])->orderBy('name', 'asc')->get()->pluck('product_name', 'id');
+        $this->productsForSelect = Product::whereNotIn('online_category_id', ['4'])->orderBy('name', 'asc')->get()->pluck('id', 'product_name');
         $this->resetProductData();
     }
 
