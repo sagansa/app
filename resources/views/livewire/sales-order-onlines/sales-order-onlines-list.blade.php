@@ -181,6 +181,7 @@
                         </x-tables.td-left-hide>
 
                         <x-tables.td-left-hide>
+
                             <x-spans.status-valid class="{{ $salesOrderOnline->status_badge }}">
                                 {{ $salesOrderOnline->status_name }}</x-spans.status-valid>
                         </x-tables.td-left-hide>

@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\DataTables\HasDeliveryStatus;
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Livewire\DataTables\HasValid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SalesOrderOnline extends Model
 {
-    use HasValid;
+    use HasDeliveryStatus;
     use HasFactory;
     use Searchable;
 
