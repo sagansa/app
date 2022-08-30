@@ -32,12 +32,12 @@
         @endforeach
     </x-input.select>
 
-    {{-- <x-input.currency name="total_cash_to_transfer" label="Total Cash To Transfer"
+    <x-input.currency name="total_cash_to_transfer" label="Total Cash To Transfer"
         value="{{ old('total_cash_to_transfer', $editing ? $closingCourier->total_cash_to_transfer : '') }}" required>
-    </x-input.currency> --}}
-    <x-input.hidden name="total_cash_to_transfer"
+    </x-input.currency>
+    {{-- <x-input.hidden name="total_cash_to_transfer"
         value="{{ old('total_cash_to_transfer', $editing ? $closingCourier->total_cash_to_transfer : '0') }}" required>
-    </x-input.hidden>
+    </x-input.hidden> --}}
 
     @role('staff|supervisor|manager')
         <x-inputs.hidden name="status" value="{{ old('status', $editing ? $closingCourier->status : '1') }}">
