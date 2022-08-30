@@ -193,7 +193,7 @@ class SalesOrderOnlineController extends Controller
         if (
             auth()
                 ->user()
-                ->hasRole('supervisor|manager|super-admin')
+                ->hasRole('storage-staff')
         ) {
             $validated['approved_by_id'] = auth()->user()->id;
         }
