@@ -25,7 +25,6 @@ class UtilityUsageUpdateRequest extends FormRequest
     {
         return [
             'image' => ['nullable', 'image'],
-            'store_id' => ['required', 'exists:stores,id'],
             'utility_id' => ['required', 'exists:utilities,id'],
             'result' => ['required', 'numeric'],
             'status' => ['required', 'max:255'],

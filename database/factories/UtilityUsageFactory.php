@@ -26,7 +26,6 @@ class UtilityUsageFactory extends Factory
             'result' => $this->faker->randomNumber(2),
             'status' => $this->faker->numberBetween(1, 4),
             'notes' => $this->faker->text,
-            'store_id' => \App\Models\Store::factory(),
             'created_by_id' => \App\Models\User::factory(),
             'approved_by_id' => \App\Models\User::factory(),
             'utility_id' => \App\Models\Utility::factory(),

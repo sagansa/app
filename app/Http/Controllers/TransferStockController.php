@@ -66,7 +66,7 @@ class TransferStockController extends Controller
         $stores = Store::orderBy('name', 'asc')
             ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
-        $users = User::orderBy('name', 'asc')
+        $users = User::whereHas()->orderBy('name', 'asc')
             // ->whereIn('status', ['1'])
             ->pluck('name', 'id');
 

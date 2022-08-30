@@ -5,7 +5,6 @@ namespace Tests\Feature\Api;
 use App\Models\User;
 use App\Models\UtilityUsage;
 
-use App\Models\Store;
 use App\Models\Utility;
 
 use Tests\TestCase;
@@ -67,7 +66,6 @@ class UtilityUsageTest extends TestCase
     {
         $utilityUsage = UtilityUsage::factory()->create();
 
-        $store = Store::factory()->create();
         $user = User::factory()->create();
         $user = User::factory()->create();
         $utility = Utility::factory()->create();
@@ -76,7 +74,6 @@ class UtilityUsageTest extends TestCase
             'result' => $this->faker->randomNumber(2),
             'status' => $this->faker->numberBetween(1, 4),
             'notes' => $this->faker->text,
-            'store_id' => $store->id,
             'created_by_id' => $user->id,
             'approved_by_id' => $user->id,
             'utility_id' => $utility->id,

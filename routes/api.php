@@ -98,7 +98,6 @@ use App\Http\Controllers\Api\UserPurchaseOrdersController;
 use App\Http\Controllers\Api\UserTransferStocksController;
 use App\Http\Controllers\Api\StoreClosingStoresController;
 use App\Http\Controllers\Api\StoreRequestStocksController;
-use App\Http\Controllers\Api\StoreUtilityUsagesController;
 use App\Http\Controllers\Api\OnlineShopProviderController;
 use App\Http\Controllers\Api\RestaurantCategoryController;
 use App\Http\Controllers\Api\SalesOrderEmployeeController;
@@ -971,16 +970,6 @@ Route::name('api.')
             StoreSelfConsumptionsController::class,
             'store',
         ])->name('stores.self-consumptions.store');
-
-        // Store Utiliy Usages
-        Route::get('/stores/{store}/utility-usages', [
-            StoreUtilityUsagesController::class,
-            'index',
-        ])->name('stores.utility-usages.index');
-        Route::post('/stores/{store}/utility-usages', [
-            StoreUtilityUsagesController::class,
-            'store',
-        ])->name('stores.utility-usages.store');
 
         // Store Stock Cards
         Route::get('/stores/{store}/stock-cards', [

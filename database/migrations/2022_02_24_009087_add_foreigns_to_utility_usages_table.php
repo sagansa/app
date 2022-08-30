@@ -14,13 +14,6 @@ return new class extends Migration {
     {
         Schema::table('utility_usages', function (Blueprint $table) {
             $table
-                ->foreign('store_id')
-                ->references('id')
-                ->on('stores')
-                ->onUpdate('CASCADE')
-                ->onDelete('CASCADE');
-
-            $table
                 ->foreign('utility_id')
                 ->references('id')
                 ->on('utilities')
@@ -51,7 +44,6 @@ return new class extends Migration {
     public function down()
     {
         Schema::table('utility_usages', function (Blueprint $table) {
-            $table->dropForeign(['store_id']);
             $table->dropForeign(['utility_id']);
             $table->dropForeign(['created_by_id']);
             $table->dropForeign(['approved_by_id']);

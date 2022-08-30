@@ -15,7 +15,6 @@ return new class extends Migration {
         Schema::create('utility_usages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('utility_id');
             $table->decimal('result');
             $table->tinyInteger('status');

@@ -41,7 +41,6 @@ class UtilityUtilityUsagesController extends Controller
 
         $validated = $request->validate([
             'image' => ['nullable', 'image'],
-            'store_id' => ['required', 'exists:stores,id'],
             'result' => ['required', 'numeric'],
             'status' => ['required', 'max:255'],
             'notes' => ['nullable', 'max:255', 'string'],

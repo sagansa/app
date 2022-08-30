@@ -962,7 +962,6 @@ return [
         'show_title' => 'Show Utility Usage',
         'inputs' => [
             'image' => 'Image',
-            'store_id' => 'Store',
             'date' => 'Date',
             'utility_id' => 'Utility',
             'category' => 'Category',
