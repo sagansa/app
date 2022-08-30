@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             @lang('crud.sales_order_onlines.index_title')
         </h2>
@@ -135,7 +135,7 @@
         <x-slot name="foot"> </x-slot>
     </x-table>
 </x-tables.card>
-<div class="px-4 mt-10">{!! $salesOrderOnlines->render() !!}</div>
+<div class="px-4 mt-10">{!! $salesOrderOnlines->render() !!}</div> --}}
 
-<livewire:sales-order-onlines.sales-order-onlines-list />
+    <livewire:sales-order-onlines.sales-order-onlines-list />
 </x-admin-layout>
