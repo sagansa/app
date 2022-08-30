@@ -44,13 +44,13 @@ return [
             'throw' => false,
         ],
 
-        'hosting' => [
-            'driver' => 'local',
-            'root' => public_path() . '/../../public_html/' . env('FOLDER_IN_PUBLIC_HTML') . '/storage',
-            'url' => env('APP_URL'). '/' . env('FOLDER_IN_PUBLIC_HTML') . '/storage',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
+        // 'hosting' => [
+        //     'driver' => 'local',
+        //     'root' => public_path() . '/../../public_html/' . env('FOLDER_IN_PUBLIC_HTML') . '/storage',
+        //     'url' => env('APP_URL'). '/' . env('FOLDER_IN_PUBLIC_HTML') . '/storage',
+        //     'visibility' => 'public',
+        //     'throw' => false,
+        // ],
 
         's3' => [
             'driver' => 's3',
@@ -78,7 +78,8 @@ return [
     */
 
     'links' => [
-        app()->basePath('public_html/storage') => storage_path('app/public'),
+        // app()->basePath('public_html/storage') => storage_path('app/public'),
+        public_path('/storage') => storage_path('app/public'),
     ],
 
 ];
