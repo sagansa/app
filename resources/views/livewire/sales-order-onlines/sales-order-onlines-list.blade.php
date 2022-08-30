@@ -145,18 +145,18 @@
                                     </div>
                                 </div>
                             </x-slot>
-                            <x-slot name="sub">{{ optional($salesOrderOnline->store)->name ?? '-' }} -
-                                {{ optional($salesOrderOnline->onlineShopProvider)->name ?? '-' }} -
-                                {{ optional($salesOrderOnline->deliveryService)->name ?? '-' }} -
-                                {{ optional($salesOrderOnline->customer)->name ?? '-' }} -
-                                {{ $salesOrderOnline->receipt_no ?? '-' }} -
+                            <x-slot name="sub">{{ optional($salesOrderOnline->store)->nickname ?? '-' }} |
+                                {{ optional($salesOrderOnline->onlineShopProvider)->name ?? '-' }} |
+                                {{ optional($salesOrderOnline->deliveryService)->name ?? '-' }} |
+                                {{ optional($salesOrderOnline->customer)->name ?? '-' }} |
+                                {{ $salesOrderOnline->receipt_no ?? '-' }} |
                                 {{ $salesOrderOnline->date->toFormattedDate() ?? '-' }}
                                 <x-spans.status-valid class="{{ $salesOrderOnline->status_badge }}">
                                     {{ $salesOrderOnline->status_name }}</x-spans.status-valid>
                             </x-slot>
                         </x-tables.td-left-main>
 
-                        <x-tables.td-left-hide>{{ optional($salesOrderOnline->store)->name ?? '-' }}
+                        <x-tables.td-left-hide>{{ optional($salesOrderOnline->store)->nickname ?? '-' }}
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
                             {{ optional($salesOrderOnline->onlineShopProvider)->name ?? '-' }}
@@ -170,14 +170,16 @@
                         <x-tables.td-left-hide>{{ $salesOrderOnline->date->toFormattedDate() ?? '-' }}
                         </x-tables.td-left-hide>
                         <x-tables.td-left-hide>
-                            @foreach ($salesOrderOnline->products as $product)
+                            @forelse ($salesOrderOnline->products as $product)
                                 <p> {{ $product->name }} - {{ $product->pivot->quantity }} {{ $product->unit->unit }}
                                     - @currency($product->pivot->price)</p>
-                            @endforeach
+                            @empty
+                                -
+                            @endforelse
                         </x-tables.td-left-hide>
 
                         <x-tables.td-left-hide>
-                            @currency($salesOrderOnline->products->sum('price'))
+                            @currency($salesOrderOnline->pivot->products->sum('price'))
                         </x-tables.td-left-hide>
 
                         <x-tables.td-left-hide>
