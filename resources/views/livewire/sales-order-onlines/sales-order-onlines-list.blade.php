@@ -179,7 +179,7 @@
                         </x-tables.td-left-hide>
 
                         <x-tables.td-left-hide>
-                            @currency($salesOrderOnline->pivot->products->sum('price'))
+                            {{-- @currency($salesOrderOnline->pivot->products->sum('price')) --}}
                         </x-tables.td-left-hide>
 
                         <x-tables.td-left-hide>
