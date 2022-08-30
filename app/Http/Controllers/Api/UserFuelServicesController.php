@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\ClosingStore;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FuelServiceResource;
 use App\Http\Resources\FuelServiceCollection;
 
-class ClosingStoreFuelServicesController extends Controller
+class UserFuelServicesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\ClosingStore $closingStore
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ClosingStore $closingStore)
+    public function index(Request $request, User $user)
     {
-        $this->authorize('view', $closingStore);
+        $this->authorize('view', $user);
 
         $search = $request->get('search', '');
 
-        $fuelServices = $closingStore
-            ->fuelServices()
+        $fuelServices = $user
+            ->fuelServices2()
             ->search($search)
             ->latest()
             ->paginate();
@@ -32,10 +32,10 @@ class ClosingStoreFuelServicesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\ClosingStore $closingStore
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ClosingStore $closingStore)
+    public function store(Request $request, User $user)
     {
         $this->authorize('create', FuelService::class);
 
@@ -52,7 +52,7 @@ class ClosingStoreFuelServicesController extends Controller
             $validated['image'] = $request->file('image')->store('public');
         }
 
-        $fuelService = $closingStore->fuelServices()->create($validated);
+        $fuelService = $user->fuelServices2()->create($validated);
 
         return new FuelServiceResource($fuelService);
     }

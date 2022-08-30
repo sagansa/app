@@ -293,6 +293,16 @@
                         Utility Bills
                         </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\FuelService::class)
+                        <x-dropdown-link href="{{ route('fuel-services.index') }}">
+                        Fuel Services
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\TransferFuelService::class)
+                        <x-dropdown-link href="{{ route('transfer-fuel-services.index') }}">
+                        Transfer Fuel Services
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
@@ -708,6 +718,16 @@
                 @can('view-any', App\Models\UtilityBill::class)
                 <x-jet-responsive-nav-link href="{{ route('utility-bills.index') }}">
                 Utility Bills
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\FuelService::class)
+                <x-jet-responsive-nav-link href="{{ route('fuel-services.index') }}">
+                Fuel Services
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\TransferFuelService::class)
+                <x-jet-responsive-nav-link href="{{ route('transfer-fuel-services.index') }}">
+                Transfer Fuel Services
                 </x-jet-responsive-nav-link>
                 @endcan
 

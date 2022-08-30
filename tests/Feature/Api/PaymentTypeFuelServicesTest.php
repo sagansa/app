@@ -3,15 +3,15 @@
 namespace Tests\Feature\Api;
 
 use App\Models\User;
+use App\Models\PaymentType;
 use App\Models\FuelService;
-use App\Models\ClosingStore;
 
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ClosingStoreFuelServicesTest extends TestCase
+class PaymentTypeFuelServicesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -31,17 +31,17 @@ class ClosingStoreFuelServicesTest extends TestCase
     /**
      * @test
      */
-    public function it_gets_closing_store_fuel_services()
+    public function it_gets_payment_type_fuel_services()
     {
-        $closingStore = ClosingStore::factory()->create();
+        $paymentType = PaymentType::factory()->create();
         $fuelServices = FuelService::factory()
             ->count(2)
             ->create([
-                'closing_store_id' => $closingStore->id,
+                'payment_type_id' => $paymentType->id,
             ]);
 
         $response = $this->getJson(
-            route('api.closing-stores.fuel-services.index', $closingStore)
+            route('api.payment-types.fuel-services.index', $paymentType)
         );
 
         $response->assertOk()->assertSee($fuelServices[0]->image);
@@ -50,17 +50,17 @@ class ClosingStoreFuelServicesTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_the_closing_store_fuel_services()
+    public function it_stores_the_payment_type_fuel_services()
     {
-        $closingStore = ClosingStore::factory()->create();
+        $paymentType = PaymentType::factory()->create();
         $data = FuelService::factory()
             ->make([
-                'closing_store_id' => $closingStore->id,
+                'payment_type_id' => $paymentType->id,
             ])
             ->toArray();
 
         $response = $this->postJson(
-            route('api.closing-stores.fuel-services.store', $closingStore),
+            route('api.payment-types.fuel-services.store', $paymentType),
             $data
         );
 
@@ -74,6 +74,6 @@ class ClosingStoreFuelServicesTest extends TestCase
 
         $fuelService = FuelService::latest('id')->first();
 
-        $this->assertEquals($closingStore->id, $fuelService->closing_store_id);
+        $this->assertEquals($paymentType->id, $fuelService->payment_type_id);
     }
 }

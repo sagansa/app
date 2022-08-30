@@ -23,11 +23,15 @@ class FuelService extends Model
     protected $fillable = [
         'image',
         'vehicle_id',
+        'payment_type_id',
         'fuel_service',
         'km',
         'liter',
         'amount',
         'closing_store_id',
+        'created_by_id',
+        'approved_by_id',
+        'notes',
     ];
 
     protected $searchableFields = ['*'];
@@ -42,6 +46,26 @@ class FuelService extends Model
     public function vehicle()
     {
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function paymentType()
+    {
+        return $this->belongsTo(PaymentType::class);
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function approved_by()
+    {
+        return $this->belongsTo(User::class, 'approved_by_id');
+    }
+
+    public function transferFuelServices()
+    {
+        return $this->belongsToMany(TransferFuelService::class);
     }
 
     public function delete_image()

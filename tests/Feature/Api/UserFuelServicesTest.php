@@ -4,14 +4,13 @@ namespace Tests\Feature\Api;
 
 use App\Models\User;
 use App\Models\FuelService;
-use App\Models\ClosingStore;
 
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ClosingStoreFuelServicesTest extends TestCase
+class UserFuelServicesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -31,17 +30,17 @@ class ClosingStoreFuelServicesTest extends TestCase
     /**
      * @test
      */
-    public function it_gets_closing_store_fuel_services()
+    public function it_gets_user_fuel_services()
     {
-        $closingStore = ClosingStore::factory()->create();
+        $user = User::factory()->create();
         $fuelServices = FuelService::factory()
             ->count(2)
             ->create([
-                'closing_store_id' => $closingStore->id,
+                'approved_by_id' => $user->id,
             ]);
 
         $response = $this->getJson(
-            route('api.closing-stores.fuel-services.index', $closingStore)
+            route('api.users.fuel-services.index', $user)
         );
 
         $response->assertOk()->assertSee($fuelServices[0]->image);
@@ -50,17 +49,17 @@ class ClosingStoreFuelServicesTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_the_closing_store_fuel_services()
+    public function it_stores_the_user_fuel_services()
     {
-        $closingStore = ClosingStore::factory()->create();
+        $user = User::factory()->create();
         $data = FuelService::factory()
             ->make([
-                'closing_store_id' => $closingStore->id,
+                'approved_by_id' => $user->id,
             ])
             ->toArray();
 
         $response = $this->postJson(
-            route('api.closing-stores.fuel-services.store', $closingStore),
+            route('api.users.fuel-services.store', $user),
             $data
         );
 
@@ -74,6 +73,6 @@ class ClosingStoreFuelServicesTest extends TestCase
 
         $fuelService = FuelService::latest('id')->first();
 
-        $this->assertEquals($closingStore->id, $fuelService->closing_store_id);
+        $this->assertEquals($user->id, $fuelService->approved_by_id);
     }
 }

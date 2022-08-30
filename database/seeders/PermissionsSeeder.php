@@ -381,6 +381,12 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update transferdailysalaries']);
         Permission::create(['name' => 'delete transferdailysalaries']);
 
+        Permission::create(['name' => 'list transferfuelservices']);
+        Permission::create(['name' => 'view transferfuelservices']);
+        Permission::create(['name' => 'create transferfuelservices']);
+        Permission::create(['name' => 'update transferfuelservices']);
+        Permission::create(['name' => 'delete transferfuelservices']);
+
         Permission::create(['name' => 'list transferstocks']);
         Permission::create(['name' => 'view transferstocks']);
         Permission::create(['name' => 'create transferstocks']);

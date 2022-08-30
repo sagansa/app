@@ -21,9 +21,30 @@ return new class extends Migration {
                 ->onDelete('CASCADE');
 
             $table
+                ->foreign('payment_type_id')
+                ->references('id')
+                ->on('payment_types')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
+            $table
                 ->foreign('closing_store_id')
                 ->references('id')
                 ->on('closing_stores')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
+            $table
+                ->foreign('created_by_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
+            $table
+                ->foreign('approved_by_id')
+                ->references('id')
+                ->on('users')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });
@@ -38,7 +59,10 @@ return new class extends Migration {
     {
         Schema::table('fuel_services', function (Blueprint $table) {
             $table->dropForeign(['vehicle_id']);
+            $table->dropForeign(['payment_type_id']);
             $table->dropForeign(['closing_store_id']);
+            $table->dropForeign(['created_by_id']);
+            $table->dropForeign(['approved_by_id']);
         });
     }
 };

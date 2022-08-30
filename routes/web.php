@@ -26,6 +26,7 @@ use App\Http\Controllers\StoreAssetController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\UtilityBillController;
+use App\Http\Controllers\FuelServiceController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\RequestStockController;
 use App\Http\Controllers\CleanAndNeatController;
@@ -58,6 +59,7 @@ use App\Http\Controllers\SalesOrderEmployeeController;
 use App\Http\Controllers\VehicleCertificateController;
 use App\Http\Controllers\MovementAssetResultController;
 use App\Http\Controllers\TransferDailySalaryController;
+use App\Http\Controllers\TransferFuelServiceController;
 use App\Http\Controllers\ReceiptByItemLoyverseController;
 
 /*
@@ -169,4 +171,9 @@ Route::prefix('/')
         Route::resource('account-cashlesses', AccountCashlessController::class);
         Route::resource('delivery-services', DeliveryServiceController::class);
         Route::resource('utility-bills', UtilityBillController::class);
+        Route::resource('fuel-services', FuelServiceController::class);
+        Route::resource(
+            'transfer-fuel-services',
+            TransferFuelServiceController::class
+        );
     });

@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StoreCashlessSeeder::class);
         $this->call(SupplierSeeder::class);
         $this->call(TransferDailySalarySeeder::class);
+        $this->call(TransferFuelServiceSeeder::class);
         $this->call(TransferStockSeeder::class);
         $this->call(UnitSeeder::class);
         $this->call(UserSeeder::class);

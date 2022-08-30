@@ -98,12 +98,11 @@ class SalesOrderOnlinesList extends Component
                 }
             }
 
-        if (Auth::user()->hasRole('staff|supervisor')) {
+        // if (Auth::user()->hasRole('staff|supervisor')) {
 
-                $salesOrderOnlines->where('created_by_id', '=', Auth::user()->id);
+        //         $salesOrderOnlines->where('created_by_id', '=', Auth::user()->id);
 
-        }
-
+        // }
 
         return $this->applySorting($salesOrderOnlines);
     }

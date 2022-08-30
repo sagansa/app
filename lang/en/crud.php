@@ -1241,7 +1241,7 @@ return [
             'image' => 'Image',
             'vehicle_id' => 'Vehicle',
             'fuel_service' => 'Fuel Service',
-            'km' => 'km',
+            'km' => 'Km',
             'liter' => 'Liter',
             'amount' => 'Amount',
         ],
@@ -1364,6 +1364,50 @@ return [
             'amount' => 'Amount',
             'initial_indicator' => 'Initial Indicator',
             'last_indicator' => 'Last Indicator',
+        ],
+    ],
+
+    'fuel_services' => [
+        'name' => 'Fuel Services',
+        'index_title' => 'FuelServices List',
+        'new_title' => 'New Fuel service',
+        'create_title' => 'Create FuelService',
+        'edit_title' => 'Edit FuelService',
+        'show_title' => 'Show FuelService',
+        'inputs' => [
+            'image' => 'Image',
+            'vehicle_id' => 'Vehicle',
+            'fuel_service' => 'Fuel Service',
+            'payment_type_id' => 'Payment Type',
+            'km' => 'km',
+            'liter' => 'Liter',
+            'amount' => 'Amount',
+            'closing_store_id' => 'Closing Store',
+        ],
+    ],
+
+    'transfer_fuel_services' => [
+        'name' => 'Transfer Fuel Services',
+        'index_title' => 'Transfer Fuel Services List',
+        'new_title' => 'New Transfer Fuel Service',
+        'create_title' => 'Create Transfer Fuel Service',
+        'edit_title' => 'Edit Transfer Fuel Service',
+        'show_title' => 'Show Transfer Fuel Service',
+        'inputs' => [
+            'image' => 'Image',
+            'amount' => 'Amount',
+        ],
+    ],
+
+    'transfer_fuel_service' => [
+        'name' => 'Transfer Fuel Service',
+        'index_title' => ' List',
+        'new_title' => 'New Transfer Fuel Service',
+        'create_title' => 'Create Transfer Fuel Service',
+        'edit_title' => 'Edit Transfer Fuel Service',
+        'show_title' => 'Show Transfer Fuel Service',
+        'inputs' => [
+            'fuel_service_id' => 'Fuel Service',
         ],
     ],
 

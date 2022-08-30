@@ -80,6 +80,7 @@ use App\Http\Controllers\Api\PurchaseReceiptController;
 use App\Http\Controllers\Api\AccountCashlessController;
 use App\Http\Controllers\Api\DeliveryServiceController;
 use App\Http\Controllers\Api\UserVehicleTaxesController;
+use App\Http\Controllers\Api\UserFuelServicesController;
 use App\Http\Controllers\Api\StoreProductionsController;
 use App\Http\Controllers\Api\StoreStoreAssetsController;
 use App\Http\Controllers\Api\CashlessProviderController;
@@ -117,6 +118,7 @@ use App\Http\Controllers\Api\BankClosingCouriersController;
 use App\Http\Controllers\Api\UtilityUtilityBillsController;
 use App\Http\Controllers\Api\MovementAssetResultController;
 use App\Http\Controllers\Api\TransferDailySalaryController;
+use App\Http\Controllers\Api\TransferFuelServiceController;
 use App\Http\Controllers\Api\UserPurchaseReceiptsController;
 use App\Http\Controllers\Api\UserSelfConsumptionsController;
 use App\Http\Controllers\Api\StoreRemainingStocksController;
@@ -152,6 +154,7 @@ use App\Http\Controllers\Api\out_in_product_productController;
 use App\Http\Controllers\Api\StockCardOutInProductsController;
 use App\Http\Controllers\Api\ClosingStoreCashlessesController;
 use App\Http\Controllers\Api\UserSalesOrderEmployeesController;
+use App\Http\Controllers\Api\PaymentTypeFuelServicesController;
 use App\Http\Controllers\Api\ShiftStoreClosingStoresController;
 use App\Http\Controllers\Api\ProductSelfConsumptionsController;
 use App\Http\Controllers\Api\ProductionProductionTosController;
@@ -200,13 +203,16 @@ use App\Http\Controllers\Api\StoreCashlessAccountCashlessesController;
 use App\Http\Controllers\Api\AccountCashlessAdminCashlessesController;
 use App\Http\Controllers\Api\CashlessProviderAdminCashlessesController;
 use App\Http\Controllers\Api\purchase_order_purchase_receiptController;
+use App\Http\Controllers\Api\FuelServiceTransferFuelServicesController;
 use App\Http\Controllers\Api\account_cashless_admin_cashlessController;
+use App\Http\Controllers\Api\TransferFuelServiceFuelServicesController;
 use App\Http\Controllers\Api\ProductionProductionSupportFromsController;
 use App\Http\Controllers\Api\DeliveryAddressSalesOrderOnlinesController;
 use App\Http\Controllers\Api\MovementAssetMovementAssetAuditsController;
 use App\Http\Controllers\Api\DeliveryServiceSalesOrderOnlinesController;
 use App\Http\Controllers\Api\CashlessProviderAccountCashlessesController;
 use App\Http\Controllers\Api\PurchaseOrderPurchaseOrderProductsController;
+use App\Http\Controllers\Api\fuel_service_transfer_fuel_serviceController;
 use App\Http\Controllers\Api\OnlineShopProviderSalesOrderOnlinesController;
 use App\Http\Controllers\Api\PurchaseOrderProductProductionFromsController;
 use App\Http\Controllers\Api\MovementAssetResultMovementAssetAuditsController;
@@ -782,6 +788,26 @@ Route::name('api.')
             'store',
         ])->name('users.transfer-stocks.store');
 
+        // User Fuel Services
+        Route::get('/users/{user}/fuel-services', [
+            UserFuelServicesController::class,
+            'index',
+        ])->name('users.fuel-services.index');
+        Route::post('/users/{user}/fuel-services', [
+            UserFuelServicesController::class,
+            'store',
+        ])->name('users.fuel-services.store');
+
+        // User Fuel Services2
+        Route::get('/users/{user}/fuel-services', [
+            UserFuelServicesController::class,
+            'index',
+        ])->name('users.fuel-services.index');
+        Route::post('/users/{user}/fuel-services', [
+            UserFuelServicesController::class,
+            'store',
+        ])->name('users.fuel-services.store');
+
         Route::apiResource('vehicles', VehicleController::class);
 
         // Vehicle Vehicle Taxes
@@ -1152,6 +1178,16 @@ Route::name('api.')
             PaymentTypePresencesController::class,
             'store',
         ])->name('payment-types.presences.store');
+
+        // PaymentType Fuel Services
+        Route::get('/payment-types/{paymentType}/fuel-services', [
+            PaymentTypeFuelServicesController::class,
+            'index',
+        ])->name('payment-types.fuel-services.index');
+        Route::post('/payment-types/{paymentType}/fuel-services', [
+            PaymentTypeFuelServicesController::class,
+            'store',
+        ])->name('payment-types.fuel-services.store');
 
         Route::apiResource('permit-employees', PermitEmployeeController::class);
 
@@ -1912,4 +1948,39 @@ Route::name('api.')
         )->name('delivery-services.sales-order-onlines.store');
 
         Route::apiResource('utility-bills', UtilityBillController::class);
+
+        Route::apiResource('fuel-services', FuelServiceController::class);
+
+        // FuelService Transfer Fuel Services
+        Route::get('/fuel-services/{fuelService}/transfer-fuel-services', [
+            FuelServiceTransferFuelServicesController::class,
+            'index',
+        ])->name('fuel-services.transfer-fuel-services.index');
+        Route::post(
+            '/fuel-services/{fuelService}/transfer-fuel-services/{transferFuelService}',
+            [FuelServiceTransferFuelServicesController::class, 'store']
+        )->name('fuel-services.transfer-fuel-services.store');
+        Route::delete(
+            '/fuel-services/{fuelService}/transfer-fuel-services/{transferFuelService}',
+            [FuelServiceTransferFuelServicesController::class, 'destroy']
+        )->name('fuel-services.transfer-fuel-services.destroy');
+
+        Route::apiResource(
+            'transfer-fuel-services',
+            TransferFuelServiceController::class
+        );
+
+        // TransferFuelService Fuel Services
+        Route::get(
+            '/transfer-fuel-services/{transferFuelService}/fuel-services',
+            [TransferFuelServiceFuelServicesController::class, 'index']
+        )->name('transfer-fuel-services.fuel-services.index');
+        Route::post(
+            '/transfer-fuel-services/{transferFuelService}/fuel-services/{fuelService}',
+            [TransferFuelServiceFuelServicesController::class, 'store']
+        )->name('transfer-fuel-services.fuel-services.store');
+        Route::delete(
+            '/transfer-fuel-services/{transferFuelService}/fuel-services/{fuelService}',
+            [TransferFuelServiceFuelServicesController::class, 'destroy']
+        )->name('transfer-fuel-services.fuel-services.destroy');
     });
