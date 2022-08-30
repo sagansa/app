@@ -33,7 +33,7 @@
     </x-input.select>
 
     <x-input.number name="result" label="Result" value="{{ old('result', $editing ? $utilityUsage->result : '') }}"
-        step="0.01" required></x-input.number>
+        required></x-input.number>
 
 
     @if ($editing)

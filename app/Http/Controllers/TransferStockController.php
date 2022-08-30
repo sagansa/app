@@ -66,8 +66,9 @@ class TransferStockController extends Controller
         $stores = Store::orderBy('name', 'asc')
             ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
-        $users = User::whereHas()->orderBy('name', 'asc')
-            // ->whereIn('status', ['1'])
+        $users = User::whereHas('roles', function ($q) {
+                $q->where('roles.name','=','staff')->orWhere('roles.name','=','supervisor');
+            })->orderBy('name', 'asc')
             ->pluck('name', 'id');
 
         return view(
@@ -120,8 +121,10 @@ class TransferStockController extends Controller
         $stores = Store::orderBy('name', 'asc')
             ->whereNotIn('status', ['8'])
             ->pluck('name', 'id');
-        $users = User::orderBy('name', 'asc')
-            // ->whereIn('status', ['1'])
+        $users = User::whereHas('roles', function ($q) {
+                    $q->where('roles.name','=','staff')->orWhere('roles.name','=','supervisor');
+                })
+            ->orderBy('name', 'asc')
             ->pluck('name', 'id');
 
         return view(
